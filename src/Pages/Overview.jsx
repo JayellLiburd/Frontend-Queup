@@ -18,7 +18,7 @@ function Overview() {
   const [view, setView] = useState(true)
 
   useEffect(() => { 
-    axios.get('https://api.queueupnext.com/verify', {withCredentials: true}).then((response) => {
+    axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
         // const key = (jwt_decode((document.cookie).split('=')[1]))
 
         console.log(response)
@@ -34,7 +34,7 @@ function Overview() {
   }, []) })
 
   // useEffect(() => {
-  //     axios.get('https://api.queueupnext.com/verify', {withCredentials: true}).then((response) => {
+  //     axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
   //         if (response.data.message) {
   //           setAuth(false)
   //           alert('Please Sign In')

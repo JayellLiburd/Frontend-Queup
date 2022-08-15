@@ -8,7 +8,7 @@ import { usersContext } from "./user"
 
 
 export async function setUserLogin(checkUsername, checkPassword) {
-    axios.post('https://api.queueupnext.com/login', {
+    axios.post('https://app.queueupnext.com/login', {
         username: checkUsername, 
         password: checkPassword,
         withCredentials: true,
@@ -20,12 +20,12 @@ export async function setUserLogin(checkUsername, checkPassword) {
 
         else {
             //set backend cookies with url
-            axios.get('https://api.queueupnext.com/auth/' + (response.data[1]) + '/login', {withCredentials: true,})}
+            axios.get('https://app.queueupnext.com/auth/' + (response.data[1]) + '/login', {withCredentials: true,})}
 })}
 
 
 export function sendRegistation(username, password, first, last, email) {
-    axios.post('https://api.queueupnext.com/reg', {
+    axios.post('https://app.queueupnext.com/reg', {
         withCredentials: true,
         Credentials: 'include',
         username: username, 
@@ -38,7 +38,7 @@ export function sendRegistation(username, password, first, last, email) {
 }
 
 export function setCookies(response) {
-    axios.get('https://api.queueupnext.com/set/' + (response.data[1]) + '/login', {withCredentials: true}).then((result) => {
+    axios.get('https://app.queueupnext.com/set/' + (response.data[1]) + '/login', {withCredentials: true}).then((result) => {
     let nav = useNavigate()
     console.log(result)
     //get prefrences
@@ -57,7 +57,7 @@ export function setCookies(response) {
 export function VerifyAuth() {
     let nav = useNavigate()
     const {setAuth} = useContext(usersContext)
-    axios.get('https://api.queueupnext.com/verify', {withCredentials: true}).then((response) => {
+    axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
         console.log(response)
         if (response.data.message) {setAuth(false)
              nav('/Home', {replace: true})

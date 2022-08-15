@@ -28,7 +28,7 @@ function Topnav() {
     const  CloseNav = () => {setSidenav(false)}
 
     const logout = () => { 
-        axios.get('https://api.queueupnext.com/logout', {withCredentials: true}).then((response) => {
+        axios.get('https://app.queueupnext.com/logout', {withCredentials: true}).then((response) => {
             nav('/', {replace: true})
             window.location.reload()
             CloseNav()

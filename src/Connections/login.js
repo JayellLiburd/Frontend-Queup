@@ -2,9 +2,9 @@ import axios from 'axios';
 
 export function setAbclogin(response) {
 
-    axios.post('https://api.queueupnext.com/verify', { user: response.credential, withCredentials: true}).then((result) => {
+    axios.post('https://app.queueupnext.com/verify', { user: response.credential, withCredentials: true}).then((result) => {
 
-        if (result.data[0].user) { axios.get('https://api.queueupnext.com/set/' + (result.data[0].user) + '/login', {withCredentials: true}).then((response) => {
+        if (result.data[0].user) { axios.get('https://app.queueupnext.com/set/' + (result.data[0].user) + '/login', {withCredentials: true}).then((response) => {
 
                 console.log(response)
                 //get prefrences
@@ -12,9 +12,9 @@ export function setAbclogin(response) {
         })}
 
         else { 
-            try {axios.post('https://api.queueupnext.com/reg', { user: response.credential, withCredentials: true}).then((response) => {
+            try {axios.post('https://app.queueupnext.com/reg', { user: response.credential, withCredentials: true}).then((response) => {
 
-                if (response.data.ssuid) { axios.get('https://api.queueupnext.com/set/' + (response.data.ssuid) + '/login', {withCredentials: true}).then((response) => {
+                if (response.data.ssuid) { axios.get('https://app.queueupnext.com/set/' + (response.data.ssuid) + '/login', {withCredentials: true}).then((response) => {
                     
                     //get prefrences
                     if (result.data[1]) { localStorage.setItem('prfs', response.data); window.location.assign('/')}
@@ -28,7 +28,7 @@ export function setAbclogin(response) {
 }
 
 export function standardLogin(checkUsername, checkPassword) {
-    axios.post('https://api.queueupnext.com/login', {
+    axios.post('https://app.queueupnext.com/login', {
         username: checkUsername, 
         password: checkPassword,
         withCredentials: true,
@@ -39,7 +39,7 @@ export function standardLogin(checkUsername, checkPassword) {
 
             console.log(response)
             //set backend cookies with url
-            axios.get('https://api.queueupnext.com/set/' + (response.data[1]) + '/login', {withCredentials: true}).then((result) => {
+            axios.get('https://app.queueupnext.com/set/' + (response.data[1]) + '/login', {withCredentials: true}).then((result) => {
                 
                 //get prefrences
                 if (result.data[1]) { localStorage.setItem('prfs', result.data); ; window.location.assign('/') }
