@@ -58,7 +58,7 @@ function Pageholder() {
   <BrowserRouter>
     <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>
     <GlobalStyle/>
-      <GoogleOAuthProvider clientId={process.env.REACT_APP_google_clientid}>
+      <GoogleOAuthProvider clientId={REACT_APP_google_main_clientid}>
         <Topnav/>
           <Routes>
             <Route path='/' element={<Home />} />
