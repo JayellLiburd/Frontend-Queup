@@ -1,11 +1,24 @@
 body {
   margin: 0;
+  display: flex;
+  justify-content: center;
+
+  
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  overflow-x: hidden;
 }
+
+@media (min-width: 1800px){
+  body{align-items: center;}}
+
+
+img{-webkit-touch-callout: none;}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
