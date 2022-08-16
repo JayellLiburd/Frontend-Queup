@@ -3,7 +3,6 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
 import jwt_decode from 'jwt-decode'
 
-
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import axios from 'axios'
 
@@ -21,7 +20,6 @@ import { usersContext } from '../Connections/user'
 
 function Pageholder() {
 
-  
   const [auth, setAuth] = useState(false)
   const [user, setUser] = useState('')
 
@@ -34,18 +32,17 @@ function Pageholder() {
   const [menu, setMenu] = useState(false)
 
 
-  useEffect(() => {
+  useLayoutEffect(() => {
       axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
         console.log(response)
           if (response.data.message) {
             setAuth(false)
             alert('Please Sign In')
             setOpenLog(true)
-            nav('/')
-            window.location.reload()
+            window.location.assign('/')
           }
 
-          if (response.data[0]) {setAuth(true); setView(true); setUser(response.data[0].name)}
+          if (response.data[0]) {setAuth(true); setUser(response.data[0].name)}
   })}, [setAuth, setOpenLog])
 
 
@@ -57,7 +54,7 @@ function Pageholder() {
   <BrowserRouter>
     <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>
     <GlobalStyle/>
-      <GoogleOAuthProvider clientId={process.env.REACT_APP_google_clientid}>
+      <GoogleOAuthProvider clientId={process.env.client_id}>
         <Topnav/>
           <Routes>
             <Route path='/' element={<Home />} />
