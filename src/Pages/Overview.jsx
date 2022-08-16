@@ -27,11 +27,9 @@ function Overview() {
         else {setAuth(false)}
 
         //UI prefrences
-        if (localStorage.prfs) {
-        setUI( jwt_decode(localStorage.prfs) )
-        } 
-    console.log('q')
-  }, []) })
+        if (localStorage.prfs) { setUI( jwt_decode(localStorage.prfs) ) }
+    })
+  }, [])
 
   // useEffect(() => {
   //     axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {

@@ -17,7 +17,7 @@ function Create() {
   const [city, setCity] = useState('')
   const [zip, setZip] = useState('')
   const [states, setStates] = useState('')
-  const [country, setContry] = useState('')
+  const [country, setCountry] = useState('')
   const [small, setSmall] = useState('')
   const [rate, setRate] = useState('')
   const [catagory, setCatagory] = useState('')
@@ -33,7 +33,7 @@ function Create() {
 
 
   return (
-    <createbusContext.Provider value={{setName, setAdd, setAdd2, setCity, setZip, setStates, setContry, setSmall, setRate, setCatagory, setRaffles, setPromos, setHost}}>
+    <createbusContext.Provider value={{setName, setAdd, setAdd2, setCity, setZip, setStates, setCountry, setSmall, setRate, setCatagory, setRaffles, setPromos, setHost}}>
     <Wrapper>
         {!next ? 
           <><Create1/><button onClick={Nextbutton}>Next</button></>  

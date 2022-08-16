@@ -49,16 +49,14 @@ function Pageholder() {
   })}, [])
 
   const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${ui.dark === "true" ? '#292929' : 'white'};
-  }
+    body { background-color: ${ui.dark === "true" ? '#292929' : 'white'};}
   `
-  console.log(process.env.REACT_APP_google_clientid)
+
   return (
   <BrowserRouter>
     <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>
     <GlobalStyle/>
-      <GoogleOAuthProvider >
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_google_clientid}>
         <Topnav/>
           <Routes>
             <Route path='/' element={<Home />} />

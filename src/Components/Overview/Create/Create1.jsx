@@ -8,7 +8,7 @@ import { createbusContext } from './Create'
 
 function Create() {
 
-  const {setAdd, setAdd2, setCity, setContry, setName, setZip, setStates} = useContext(createbusContext)
+  const {setAdd, setAdd2, setCity, setCountry, setName, setZip, setStates} = useContext(createbusContext)
 
   return (
     <Wrapper>
@@ -23,7 +23,7 @@ function Create() {
                 <label>State<input type="text" placeholder="ex: TX" onChange={(e) => setStates(e.target.value)}/></label>
             </div>
             <label>Counrty
-              <select>
+              <select onClick={(e) => setCountry(e.target.value)}>
               {countryList.map((item) => {
                 return(
                   <option key={item} value={item}>{item}</option>
