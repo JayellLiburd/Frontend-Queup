@@ -34,19 +34,20 @@ function Pageholder() {
   const [menu, setMenu] = useState(false)
 
 
-  useLayoutEffect( ()=>{axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
-    // const key = (jwt_decode((document.cookie).split('=')[1]))
+  useEffect(() => {
+      axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
+        console.log(response)
+          if (response.data.message) {
+            setAuth(false)
+            alert('Please Sign In')
+            setOpenLog(true)
+            nav('/')
+            window.location.reload()
+          }
 
-    // Setting access and some visuals
-    if (response.data[0]) {setAuth(true); setUser(response.data[1].name)}
-    else {setAuth(false)}
+          if (response.data[0]) {setAuth(true); setView(true)}
+  })}, [setAuth, setOpenLog])
 
-    //UI prefrences
-    if (localStorage.prfs) {
-     setUI( jwt_decode(localStorage.prfs) )
-    }
-    
-  })}, [])
 
   const GlobalStyle = createGlobalStyle`
     body { background-color: ${ui.dark === "true" ? '#292929' : 'white'};}
