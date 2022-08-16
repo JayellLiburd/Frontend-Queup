@@ -45,7 +45,7 @@ function Pageholder() {
             window.location.reload()
           }
 
-          if (response.data[0]) {setAuth(true); setView(true)}
+          if (response.data[0]) {setAuth(true); setView(true); setUser(response.data[0].name)}
   })}, [setAuth, setOpenLog])
 
 

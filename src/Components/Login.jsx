@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
 import { GoogleLogin } from '@react-oauth/google';
@@ -9,8 +8,6 @@ import { setAbclogin, standardLogin } from '../Connections/login';
 
 
 function Log() {
-
-    const nav = useNavigate();
 
     const { setOpenLog } = useContext(usersContext);
 

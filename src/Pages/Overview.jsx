@@ -23,27 +23,13 @@ function Overview() {
 
         console.log(response)
         // Setting access and some visuals
-        if (response.data[0]) {setAuth(true); setUser(response.data[1].name)}
+        if (response.data[0]) {setAuth(true); setUser(response.data[0].name)}
         else {setAuth(false)}
 
         //UI prefrences
         if (localStorage.prfs) { setUI( jwt_decode(localStorage.prfs) ) }
     })
   }, [])
-
-  // useEffect(() => {
-  //     axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
-  //         if (response.data.message) {
-  //           setAuth(false)
-  //           alert('Please Sign In')
-  //           setOpenLog(true)
-  //           nav('/')
-  //           window.location.reload()
-  //         }
-
-  //         if (response.data[0]) {setAuth(true); setView(true)}
-  // })}, [setAuth, setOpenLog])
-
 
   const [bus, setBus] = useState(true)
   const [active, setActive] = useState(false)
