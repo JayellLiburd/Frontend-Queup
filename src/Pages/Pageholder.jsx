@@ -43,7 +43,7 @@ function Pageholder() {
           }
 
           if (response.data[0]) {setAuth(true); setUser(response.data[0].name)}
-  })}, [setAuth, setOpenLog])
+  })}, [])
 
 
   const GlobalStyle = createGlobalStyle`
