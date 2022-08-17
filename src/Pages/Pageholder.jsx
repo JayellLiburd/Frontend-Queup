@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useLayoutEffect } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
 import jwt_decode from 'jwt-decode'
@@ -32,17 +32,18 @@ function Pageholder() {
   const [menu, setMenu] = useState(false)
 
 
-  useEffect(() => {
-      axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
-        console.log(response)
-          if (response.data.message) {
-            setAuth(false)
-            alert('Please Sign In')
-            setOpenLog(true)
-            window.location.assign('/')
-          }
+  useLayoutEffect( ()=>{axios.get('https://api.queueupnext.com/verify', {withCredentials: true}).then((response) => {
+    // const key = (jwt_decode((document.cookie).split('=')[1]))
 
-          if (response.data[0]) {setAuth(true); setUser(response.data[0].name)}
+    // Setting access and some visuals
+    if (response.data[0]) {setAuth(true); setUser(response.data[0].name)}
+    else {setAuth(false)}
+
+    //UI prefrences
+    if (localStorage.prfs) {
+     setUI( jwt_decode(localStorage.prfs) )
+    }
+    
   })}, [])
 
 

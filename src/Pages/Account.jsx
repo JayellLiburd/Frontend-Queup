@@ -21,19 +21,18 @@ function Account() {
 
   const [view, setView] = useState(false)
 
-
   useEffect(() => {
-      axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
-          if (response.data.message) {
-            setAuth(false)
-            alert('Please Sign In')
-            setOpenLog(true)
-            nav('/')
-            window.location.reload()
-          }
+    axios.get('http://api.queueupnext.com/auth/verify', {withCredentials: true}).then((response) => {
+        if (response.data.message) {
+          setAuth(false)
+          nav('/')
+          alert('Please Sign In')
+          setOpenLog(true)
+          window.location.reload()
+        }
 
-          if (response.data[0]) {setAuth(true); setView(true)}
-  })}, [])
+        if (response.data[0]) {setAuth(true); setView(true)}
+  })}, [nav, setAuth, setOpenLog])
 
   //settings nav view weather true or false -- active is being set in the settingsNav.jsx in account folder
   const [active, setActive] = useState([{prof: true, con: false, not: false, pref: false, acc: false}])

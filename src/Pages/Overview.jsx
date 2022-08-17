@@ -13,23 +13,22 @@ import { usersContext } from '../Connections/user'
 function Overview() {
 
   const nav = useNavigate();
-  const {setAuth, setOpenLog, setUser, setUI} = useContext(usersContext)
+  const {setAuth, setOpenLog} = useContext(usersContext)
 
   const [view, setView] = useState(true)
 
-  useEffect(() => { 
-    axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
-        // const key = (jwt_decode((document.cookie).split('=')[1]))
+  useEffect(() => {
+    axios.get('http://api.queueupnext.com/auth/verify', {withCredentials: true}).then((response) => {
+        if (response.data.message) {
+          setAuth(false)
+          nav('/')
+          alert('Please Sign In')
+          setOpenLog(true)
+          window.location.reload()
+        }
 
-        console.log(response)
-        // Setting access and some visuals
-        if (response.data[0]) {setAuth(true); setUser(response.data[0].name)}
-        else {setAuth(false)}
-
-        //UI prefrences
-        if (localStorage.prfs) { setUI( jwt_decode(localStorage.prfs) ) }
-    })
-  }, [])
+        if (response.data[0]) {setAuth(true); setView(true)}
+  })}, [nav, setAuth])
 
   const [bus, setBus] = useState(true)
   const [active, setActive] = useState(false)
