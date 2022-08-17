@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
 import jwt_decode from 'jwt-decode'
@@ -32,7 +32,7 @@ function Pageholder() {
   const [menu, setMenu] = useState(false)
 
 
-  useLayoutEffect(() => {
+  useEffect(() => {
       axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
         console.log(response)
           if (response.data.message) {
