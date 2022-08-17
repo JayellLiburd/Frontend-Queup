@@ -33,7 +33,7 @@ function Account() {
           }
 
           if (response.data[0]) {setAuth(true); setView(true)}
-  })}, [setAuth])
+  })}, [])
 
   //settings nav view weather true or false -- active is being set in the settingsNav.jsx in account folder
   const [active, setActive] = useState([{prof: true, con: false, not: false, pref: false, acc: false}])
