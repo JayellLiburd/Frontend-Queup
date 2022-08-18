@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export function setAbclogin(response) {
 
-    axios.post('https://app.queueupnext.com/verify', { user: response.credential, withCredentials: true}).then((result) => {
+    axios.post('https://app.queueupnext.com/verify',  new URLSearchParams({ user: response.credential, withCredentials: true})).then((result) => {
 
         if (result.data[0].user) { axios.get('https://app.queueupnext.com/set/' + (result.data[0].user) + '/login', {withCredentials: true}).then((response) => {
 
@@ -12,7 +12,7 @@ export function setAbclogin(response) {
         })}
 
         else { 
-            try {axios.post('https://app.queueupnext.com/reg', { user: response.credential, withCredentials: true}).then((response) => {
+            try {axios.post('https://app.queueupnext.com/reg',  new URLSearchParams({ user: response.credential, withCredentials: true})).then((response) => {
 
                 if (response.data.ssuid) { axios.get('https://app.queueupnext.com/set/' + (response.data.ssuid) + '/login', {withCredentials: true}).then((response) => {
                     
@@ -28,11 +28,11 @@ export function setAbclogin(response) {
 }
 
 export function standardLogin(checkUsername, checkPassword) {
-    axios.post('https://app.queueupnext.com/login', {
+    axios.post('http://localhost:4000/login', new URLSearchParams({
         username: checkUsername, 
         password: checkPassword,
         withCredentials: true,
-    }).then((response) => {
+    })).then((response) => {
         //Sign in Wrong or Error
 
         if (response.data[0]) { 

@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Createque(a,b,c,d,e,f,g,  h,i,j,k,l,m) {
     console.log(a,b,c,d,e,f,g,  h,i,j,k,l,m)
-    axios.post('https://app.queueupnext.com/Create', { 
+    axios.post('https://app.queueupnext.com/Create',  new URLSearchParams({ 
     busname: a,
     add: b,
     add2: c,
@@ -18,5 +18,5 @@ export default function Createque(a,b,c,d,e,f,g,  h,i,j,k,l,m) {
     promos: l,
     host: m,
     withCredentials: true
-    })
+    }))
 }

@@ -8,11 +8,11 @@ import { usersContext } from "./user"
 
 
 export async function setUserLogin(checkUsername, checkPassword) {
-    axios.post('https://app.queueupnext.com/login', {
+    axios.post('https://app.queueupnext.com/login',  new URLSearchParams({
         username: checkUsername, 
         password: checkPassword,
         withCredentials: true,
-    }).then((response) => {
+    })).then((response) => {
 
         console.log(response)
         //Sign in Wrong or Error
@@ -25,7 +25,7 @@ export async function setUserLogin(checkUsername, checkPassword) {
 
 
 export function sendRegistation(username, password, first, last, email) {
-    axios.post('https://app.queueupnext.com/reg', {
+    axios.post('https://app.queueupnext.com/reg',  new URLSearchParams({
         withCredentials: true,
         Credentials: 'include',
         username: username, 
@@ -33,7 +33,7 @@ export function sendRegistation(username, password, first, last, email) {
         first_name: first,
         last_name: last,
         email: email,
-    }).then(alert('User Created Please Head back and Log in'))
+    })).then(alert('User Created Please Head back and Log in'))
 
 }
 
