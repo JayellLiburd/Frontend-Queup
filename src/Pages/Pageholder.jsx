@@ -32,7 +32,7 @@ function Pageholder() {
   const [menu, setMenu] = useState(false)
 
 
-  useLayoutEffect( ()=>{axios.get('https://api.queueupnext.com/verify', {withCredentials: true}).then((response) => {
+  useLayoutEffect( ()=>{axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
     // const key = (jwt_decode((document.cookie).split('=')[1]))
 
     // Setting access and some visuals

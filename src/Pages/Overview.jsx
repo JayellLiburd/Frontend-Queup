@@ -18,7 +18,7 @@ function Overview() {
   const [view, setView] = useState(true)
 
   useEffect(() => {
-    axios.get('http://api.queueupnext.com/auth/verify', {withCredentials: true}).then((response) => {
+    axios.get('http://app.queueupnext.com/auth/verify', {withCredentials: true}).then((response) => {
         if (response.data.message) {
           setAuth(false)
           nav('/')
