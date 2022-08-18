@@ -28,7 +28,7 @@ export function setAbclogin(response) {
 }
 
 export function standardLogin(checkUsername, checkPassword) {
-    axios.post('https://app.queueupnext.com/set/login', new URLSearchParams({
+    axios.post('https://app.queueupnext.com/login', new URLSearchParams({
         username: checkUsername, 
         password: checkPassword,
         withCredentials: true,
