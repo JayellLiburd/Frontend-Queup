@@ -43,8 +43,10 @@ function Pageholder() {
     if (localStorage.prfs) {
      setUI( jwt_decode(localStorage.prfs) )
     }
+    console.log(user)
     
   })}, [])
+
 
 
   const GlobalStyle = createGlobalStyle`
@@ -58,14 +60,14 @@ function Pageholder() {
         <GoogleOAuthProvider clientId={process.env.client_id}>
         <Wrapper>
           <Topnav/>
-          {/* <i className='glow' style={{top: '20rem', left: '40rem'}}/>
+          <i className='glow' style={{top: '20rem', left: '40rem'}}/>
           <i className='glow' style={{top: '70rem', left: '100rem'}}/>
           <i className='glow' style={{top: '150rem', left: '40rem'}}/>
           <i className='glow' style={{top: '80rem', left: '-5rem'}}/>
           <i className='glow' style={{top: '60rem', right: '-12rem'}}/>
           <i className='glow' style={{top: '10rem', left: '120rem'}}/>
           <i className='glow' style={{top: '155rem', right: '10rem'}}/>
-          <i className='glow' style={{top: '100rem', right: '100rem'}}/> */}
+          <i className='glow' style={{top: '100rem', right: '100rem'}}/>
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/Overview' element={<Overview/>}/>
