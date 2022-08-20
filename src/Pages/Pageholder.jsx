@@ -52,11 +52,11 @@ function Pageholder() {
   `
 
   return (
-  <Wrapper>
     <BrowserRouter>
       <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>
       <GlobalStyle/>
         <GoogleOAuthProvider clientId={process.env.client_id}>
+        <Wrapper>
           <Topnav/>
           <i className='glow' style={{top: '20rem', left: '40rem'}}/>
           <i className='glow' style={{top: '70rem', left: '100rem'}}/>
@@ -75,10 +75,10 @@ function Pageholder() {
               <Route path='/reg'  element={<Regmobile/>} />
             </Routes>
           <Foots/>
+          </Wrapper>
         </GoogleOAuthProvider>
       </usersContext.Provider>
     </BrowserRouter>
-  </Wrapper>
   )
 }
 
