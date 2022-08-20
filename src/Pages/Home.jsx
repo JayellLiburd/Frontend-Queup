@@ -50,9 +50,11 @@ function Home() {
 const Wrapper = styled.div`
   @media (max-width: 800px) {
     width: 100vw;
+    min-height: 100rem;
   }
 
   width: 60vw;
+  min-height: 140rem;
 `
 const Contents = styled.div`
   position: relative;

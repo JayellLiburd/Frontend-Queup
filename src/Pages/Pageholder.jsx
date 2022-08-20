@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import jwt_decode from 'jwt-decode'
 
 import { GoogleOAuthProvider } from '@react-oauth/google'
@@ -36,7 +36,7 @@ function Pageholder() {
     // const key = (jwt_decode((document.cookie).split('=')[1]))
 
     // Setting access and some visuals
-    if (response.data[0]) {setAuth(true); setUser(response.data[0].name)}
+    if (response.data[0]) {setAuth(true); setUser(response.data[0])}
     else {setAuth(false)}
 
     //UI prefrences
@@ -48,32 +48,48 @@ function Pageholder() {
 
 
   const GlobalStyle = createGlobalStyle`
-    body { background-color: ${ui.dark === "true" ? '#292929' : 'white'};}
+    body { background-color: ${ui.dark === 'true' ? '#292929' : 'white'};}
   `
 
   return (
-  <BrowserRouter>
-    <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>
-    <GlobalStyle/>
-      <GoogleOAuthProvider clientId={process.env.client_id}>
-        <Topnav/>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/Overview' element={<Overview/>}/>
-            <Route path='/line' element={<Line/>}/>
-            <Route path='/account'  element={<Account/>}/>
-            <Route path='/auth'  element={<Authmobile/>} />
-            <Route path='/reg'  element={<Regmobile/>} />
-          </Routes>
-        <Foots/>
-      </GoogleOAuthProvider>
-    </usersContext.Provider>
-  </BrowserRouter>
-
+  <Wrapper>
+    <BrowserRouter>
+      <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>
+      <GlobalStyle/>
+        <GoogleOAuthProvider clientId={process.env.client_id}>
+          <Topnav/>
+          <i className='glow' style={{top: '20rem', left: '40rem'}}/>
+          <i className='glow' style={{top: '70rem', left: '100rem'}}/>
+          <i className='glow' style={{top: '150rem', left: '40rem'}}/>
+          <i className='glow' style={{top: '80rem', left: '-5rem'}}/>
+          <i className='glow' style={{top: '60rem', right: '-12rem'}}/>
+          <i className='glow' style={{top: '10rem', left: '120rem'}}/>
+          <i className='glow' style={{top: '155rem', right: '10rem'}}/>
+          <i className='glow' style={{top: '100rem', right: '100rem'}}/>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/Overview' element={<Overview/>}/>
+              <Route path='/line' element={<Line/>}/>
+              <Route path='/account'  element={<Account/>}/>
+              <Route path='/auth'  element={<Authmobile/>} />
+              <Route path='/reg'  element={<Regmobile/>} />
+            </Routes>
+          <Foots/>
+        </GoogleOAuthProvider>
+      </usersContext.Provider>
+    </BrowserRouter>
+  </Wrapper>
   )
-
-
 }
+
+const Wrapper = styled.div`
+  .glow{
+    position: absolute;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    box-shadow: 0 0 200px 15rem #75631260;
+    background-color: transparent;
+  }
+`
 
 
 export default Pageholder

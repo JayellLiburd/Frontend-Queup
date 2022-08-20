@@ -27,6 +27,25 @@ function Topnav() {
     const OpenNav = () => {setSidenav(true)}
     const  CloseNav = () => {setSidenav(false)}
 
+    //button animation
+    const menubg = document.querySelector('.burger')
+    const openmenu = document.querySelector('.sidenav')
+    let menuOpen = false;
+    function menu(e) {
+        if(!menuOpen) {
+            menubg.classList.add('open')
+            openmenu.classList.add('open')
+            menuOpen = true;
+        }
+        else {
+            menubg.classList.remove('open');
+            openmenu.classList.remove('open')
+            menuOpen = false
+        }
+    }
+
+
+
     const logout = () => { 
         axios.get('https://app.queueupnext.com/logout', {withCredentials: true}).then((response) => {
             nav('/', {replace: true})
@@ -42,7 +61,7 @@ function Topnav() {
                 <NavLink to='' className="nav-link" id='brand' style={{ textDecoration: 'none' }}>
                         <h1 id='Queup'>Queup</h1>
                 </NavLink>
-                <button onClick={sidenav === false ? OpenNav : CloseNav} style={{all: 'unset'}}><GiHamburgerMenu id='burger' size='1.5rem' color='#242424'/></button>
+                <button id='burger' onClick={menu}> <div className='burger'/> </button>
             </div>
             <a id='mobile-q' href='/'><h3>queup</h3></a>
 
@@ -50,8 +69,7 @@ function Topnav() {
 
             <NavLink to={auth  ? 'account ' : 'auth'} onClick={() => setMenu(false)} id='icon'><BsPersonFill id='acc-small' size='1.5rem' color='#242424'/></NavLink>
             
-            {sidenav  ?
-            <div id='sidenav'>
+            <div className='sidenav'>
                 <NavLink onClick={sidenav === false ? OpenNav : CloseNav} to='/' id='logbutton' className='routes'>Homepage</NavLink>
 
                 {auth  ? <NavLink onClick={sidenav === false ? OpenNav : CloseNav} to='account' className='routes'>Account</NavLink>
@@ -64,11 +82,9 @@ function Topnav() {
 
                 {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>Log Out</button>
                 :<NavLink onClick={sidenav === false ? OpenNav : CloseNav} to='/' className='routes' id='regbutton'>Contact</NavLink>}
-                
-            </div> : <></>}
+            </div>
             
             <div id='links'>
-
                 {auth  ? <NavLink to='account' id='account'><button className='routes'>Account</button></NavLink>
                 : <><button id='logbutton' className='routes' style={openL  ? {backgroundColor: "#523a26cf", color: 'white'} : {} } onClick={openLogModal}>Login</button> {openL  ? <div id='login'><Log/></div> : <></>}</>}
 
@@ -79,7 +95,6 @@ function Topnav() {
 
                 {auth  ? <button className='routes' onClick={logout}>Log Out</button>
                 :<><button className='routes' id='regbutton' >Contact</button></>}
-
             </div>
 
         </section>
@@ -108,6 +123,46 @@ const Nav = styled.nav`
     backdrop-filter: blur(15px);
 
     z-index: 3;
+
+
+    // ------ menu animation ------
+    
+    #burger{
+        all: unset;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .burger{
+        all:unset;
+        height: .2rem;
+        width: 1.5rem;
+        border-radius: 1rem;
+        background-color: black;
+        transition: all .2s ease-in-out;
+
+        &::before, ::after{
+            content: '';
+            position: absolute;
+            height: .2rem;
+            width: 1.5rem;
+            border-radius: 1rem;
+            background-color: black;
+            transition: all .5s ease-in-out;}
+        &::before{transform: translateY(-6px)}
+        &::after{transform: translateY(6px) rotate(180deg)}
+    }
+
+    .burger.open{
+        background-color: transparent;
+        &::before {transform: rotate(45deg)}
+        &::after{transform: rotate(-45deg)}
+    }
+
+    // ----------------------------
 
     #login { position: absolute;}
     #reg { position: absolute;}
@@ -171,7 +226,7 @@ const Nav = styled.nav`
         padding-left: 1rem;
 
         border: 2px solid #2e2e2e37; 
-        border-radius: 1rem;
+        border-radius: .5rem;
 
         font-weight: bold;
         font-family: sans-serif;
@@ -181,8 +236,9 @@ const Nav = styled.nav`
         &:focus { border: 2px solid #2e2e2e50; color: #4b4b4b; &::placeholder{color: #646464;}};}
 
     
+    // menu for mobile
     @media (max-width: 1800px) {
-        #sidenav {
+        .sidenav{
             display: flex;
             flex-direction: column;
             justify-content: unset;
@@ -191,22 +247,28 @@ const Nav = styled.nav`
             left: -3rem;
             padding: 1rem 0;
 
+            color: transparent;
+
             width: 20rem;
             height: 100rem;
 
+            transform: translateX(-100%);
             background-color: #000000f4;
+
             .routes{padding: 1rem;}
-            a{color: white; &:active{background-color: white}}
-        }
+            a{color: white; &:active{background-color: #ffffff29}} 
+
+            transition: all .5s ease;
+        &.open{ transform: translateX(0%); }}
     }
     
     //what not to show on big screens
     @media (min-width: 1800px){
         border-bottom: 1px solid #cfcfcf;
-        #burger {display: none;}
+        #burger{display: none;}
         .user{display: none;}
         #mobile-q{display: none}
-        #sidenav{display: none;}
+        .sidenav{display: none;}
     }
 
     //small screens showning
@@ -220,6 +282,8 @@ const Nav = styled.nav`
         input{display: none;}
         #mobile-q{all: unset; margin-left: -.5rem;}
     }
+
+
 `
 
 

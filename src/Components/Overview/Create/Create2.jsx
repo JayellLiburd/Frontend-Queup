@@ -13,8 +13,8 @@ function Create() {
         <form>
             <label>Small Business?
                 <select onClick={(e) => setSmall(e.target.value)}>
-                    <option value="n">No</option>
-                    <option value="y">Yes</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
                 </select>
             </label>
             <label>Typical rate of people in a Day?
@@ -40,15 +40,15 @@ function Create() {
             <div className='input2' >
                 <label>Raffles?
                     <select onClick={(e) => setRaffles(e.target.value)}>
-                        <option value="n">No</option>
-                        <option value="y">Yes</option>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
                     </select>
                 </label>
                 <label>Promos?
                     <select onClick={(e) => setPromos(e.target.value)}>
                         <option value='0'>Choose an Avalibale Option</option>
-                        <option value="y">Yes</option>
-                        <option value="n">No</option>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
                     </select>
                 </label>
             </div>

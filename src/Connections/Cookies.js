@@ -20,7 +20,7 @@ export async function setUserLogin(checkUsername, checkPassword) {
 
         else {
             //set backend cookies with url
-            axios.get('https://app.queueupnext.com/auth/' + (response.data[1]) + '/login', {withCredentials: true,})}
+            axios.get('https://app.queueupnext.com/' + (response.data[1]) + '/login', {withCredentials: true,})}
 })}
 
 

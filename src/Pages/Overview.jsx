@@ -18,7 +18,7 @@ function Overview() {
   const [view, setView] = useState(true)
 
   useEffect(() => {
-    axios.get('http://app.queueupnext.com/auth/verify', {withCredentials: true}).then((response) => {
+    axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
         if (response.data.message) {
           setAuth(false)
           nav('/')
@@ -41,19 +41,19 @@ function Overview() {
 
   return (
     <Wrapper>
+      <div id='banner'><h1>Taqueria Durango</h1></div>
       {view ? 
         <>
-        <div id='banner'><h1>Taqueria Durango</h1></div>
-        <nav id='views'>
-          <button className='pages' onClick={buttonbus} style={bus  ? {backgroundColor: '#bcd6ee'} : {} }>Lines</button>
-          <button className='pages' onClick={buttonactive} style={active  ? {backgroundColor: '#dbbb90'} : {}}>Active</button>
-          <button className='pages' onClick={buttonset} style={set  ? {backgroundColor: '#4a6781'} : {} }>Create</button>
-        </nav>
-        <div style={{minHeight: '90vh'}}>
-        {bus ? <Lineoverview/> : <></>}
-        {active ? <Activelines/> : <></>}
-        {set ? <Create/> : <></>}
-        </div>
+          <nav id='views'>
+            <button className='pages' onClick={buttonbus} style={bus  ? {backgroundColor: '#bcd6ee'} : {} }>Lines</button>
+            <button className='pages' onClick={buttonactive} style={active  ? {backgroundColor: '#dbbb90'} : {}}>Active</button>
+            <button className='pages' onClick={buttonset} style={set  ? {backgroundColor: '#4a6781'} : {} }>Create</button>
+          </nav>
+          <div style={{minHeight: '80vh'}}>
+            {bus ? <Lineoverview/> : <></>}
+            {active ? <Activelines/> : <></>}
+            {set ? <Create/> : <></>}
+          </div>
         </>
         :
         <></>}

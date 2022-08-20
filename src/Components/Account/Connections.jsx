@@ -20,7 +20,7 @@ function Connections() {
         <Wrapper>
             {Socials.map((item) => {
                 return (
-                    <div>
+                    <div key={item.name}>
                         <img src={item.img} alt="" />
                         <h2>{item.name}</h2>
                     </div>

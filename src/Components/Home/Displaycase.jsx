@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { usersContext } from '../../Connections/user';
 
+import { MdTouchApp } from 'react-icons/md'
 
 function Displaycase(props) {
 
@@ -29,7 +30,7 @@ function Displaycase(props) {
         {Cases.map((item) => {
           return(
             <div id='Case' key={item.id}>
-              <h3>{item.label}</h3>
+              <h3><MdTouchApp size='1rem'/></h3>
               <img src={item.image} alt="" />
             </div>
           )
@@ -70,7 +71,7 @@ h3{
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 50%;
+  width: 5rem;
   height: 2rem;
   color: #d6d6d6;
   font-size: 1.5rem;
@@ -78,7 +79,8 @@ h3{
   background-color: #000000c8;
   backdrop-filter: blur(1.5px);
   border: 3px #83634e6a solid;
-  border-radius: 5px;
+  border-radius: 5px !important;
+  box-shadow: 0px 1px 4px #7a7a7a37;
   z-index: 1;}
 
 #Container{
@@ -96,13 +98,15 @@ h3{
 
 #Case{
   position: relative;
-  margin: 1rem 2rem;
+  margin: 1rem 0.8rem;
 
   min-width: 22rem;
   height: 12rem;
 
   border-radius: 10px;
   border: 1px solid grey;
+
+  overflow: hidden;
 
   img{ width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
 } #Case:first-child{ margin-left: 0rem;}
@@ -126,8 +130,8 @@ h3{
 
 
 @media (max-width: 800px) { 
-  h3{width: 50%; height: 2.5rem; top: -3.5rem; font-size: 1rem;};
-  #Case{min-width: 8.5rem; max-width: 20rem; height: 12rem; margin: 1rem 1vw;};
+  h3{ width: 2rem; height: 2rem; top: -5rem; font-size: 1rem; border-radius: 50% !important; }
+  #Case{min-width: 7rem; height: 10rem; margin: 1rem .8vw; border-radius: 1rem; &:first-child{ margin-left: 0rem; min-width: 7rem;}}
   #Container{margin-left: .5rem;};
   }
 

@@ -1,0 +1,59 @@
+copy text into document
+
+-------------------- HTML --------------------
+
+<button onClick={menu}> <div className='burger'/> </button>
+
+
+------------- JS button onClick -------------
+
+const menubg = document.querySelector('.burger')
+let menuOpen = false;
+function menu(e) {
+    if(!menuOpen) {
+        menubg.classList.add('open')
+        menuOpen = true;
+    }
+    else {
+        menubg.classList.remove('open');
+        menuOpen = false
+    }
+}
+
+-------------------- CSS --------------------
+
+button{
+    all: unset;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    border: 3px solid;
+    height: 10rem;
+    width: 10rem;
+}
+
+.burger{
+    all:unset;
+    height: .4rem;
+    width: 3.5rem;
+    border-radius: 1rem;
+    background-color: black;
+    transition: all .2s ease-in-out;
+
+    &::before, ::after{
+    content: '';
+    position: absolute;
+    height: .4rem;
+    width: 3.5rem;
+    border-radius: 1rem;
+    background-color: black;
+    transition: all .5s ease-in-out;}
+    &::before{transform: translateY(-11px)}
+    &::after{transform: translateY(11px) rotate(180deg)}
+}
+
+.burger.open{
+    background-color: transparent;
+    &::before {transform: rotate(45deg)}
+    &::after{transform: rotate(-45deg)}
+}
