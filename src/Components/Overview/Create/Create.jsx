@@ -12,7 +12,7 @@ export const createbusContext = createContext()
 function Create() {
 
   //Form create business queue States from Create1 and Create2
-  const [name, setName] = useState({})
+  const [name, setName] = useState('')
   const [add, setAdd] = useState('')
   const [add2, setAdd2] = useState('')
   const [city, setCity] = useState('')
