@@ -43,7 +43,6 @@ function Pageholder() {
     if (localStorage.prfs) {
      setUI( jwt_decode(localStorage.prfs) )
     }
-    console.log(response)
     
   })}, [])
 
