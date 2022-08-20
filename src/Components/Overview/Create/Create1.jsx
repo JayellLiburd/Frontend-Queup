@@ -82,8 +82,8 @@ function Create() {
                 <select onClick={(e) => setStates(e.target.value)}>
                 {States.map((item) => {
                       return(
-                        <option value=""></option>
-                        // <option key={item.abbreviation} value={item.abbreviation}>{item.name}</option>
+
+                        <option key={item.abbreviation} value={item.abbreviation}>{item.name}</option>
                       )
                   })}
                 </select>
@@ -93,8 +93,7 @@ function Create() {
               <select onClick={(e) => setCountry(e.target.value)}>
               {countryList.map((item) => {
                 return(
-                  <option></option>
-                  // <option key={item} value={item}>{item}</option>
+                  <option key={item} value={item}>{item}</option>
                 )
               })}
               </select>
