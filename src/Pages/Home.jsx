@@ -12,7 +12,7 @@ function Home() {
 
   const {auth, user, ui} =  useContext(usersContext)
   
-  let name = 'Welcome Back ' + user
+  let name = 'Welcome Back ' + user[0]
 
   return (
     <Wrapper>
@@ -22,7 +22,7 @@ function Home() {
           <h2 className='user'>{auth ? name + '...' : "Lets find something to do "}</h2>
           <div id='smallheader'>
             <h2>Queup</h2>
-            <p>Lets find something to do {auth ? user : ''}</p>
+            <p>Lets find something to do {auth ? user[0] : ''}</p>
             <form action="">
               <input type="text" placeholder='Search...'/>
             </form>

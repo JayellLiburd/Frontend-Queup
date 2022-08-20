@@ -14,7 +14,7 @@ function Lineoverview() {
     <Wrapper>
       <input type="text" placeholder='Search for specific line...' />
       <div id='main'>
-        {/* {user.map((item) => {
+        {user.map((item) => {
           return(
           <div className='businesses' key={item.id}>
             <NavLink to={'/line/' + {}} style={{color: 'black'}}><h3>{item.Name}:</h3></NavLink>
@@ -24,7 +24,7 @@ function Lineoverview() {
             <p>Maxed: {item.max}</p>
             <p>Running Promo's: {item.promo}</p>
           </div>
-        )})} */}
+        )})}
       </div>
     </Wrapper>
 
