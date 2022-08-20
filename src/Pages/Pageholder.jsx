@@ -43,7 +43,7 @@ function Pageholder() {
     if (localStorage.prfs) {
      setUI( jwt_decode(localStorage.prfs) )
     }
-    console.log(user)
+    console.log(response)
     
   })}, [])
 
@@ -58,16 +58,7 @@ function Pageholder() {
       <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>
       <GlobalStyle/>
         <GoogleOAuthProvider clientId={process.env.client_id}>
-        <Wrapper>
           <Topnav/>
-          <i className='glow' style={{top: '20rem', left: '40rem'}}/>
-          <i className='glow' style={{top: '70rem', left: '100rem'}}/>
-          <i className='glow' style={{top: '150rem', left: '40rem'}}/>
-          <i className='glow' style={{top: '80rem', left: '-5rem'}}/>
-          <i className='glow' style={{top: '60rem', right: '-12rem'}}/>
-          <i className='glow' style={{top: '10rem', left: '120rem'}}/>
-          <i className='glow' style={{top: '155rem', right: '10rem'}}/>
-          <i className='glow' style={{top: '100rem', right: '100rem'}}/>
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/Overview' element={<Overview/>}/>
@@ -77,21 +68,12 @@ function Pageholder() {
               <Route path='/reg'  element={<Regmobile/>} />
             </Routes>
           <Foots/>
-          </Wrapper>
         </GoogleOAuthProvider>
       </usersContext.Provider>
     </BrowserRouter>
   )
 }
 
-const Wrapper = styled.div`
-  .glow{
-    position: absolute;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    box-shadow: 0 0 200px 15rem #75631260;
-    background-color: transparent;
-  }
-`
 
 
 export default Pageholder

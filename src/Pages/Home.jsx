@@ -12,17 +12,25 @@ function Home() {
 
   const {auth, user, ui} =  useContext(usersContext)
   
-  let name = 'Welcome Back ' + user[0]
+  let name = 'Welcome Back ' + user.name
 
   return (
     <Wrapper>
+          <i className='glow' style={{top: '20rem', left: '40rem'}}/>
+          <i className='glow' style={{top: '70rem', left: '100rem'}}/>
+          <i className='glow' style={{top: '150rem', left: '40rem'}}/>
+          <i className='glow' style={{top: '80rem', left: '-5rem'}}/>
+          <i className='glow' style={{top: '60rem', right: '-12rem'}}/>
+          <i className='glow' style={{top: '10rem', left: '120rem'}}/>
+          <i className='glow' style={{top: '155rem', right: '10rem'}}/>
+          <i className='glow' style={{top: '100rem', right: '100rem'}}/>
       <Contents>
         <div id='Hero'>
           <img src='Images/hero.jpg' alt="" />
           <h2 className='user'>{auth ? name + '...' : "Lets find something to do "}</h2>
           <div id='smallheader'>
             <h2>Queup</h2>
-            <p>Lets find something to do {auth ? user[0] : ''}</p>
+            <p>Lets find something to do {auth ? user.name : ''}</p>
             <form action="">
               <input type="text" placeholder='Search...'/>
             </form>
@@ -56,8 +64,17 @@ const Wrapper = styled.div`
   width: 60vw;
   min-height: 140rem;
 `
+
+
 const Contents = styled.div`
   position: relative;
+
+  .glow{
+    position: absolute;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    box-shadow: 0 0 200px 15rem #75631260;
+    background-color: transparent;
+  }
 
   .user{
     display: none;
