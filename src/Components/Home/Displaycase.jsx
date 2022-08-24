@@ -3,36 +3,38 @@ import styled from 'styled-components'
 import { usersContext } from '../../Connections/user';
 
 import { MdTouchApp } from 'react-icons/md'
+import { modelContext } from '../../Helpers/Context';
 
 function Displaycase(props) {
 
   const Cases =  [
-    { 'id': 1, 'image': 'Images/idea1.webp', 'label': 'Previews' },
-    { 'id': 2, 'image': 'Images/idea2.jpg', 'label': 'Previews' },
-    { 'id': 3, 'image': 'Images/idea3.jpg', 'label': 'Previews' },
-    { 'id': 4, 'image': 'Images/idea3.jpg', 'label': 'Previews' },
-    { 'id': 5, 'image': 'Images/idea3.jpg', 'label': 'Previews' },
-    { 'id': 6, 'image': 'Images/idea3.jpg', 'label': 'Previews' },
+    { 'id': 1, 'image': 'Images/idea1.webp', 'label': 'CheeseCake Factory' },
+    { 'id': 2, 'image': 'Images/idea2.jpg', 'label': 'Nike' },
+    { 'id': 3, 'image': 'Images/idea3.jpg', 'label': 'Starbucks' },
+    { 'id': 4, 'image': 'Images/idea3.jpg', 'label': 'Apple' },
+    { 'id': 5, 'image': 'Images/idea3.jpg', 'label': 'Burger Joint' },
+    { 'id': 6, 'image': 'Images/idea3.jpg', 'label': 'M.D Herrmon' },
   ]
 
   const {ui} =  useContext(usersContext)
-
-
+  const {setInfo, UI} =  useContext(modelContext)
 
   return (
 
     <Wrapper>
-      <div id='catagory'>
+      <div id='Category'>
         <h2>{props.name}</h2>
         <h2 id='view'>Veiw More</h2>
       </div>
       <div id={ui.dark === 'true' ? 'dkContainer' : 'Container'}>
         {Cases.map((item) => {
           return(
-            <div id='Case' key={item.id}>
-              <h3><MdTouchApp size='1rem'/></h3>
-              <img src={item.image} alt="" />
-            </div>
+            <button onClick={() => UI()} className='Case' key={item.id}>
+              <div onClick={() => setInfo(item)}>
+                <h3><MdTouchApp size='1rem'/></h3>
+                <img src={item.image} alt="" />
+              </div>
+            </button>
           )
         })}
         </div>
@@ -52,14 +54,14 @@ margin: 3rem 0rem;
 
 overflow-x: hidden;
 
+button{all:unset;}
 h2{
   margin: unset;
   padding: .5rem 0rem;
 
   color: #818181;
-  font-size: 1.2rem;
-  font-family: 'Cinzel', serif;
-  text-indent: 1rem;}
+  font-size: 1rem;
+  font-family: 'Cinzel', serif;}
   
 h3{
   display: flex;
@@ -96,7 +98,7 @@ h3{
   &:hover{background-color: #ccccccad;}
   } }
 
-#Case{
+.Case{
   position: relative;
   margin: 1rem 0.8rem;
 
@@ -109,10 +111,11 @@ h3{
   overflow: hidden;
 
   img{ width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
-} #Case:first-child{ margin-left: 0rem;}
+  &:first-child{ margin-left: 0rem;}
+} 
   
 
-#catagory {
+#Category {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -131,7 +134,7 @@ h3{
 
 @media (max-width: 800px) { 
   h3{ width: 2rem; height: 2rem; top: -5rem; font-size: 1rem; border-radius: 50% !important; }
-  #Case{min-width: 7rem; height: 10rem; margin: 1rem .8vw; border-radius: 1rem; &:first-child{ margin-left: 0rem; min-width: 7rem;}}
+  .Case{min-width: 7rem; height: 10rem; margin: 1rem .8vw; border-radius: 1rem; &:first-child{ margin-left: 0rem; min-width: 7rem;}}
   #Container{margin-left: .5rem;};
   }
 

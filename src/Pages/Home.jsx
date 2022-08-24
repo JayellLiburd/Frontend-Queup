@@ -1,21 +1,36 @@
-import { React, useContext  } from 'react'
+import { React, useContext, useState } from 'react'
 import styled from 'styled-components'
 
 import Displaycase from '../Components/Home/Displaycase'
 import Headcards from '../Components/Home/Headcards'
 import { usersContext } from '../Connections/user'
+import { modelContext } from '../Helpers/Context'
 
 import { GrDown } from "react-icons/gr";
+import Card_model from '../Components/Models/Card_model'
 
 
 function Home() {
 
   const {auth, user, ui} =  useContext(usersContext)
-  
+  const [ cardInfo, setInfo ] = useState([])
   let name = 'Welcome Back ' + user.name
 
+  var menu = false
+  function UI() {
+    console.log('ajhd')
+    const view = document.querySelector('#viewmodal')
+    if (!menu) {view.classList.add('open'); menu = true}
+    else{ view.classList.remove('open');  menu = false}
+    
+  }
+
   return (
+    <modelContext.Provider value={{UI, setInfo}}>
     <Wrapper>
+      <div className='anding'>
+
+      </div>
           <i className='glow' style={{top: '20rem', left: '40rem'}}/>
           <i className='glow' style={{top: '70rem', left: '100rem'}}/>
           <i className='glow' style={{top: '150rem', left: '40rem'}}/>
@@ -37,21 +52,17 @@ function Home() {
           <Headcards/>
           </div>
         </div>
-
-        <ul id={ui.dark === 'true' ? '#ul' : ''}>
-          <div className='filter'><h3>Pickup</h3><GrDown/></div>
-          <div className='filter'><h3>$$$ Price</h3><GrDown/></div>
-          <div className='filter'><h3>Distance</h3><GrDown/></div>
-        </ul>
+        <div id='viewmodal'><Card_model data={cardInfo}/></div>
         <div id='media'>
+          <Displaycase name='Hotspots in Houston'/>
           <Displaycase name='Food'/>
-          <Displaycase name='Hotspots'/>
           <Displaycase name='Hidden Gems'/>
           <Displaycase name='HypeGear'/>
           <Displaycase name='Raffles'/>
         </div>
       </Contents>
     </Wrapper>
+    </modelContext.Provider>
   )
 }
 
@@ -88,6 +99,8 @@ const Contents = styled.div`
     font-size: 1.8rem;
     font-family: 'Cinzel', serif;}
   }
+
+
 
   #Hero{
     position: relative;
@@ -195,6 +208,25 @@ const Contents = styled.div`
     z-index: 2;
   }
 
+  #viewmodal{
+    transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    pointer-events: none;
+    filter: opacity(0%);
+    transition: all .3s ease-in-out;
+    &.open{
+      filter: unset;
+      pointer-events: unset;
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: 1400px) {
+    #Viewmodal{ top: 0rem; left: 0; width: 100vw; height: 100vh; transform: unset; position: fixed; }
+  }
 `
 
 

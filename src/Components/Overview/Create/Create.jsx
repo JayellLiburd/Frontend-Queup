@@ -5,6 +5,7 @@ import Createque from '../../../Connections/Createque'
 import Create1 from './Create1'
 import Create2 from './Create2'
 import Modeling from './Modeling'
+import Temp from './temp.png'
 
 
 export const createbusContext = createContext()
@@ -21,23 +22,23 @@ function Create() {
   const [country, setCountry] = useState('')
   const [small, setSmall] = useState('')
   const [rate, setRate] = useState('')
-  const [catagory, setCatagory] = useState('')
+  const [Category, setCategory] = useState('')
   const [raffles, setRaffles] = useState('')
   const [promos, setPromos] = useState('')
   const [host, setHost] = useState('')
 
-  const [next, setNext] = useState(false)
-  const Nextbutton = () => setNext(true)
+  const [preview, setPreview] = useState([true])
+  const [preview2, setPreview2] = useState([true])
 
-  const createbutton = () => {Createque(name, add, add2, city, zip, states, country, small, rate, catagory, raffles, promos, host)}
+  const [next, setNext] = useState(false)
+
+  const createbutton = () => {Createque(name, add, add2, city, zip, states, country, small, rate, Category, raffles, promos, host, preview, preview2)}
 
 
   return (
-    <createbusContext.Provider value={{setName, setAdd, setAdd2, setCity, setZip, setStates, setCountry, setSmall, setRate, setCatagory, setRaffles, setPromos, setHost, add, add2, city, country, name, zip, states, setNext}}>
+    <createbusContext.Provider value={{preview, setPreview, preview2, setPreview2, setName, setAdd, setAdd2, setCity, setZip, setStates, setCountry, setSmall, setRate, setCategory, setRaffles, setPromos, setHost, add, add2, city, country, name, zip, states, setNext}}>
     <Wrapper>
-      <section>
-        <Modeling/>
-      </section>
+      <Modeling/>
       <section>
         {!next ? 
           <div id='c-1'><Create1/></div>
@@ -52,9 +53,9 @@ function Create() {
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: row; 
-  justify-content: center; 
-  align-items: center;
+  align-items: top;
+  position: relative;
+  margin-left: -10rem;
 
   button{
     width: 80vw; 
@@ -75,7 +76,9 @@ const Wrapper = styled.div`
   }
   @media (max-width: 1400px) {
     flex-direction: column;
+    justify-content: center;
     margin-top: 2rem;
+    margin-left: 0rem;
   }
 
 `

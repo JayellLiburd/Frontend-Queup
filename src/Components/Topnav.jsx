@@ -28,10 +28,10 @@ function Topnav() {
     const  CloseNav = () => {setSidenav(false)}
 
     //button animation
-    const menubg = document.querySelector('.burger')
-    const openmenu = document.querySelector('.sidenav')
     let menuOpen = false;
     function menu(e) {
+        const menubg = document.querySelector('.burger')
+        const openmenu = document.querySelector('.sidenav')
         if(!menuOpen) {
             menubg.classList.add('open')
             openmenu.classList.add('open')
@@ -43,7 +43,6 @@ function Topnav() {
             menuOpen = false
         }
     }
-
 
 
     const logout = () => { 
@@ -70,18 +69,18 @@ function Topnav() {
             <NavLink to={auth  ? 'account ' : 'auth'} onClick={() => setMenu(false)} id='icon'><BsPersonFill id='acc-small' size='1.5rem' color='#242424'/></NavLink>
             
             <div className='sidenav'>
-                <NavLink onClick={sidenav === false ? OpenNav : CloseNav} to='/' id='logbutton' className='routes'>Homepage</NavLink>
+                <NavLink onClick={menu} to='/' id='logbutton' className='routes'>Homepage</NavLink>
 
-                {auth  ? <NavLink onClick={sidenav === false ? OpenNav : CloseNav} to='account' className='routes'>Account</NavLink>
-                :<NavLink onClick={sidenav === false ? OpenNav : CloseNav} to='auth' id='logbutton' className='routes'>Login</NavLink>}
+                {auth  ? <NavLink onClick={menu} to='account' className='routes'>Account</NavLink>
+                :<NavLink onClick={menu} to='auth' id='logbutton' className='routes'>Login</NavLink>}
 
-                {auth  ? <NavLink onClick={sidenav === false ? OpenNav : CloseNav} to='Overview' className='routes'>Business</NavLink>
-                :<NavLink onClick={sidenav === false ? OpenNav : CloseNav} to='/reg' className='routes' id='regbutton'>Sign Up</NavLink>}
+                {auth  ? <NavLink onClick={menu} to='Overview' className='routes'>Business</NavLink>
+                :<NavLink onClick={menu} to='/reg' className='routes' id='regbutton'>Sign Up</NavLink>}
 
-                <NavLink onClick={sidenav === false ? OpenNav : CloseNav} to='/' className='routes'>Rewards</NavLink>
+                <NavLink onClick={menu} to='/' className='routes'>Rewards</NavLink>
 
                 {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>Log Out</button>
-                :<NavLink onClick={sidenav === false ? OpenNav : CloseNav} to='/' className='routes' id='regbutton'>Contact</NavLink>}
+                :<NavLink onClick={menu} to='/' className='routes' id='regbutton'>Contact</NavLink>}
             </div>
             
             <div id='links'>
@@ -122,7 +121,7 @@ const Nav = styled.nav`
     background-color: #ffffffa6;
     backdrop-filter: blur(15px);
 
-    z-index: 3;
+    z-index: 10;
 
 
     // ------ menu animation ------
@@ -134,6 +133,7 @@ const Nav = styled.nav`
         align-items: center;
         height: 2rem;
         width: 2rem;
+        z-index: 2;
     }
 
     .burger{
@@ -143,6 +143,7 @@ const Nav = styled.nav`
         border-radius: 1rem;
         background-color: black;
         transition: all .2s ease-in-out;
+        z-index: -1;
 
         &::before, ::after{
             content: '';

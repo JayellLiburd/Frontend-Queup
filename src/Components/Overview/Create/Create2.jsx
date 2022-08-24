@@ -5,7 +5,7 @@ import { createbusContext } from './Create'
 
 function Create() {
     
-    const {setSmall, setRate, setCatagory, setRaffles, setPromos, setHost} = useContext(createbusContext)
+    const {setSmall, setRate, setCategory, setRaffles, setPromos, setHost} = useContext(createbusContext)
     
   return (
     <Wrapper>
@@ -26,12 +26,12 @@ function Create() {
                     <option value="200">{'<200/day'}</option>
                 </select>
             </label>
-            <label>Catagory                
-                <select onClick={(e) => setCatagory(e.target.value)}>
+            <label>Category                
+                <select onClick={(e) => setCategory(e.target.value)}>
                     <option value="H">Hobby Hosting</option>
                     <option value="Mgr">Major Event</option>
                     <option value="FF">Fast Dinning</option>
-                    <option value="RR">Resturant</option>
+                    <option value="RR">Restaurant</option>
                     <option value="MG">Merchant Goods</option>
                     <option value="Min">Minor Event</option>
                     <option value="DS">Dealership</option>
@@ -45,8 +45,8 @@ function Create() {
                     </select>
                 </label>
                 <label>Promos?
-                    <select onClick={(e) => setPromos(e.target.value)}>
-                        <option value='0'>Choose an Avalibale Option</option>
+                    <select data-selected onClick={(e) => setPromos(e.target.value)}>
+                        <option value='0'>Choose an Available Option</option>
                         <option value="0">No</option>
                         <option value="1">Yes</option>
                     </select>

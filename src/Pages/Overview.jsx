@@ -93,6 +93,7 @@ const Wrapper = styled.div`
     background-color: #f7f7f7;
     border: 2px #dddddd solid;
     border-radius: 1.5rem;
+    z-index: 5;
     .pages{
       all: unset; 
       padding: .8rem;

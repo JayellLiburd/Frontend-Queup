@@ -17,6 +17,7 @@ import Regmobile from './Reg-mobile'
 
 import { useState } from 'react'
 import { usersContext } from '../Connections/user'
+import Card_model from '../Components/Models/Card_model'
 
 function Pageholder() {
 
@@ -30,7 +31,6 @@ function Pageholder() {
 
   //Settings mobile sidebar
   const [menu, setMenu] = useState(false)
-
 
   useLayoutEffect( ()=>{axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
     // const key = (jwt_decode((document.cookie).split('=')[1]))
@@ -46,12 +46,10 @@ function Pageholder() {
     
   })}, [])
 
-
-
   const GlobalStyle = createGlobalStyle`
     body { background-color: ${ui.dark === 'true' ? '#292929' : 'white'};}
   `
-
+  
   return (
     <BrowserRouter>
       <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>
@@ -65,6 +63,7 @@ function Pageholder() {
               <Route path='/account'  element={<Account/>}/>
               <Route path='/auth'  element={<Authmobile/>} />
               <Route path='/reg'  element={<Regmobile/>} />
+              <Route path='/test'  element={<Card_model/>} />
             </Routes>
           <Foots/>
         </GoogleOAuthProvider>

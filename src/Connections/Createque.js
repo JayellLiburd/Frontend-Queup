@@ -1,22 +1,14 @@
 import axios from 'axios'
 import React from 'react'
 
-export default function Createque(a,b,c,d,e,f,g,  h,i,j,k,l,m) {
-    console.log(a,b,c,d,e,f,g,  h,i,j,k,l,m)
-    axios.post('https://app.queueupnext.com/Create',  new URLSearchParams({ 
-    busname: a,
-    add: b,
-    add2: c,
-    city: d,
-    zip: d,
-    states: f,
-    country: g,
-    small: h,
-    rate: i,
-    catagory: j,
-    raffles: k,
-    promos: l,
-    host: m,
+export default function Createque(a,b,c,d,e,f,g,  h,i,j,k,l,m, n,o) {
+    console.log(a,b,c,d,e,f,g,  h,i,j,k,l,m, n, o)
+    axios.post('http://localhost:4000/createque',  new URLSearchParams({ 
+    busname: a === '' ? 0 : a,
+
+    img: n,
+    img2: o,
+
     withCredentials: true
     }))
 }
