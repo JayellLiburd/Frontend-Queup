@@ -1,16 +1,12 @@
-import { React, useContext, useState } from 'react'
+import { React, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import Displaycase from '../Components/Home/Displaycase'
 import Headcards from '../Components/Home/Headcards'
 import { usersContext } from '../Connections/user'
-import { modelContext } from '../Helpers/Context'
-
-import { GrDown } from "react-icons/gr";
-import Card_model from '../Components/Models/Card_model'
-
 
 function Home() {
+
+  const Test = [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}]
 
   const {auth, user, ui} =  useContext(usersContext)
   const [ cardInfo, setInfo ] = useState([])
@@ -18,214 +14,274 @@ function Home() {
 
   var menu = false
   function UI() {
-    console.log('ajhd')
     const view = document.querySelector('#viewmodal')
     if (!menu) {view.classList.add('open'); menu = true}
     else{ view.classList.remove('open');  menu = false}
-    
+  }
+
+  function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
   }
 
   return (
-    <modelContext.Provider value={{UI, setInfo}}>
     <Wrapper>
-      <div className='anding'>
+      
 
+      <div className="hero">
+        <h2>Queup</h2>
+        <h3 className='user'>{auth ? name + '...' : "Lets not wait any longer"}</h3>
+        {/* <input type="text" className="search" placeholder="🔎 Let's find something to do..."/> */}
+        <div id="gradient" />
+        <img src="Images/hero.jpg" alt=""/>
+        <div className='headcards'><Headcards/></div>
       </div>
-          <i className='glow' style={{top: '20rem', left: '40rem'}}/>
-          <i className='glow' style={{top: '70rem', left: '100rem'}}/>
-          <i className='glow' style={{top: '150rem', left: '40rem'}}/>
-          <i className='glow' style={{top: '80rem', left: '-5rem'}}/>
-          <i className='glow' style={{top: '60rem', right: '-12rem'}}/>
-          <i className='glow' style={{top: '10rem', left: '120rem'}}/>
-          <i className='glow' style={{top: '155rem', right: '10rem'}}/>
-          <i className='glow' style={{top: '100rem', right: '100rem'}}/>
-      <Contents>
-        <div id='Hero'>
-          <img src='Images/hero.jpg' alt="" />
-          <h2 className='user'>{auth ? name + '...' : "Lets find something to do "}</h2>
-          <div id='smallheader'>
-            <h2>Queup</h2>
-            <p>Lets find something to do {auth ? user.name : ''}</p>
-            <form action="">
-              <input type="text" placeholder='Search...'/>
-            </form>
-          <Headcards/>
+
+      <div className="content">
+        <h3>Trending <button>view more</button></h3>
+        <div className='media-container'>
+          {shuffle(Test).filter((_, index) => index < 6).map(item => {return (
+            <div className="case">
+                <div className='media'> 
+                  <img src={item.Image} alt="" loading='lazy'/> 
+                </div>
+              <h3>{item.name}</h3>
           </div>
+          )})}
         </div>
-        <div id='viewmodal'><Card_model data={cardInfo}/></div>
-        <div id='media'>
-          <Displaycase name='Hotspots in Houston'/>
-          <Displaycase name='Food'/>
-          <Displaycase name='Hidden Gems'/>
-          <Displaycase name='HypeGear'/>
-          <Displaycase name='Raffles'/>
+        <h3>Hotspots <button>view more</button></h3>
+        <div className='media-container'>
+          {shuffle(Test).filter((_, index) => index < 6).map(item => {return (
+            <div className="case">
+              <div className='media'> 
+                <img src={item.Image} alt="" loading='lazy'/> 
+              </div>
+            <h3>{item.name}</h3>
         </div>
-      </Contents>
+          )})}
+        </div>
+        <h3>Yummy Spots <button>view more</button></h3>
+        <div className='media-container'>
+          {shuffle(Test).filter((_, index) => index < 6).map(item => {return (
+            <div className="case">
+              <div className='media'> 
+                <img src={item.Image} alt="" loading='lazy'/> 
+              </div>
+            <h3>{item.name}</h3>
+        </div>
+          )})}
+        </div>
+        <h3>Raffles <button>view more</button></h3>
+        <div className='media-container'>
+          {shuffle(Test).filter((_, index) => index < 6).map(item => {return (
+            <div className="case">
+              <div className='media'> 
+                <img src={item.Image} alt="" loading='lazy'/> 
+              </div>
+              <h3>{item.name}</h3>
+            </div>
+          )})}
+        </div>
+      </div>
     </Wrapper>
-    </modelContext.Provider>
   )
 }
 
 const Wrapper = styled.div`
-  @media (max-width: 800px) {
-    width: 100vw;
-    min-height: 100rem;
-  }
-
-  width: 60vw;
-  min-height: 140rem;
-`
-
-
-const Contents = styled.div`
   position: relative;
+  width: 100vw;
+  margin-top: 4rem;
+  min-height: 60rem;
+  z-index: 1;
 
-  .glow{
-    position: absolute;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    box-shadow: 0 0 200px 15rem #75631260;
-    background-color: transparent;
-  }
-
-  .user{
-    display: none;
-    @media (min-width: 1800px) {
-    display: block;
-    position: absolute;
-    top: 7rem;;
-    left: 13rem;
-
-    color: #e9ba94;
-    font-size: 1.8rem;
-    font-family: 'Cinzel', serif;}
-  }
-
-
-
-  #Hero{
-    position: relative;
-    margin-top: 7rem;
-    margin-bottom: 3rem;
-
-    @media (max-width: 800px) {width: 100vw; height: 20rem;}
-    width: 60vw;
-    height: 25rem;
-
-    border: 1px solid grey;
-    border-radius: 7px;
-    img{  width: 100%; height: 100%; object-fit: cover;}
-
-    @media (max-width: 800px) {margin-top: 4rem; margin-bottom: 2rem; border-radius: 0px; border: none;}
-
-    #smallheader{
-      display: none;
-      @media (max-width: 1800px) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+  .hero{
+    display: flex;
+    justify-content: center;
+    /* position: sticky; */
+    top: 0;
+    height: 18rem;
+    box-shadow: 0px -15px 50px 0px #acacac;
+    overflow: hidden;
+    z-index: -1;
+    h2{
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      font-size: 1.8rem;
+      font-family: 'Cinzel', serif;
+      color: silver;
+    }
+    h3{
+      position: absolute;
+      top: 5.3rem;
+      left: 4rem;
+      font-size: 1rem;
+      font-family: 'Cinzel', serif;
+      color: silver;
+    }
+    .search{
       position: absolute;
       top: 8rem;
-      
-      width: 100%;
+      width: 80vw;
+      font-size: 1rem;
+      background-color: transparent;
+      border: none;
+      border-radius: unset;
+      border-bottom: 5px solid silver;
+      z-index: 2;
+      &::placeholder{color: #d8d8d8; font-weight: bold;}
+    }
+    #gradient{
+      position: absolute;
+      width: 100vw;
+      height: 18rem;
+      box-shadow: inset 0px 0 100px 10px #6868685f;
+    }
+    img{
+      border: .5rem;
+    }
+    .headcards{
+      position: absolute;
+      left: 0rem;
+    }
+  }
 
-      color: #dadada;
-      font-size: 2rem;
-      font-family: serif; 
-
-        h2{padding: 0; margin: 0; position: absolute; top: -5rem; left: 10%; font-size: 2.5rem;}
-        p{font-size: 1rem; font-weight: bold; position: absolute; top: -3rem; left: 10%;}
-        input{
-          position: relative;
-          padding-left: 1rem;
-
-          
-          @media (max-width: 800px) {width: 80vw;}
-          width: 40vw;
-          height: 2rem;
-
-          background-color: #ffffffa2;
-          border: none;
-          border-radius: 10px;
-
-          &::placeholder{color: black; font-size: 1rem; font-size: bold;}
-        }
+  .content{
+    display: flex;
+    flex-direction: column; 
+    overflow-x: hidden;
+    margin-bottom: 1rem;
+    padding-top: 2rem;
+    min-height: 50rem;
+    background-color: white;
+    z-index: 5;
+    h3{
+      display: flex; 
+      justify-content: space-between;
+      margin: 0 1rem;
+      padding: 0;
+      color: #2b2118c1;
+      font-family: 'Cinzel', serif;
+      button{
+        color: #2b2118;
+      }
+    }
+    .media-container{
+      display: flex;
+      position: relative;
+      flex-direction: row;
+      align-items: top;
+      overflow-x: scroll;
+      width: 95vw;
+      min-height: 11rem;
+      margin-bottom: 1rem;
+      padding-top: .5rem;
+      padding-right: 1rem;
+      h3{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        top: .3rem;
+        font-size: .8rem;
+        font-family: unset;
+      }
+    }
+    .media{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin: 0 .2rem;
+      margin-left: .5rem;
+      min-width: 6rem; 
+      height: 8.5rem;
+      background-color: white;
+      border-radius: .5rem;
+      box-shadow: 0 0 10px 1px #dbdbdb;
+      overflow: hidden;
+      img{
+        position: absolute;
+        transform: scale(.7);
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
       }
     }
   }
 
-  ul{ 
-    @media (max-width: 1800px) { top: 4rem; height: 2.5rem;}
-    display: flex; 
-    position: sticky; 
-    align-items: center;
-
-    top: 4.05rem;
-    height: 3rem;
-    width: 100%;
-    padding: 0rem;
-
-    background-color: #ffffffd6;
-    backdrop-filter: blur(1px);
-    
-    z-index: 2; }
-
-  .filter{
-    display: flex;
-    align-items: center;
-    padding: 0.5rem .5rem;
-    margin: 0 1rem; 
-
-    height: 1rem;
-    font-size: 1rem;
-    color: white;
-
-    background-color: #865c3ace;
-    border-radius: 20px;
-
-    &:first-child{margin-left: 1rem;}
-    h3{margin:0 .5rem;}
-
-    @media (max-width: 800px) {font-size: .6rem; margin: 0 .5rem;}}
-
-  #media{margin-top: -1rem;}
-
-  //  Dark Classes
-
-  #ul{ 
-    @media (max-width: 1800px) { padding: 1rem 0; top: 4rem; height: 2rem;}
-    display: flex; 
-    position: sticky; 
-    align-items: center;
-
-    top: 4.05rem;
-    height: 3rem;
-    width: 100%;
-    padding: 0;
-
-    background-color: #ac998262;
-    backdrop-filter: blur(1px);
-    
-    z-index: 2;
-  }
-
-  #viewmodal{
-    transform: translate(-50%, -50%);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    z-index: 3;
-    pointer-events: none;
-    filter: opacity(0%);
-    transition: all .3s ease-in-out;
-    &.open{
-      filter: unset;
-      pointer-events: unset;
-      display: block;
+  @media screen and (min-width: 940px){
+    margin-top: 5rem;
+    width: 60vw;
+    .filter{display: none;} 
+    .hero{
+      height: 22rem;
+      border-radius: .5rem;
+      position: relative;
+      h2{left: 10rem;}
+      h3{left: 12rem; font-size: 1rem;}
+      .search{
+        top: 11rem; 
+        width: 30vw;
+      }
+      #gradient{box-shadow: unset;}
+      img{
+        position: relative;
+        top: -10rem;
+        background-size: cover;
+        width: 60vw;
+        height: 40rem;
+        z-index: -1;
+      }
+      .headcards{
+        position: relative;
+        left: 37rem;
+        top: 2rem;
+      }
     }
-  }
-
-  @media screen and (max-width: 1400px) {
-    #Viewmodal{ top: 0rem; left: 0; width: 100vw; height: 100vh; transform: unset; position: fixed; }
+    .content{
+      background-color: transparent;
+      .media-container{
+        transition-delay: 1s;
+        min-height: 12rem;
+        &::-webkit-scrollbar{ width: 15px; height: 10px;}
+        &::-webkit-scrollbar-track{background-color: rgba(0, 0, 0, 0);}
+        &::-webkit-scrollbar-thumb{ background-color: rgba(252, 222, 190, 0.096); border-radius: 12px;}
+        &:hover{ ::-webkit-scrollbar-thumb{ background-color: rgba(211, 178, 142, 0.747);  border-radius: 12px;}}
+      }
+      .media{
+        min-width: 17rem;
+        height: 9rem;
+        box-shadow: none;
+        border: 2px solid #b9b6b1;
+        border-radius: .5rem;
+        h3{
+          align-items: center;
+          padding: 1.5rem .2rem;
+          padding-bottom: 1rem;
+          margin: 0;
+          font-size: .9rem;
+          min-width: 17rem;
+          height: 2rem;
+          z-index: 2;
+      }
+        img{background-size: cover;}
+      }
+    }
   }
 `
 

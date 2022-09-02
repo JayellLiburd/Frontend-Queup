@@ -17,18 +17,18 @@ function Overview() {
 
   const [view, setView] = useState(true)
 
-  useEffect(() => {
-    axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
-        if (response.data.message) {
-          setAuth(false)
-          nav('/')
-          alert('Please Sign In')
-          setOpenLog(true)
-          window.location.reload()
-        }
+  // useEffect(() => {
+  //   axios.get('http://localhost:4000/verify', {withCredentials: true}).then((response) => {
+  //       if (response.data.message) {
+  //         setAuth(false)
+  //         nav('/')
+  //         alert('Please Sign In')
+  //         setOpenLog(true)
+  //         window.location.reload()
+  //       }
 
-        if (response.data[0]) {setAuth(true); setView(true)}
-  })}, [nav, setAuth])
+  //       if (response.data[0]) {setAuth(true); setView(true)}
+  // })}, [nav, setAuth])
 
   const [bus, setBus] = useState(true)
   const [active, setActive] = useState(false)
@@ -68,7 +68,6 @@ const Wrapper = styled.div`
   align-items: center;
 
   position: relative;
-  top: 4rem;
 
   #banner{
     display: flex;

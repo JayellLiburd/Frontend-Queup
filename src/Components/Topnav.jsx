@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { BsPersonFill } from 'react-icons/bs';
-import { GiHamburgerMenu } from 'react-icons/gi'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 import { usersContext } from '../Connections/user';
 
@@ -14,6 +14,8 @@ import { useState } from 'react';
 
 
 function Topnav() {
+
+    const Filters = ['Trending in ' + 'Houston', 'Food', 'Events', 'Hype Gear', 'Unicorns']
 
     const {auth, openL, setOpenLog, openR, setOpenReg, setMenu} = useContext(usersContext);
 
@@ -46,27 +48,41 @@ function Topnav() {
 
 
     const logout = () => { 
-        axios.get('https://app.queueupnext.com/logout', {withCredentials: true}).then((response) => {
+        axios.get('http://localhost:4000/logout', {withCredentials: true}).then((response) => {
             nav('/', {replace: true})
             window.location.reload()
             CloseNav()
         })}
 
+
     return (
 
     <Nav>
-        <section>
-            <div>
-                <NavLink to='' className="nav-link" id='brand' style={{ textDecoration: 'none' }}>
-                        <h1 id='Queup'>Queup</h1>
-                </NavLink>
-                <button id='burger' onClick={menu}> <div className='burger'/> </button>
-            </div>
-            <a id='mobile-q' href='/'><h3>queup</h3></a>
-
+        <section className='desktop'>
+            
+            <a href='/' id='Q'><h3>queup</h3></a>
             <input type="text" placeholder='Search...' />
+            <div >
+                <button><AiOutlineSearch size='1.5rem'/></button>
+                <button><BsPersonFill size='1.5rem'/></button>
+            </div>
+            
+            <div id='links'>
+                {auth  ? <NavLink to='account'><button className='routes'>Account</button></NavLink>
+                : <><button id='logbutton' className='routes' style={openL  ? {backgroundColor: "#523a26cf", color: 'white'} : {} } onClick={openLogModal}>Login</button> {openL  ? <div id='login'><Log/></div> : <></>}</>}
 
-            <NavLink to={auth  ? 'account ' : 'auth'} onClick={() => setMenu(false)} id='icon'><BsPersonFill id='acc-small' size='1.5rem' color='#242424'/></NavLink>
+                {auth  ? <NavLink to='Overview'><button className='routes'>Business</button></NavLink>
+                :<><button className='routes' id='regbutton' style={openR  ? {backgroundColor: "#523a26cf", color: 'white'} : {} } onClick={openRegModal}>Sign Up</button> {openR  ? <div id='reg'><Reg/></div> : <></>}</>}
+
+                <button className='routes'>Rewards</button>
+
+                {auth  ? <button className='routes' onClick={logout}>Log Out</button>
+                :<><button className='routes' id='regbutton' >Contact</button></>}
+            </div>
+        </section>
+        <section className='mobile'>
+            <div/>
+            <button id='burger' onClick={menu}> <div className='burger'/> <p>menu</p></button>
             
             <div className='sidenav'>
                 <NavLink onClick={menu} to='/' id='logbutton' className='routes'>Homepage</NavLink>
@@ -82,19 +98,6 @@ function Topnav() {
                 {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>Log Out</button>
                 :<NavLink onClick={menu} to='/' className='routes' id='regbutton'>Contact</NavLink>}
             </div>
-            
-            <div id='links'>
-                {auth  ? <NavLink to='account' id='account'><button className='routes'>Account</button></NavLink>
-                : <><button id='logbutton' className='routes' style={openL  ? {backgroundColor: "#523a26cf", color: 'white'} : {} } onClick={openLogModal}>Login</button> {openL  ? <div id='login'><Log/></div> : <></>}</>}
-
-                {auth  ? <NavLink to='Overview' ><button className='routes'>Business</button></NavLink>
-                :<><button className='routes' id='regbutton' style={openR  ? {backgroundColor: "#523a26cf", color: 'white'} : {} } onClick={openRegModal}>Sign Up</button> {openR  ? <div id='reg'><Reg/></div> : <></>}</>}
-
-                <button className='routes'>Rewards</button>
-
-                {auth  ? <button className='routes' onClick={logout}>Log Out</button>
-                :<><button className='routes' id='regbutton' >Contact</button></>}
-            </div>
 
         </section>
     </Nav>
@@ -105,56 +108,117 @@ function Topnav() {
 
 const Nav = styled.nav`
     all: unset;
-
     display: flex;
-    @media (min-width: 1800px){justify-content: center}
+    justify-content: center;
     align-items: center;
     position: fixed;
     top: 0rem;
     left: 0;
-    margin-bottom: 4rem;
 
     width: 100vw;
     height: 4rem;
 
     font-family: 'Cinzel', serif; 
-    background-color: #ffffffa6;
-    backdrop-filter: blur(15px);
 
     z-index: 10;
 
+    border-bottom: 1px solid #cfcfcf;
+
+
+    section{
+        display: flex;
+        position: fixed;
+        justify-content: space-between;
+        align-items: center;
+        width: 90vw;
+        div{
+            display: none;
+            justify-content: space-between;
+            width: 4rem;
+            padding-right: 2rem;
+            button{
+                all: unset;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+
+    .desktop{
+        display: flex;
+        justify-content: space-evenly;
+        top: 0;
+        margin: 0;
+        width: 100vw;
+        height: 4rem;
+        margin-left: -15rem;
+        background-color: #ffffffa6;
+        backdrop-filter: blur(15px);
+        #Q{ all: unset; font-size: 1.1rem; padding-left: 2rem;}
+        #links{
+            display: flex;
+            .routes{font-size: 1rem; min-width: 5rem;}
+            button{ 
+                all: unset; 
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                margin: 0px 1rem; 
+                cursor: pointer; 
+                font-weight: 600; 
+                text-decoration: 1px underline solid grey; 
+                color: #865c3ace;
+                border-radius: 8px;
+            }
+        }
+    }
+    
+    .mobile{
+        display: none;
+        width: 80vw;
+        margin: 0;
+        z-index: 4;
+    }
 
     // ------ menu animation ------
-    
+
     #burger{
         all: unset;
         display: flex; 
         justify-content: center;
         align-items: center;
+        position: relative;
         height: 2rem;
         width: 2rem;
         z-index: 2;
+        padding: .5rem;
+
+        background: #f7f7f7;
+        border: 3px solid #2b211850;
+        border-radius: .5rem;
+        p{position: absolute; font-size: .8rem; top: 1.1rem;}
     }
 
     .burger{
         all:unset;
-        height: .2rem;
+        height: .1rem;
         width: 1.5rem;
         border-radius: 1rem;
         background-color: black;
-        transition: all .2s ease-in-out;
+       //z-index is negative because the burger visual was being pressed rather than the button itself 
         z-index: -1;
 
         &::before, ::after{
             content: '';
             position: absolute;
-            height: .2rem;
+            height: .1rem;
             width: 1.5rem;
             border-radius: 1rem;
             background-color: black;
-            transition: all .5s ease-in-out;}
-        &::before{transform: translateY(-6px)}
-        &::after{transform: translateY(6px) rotate(180deg)}
+            transition: all .8s ease;}
+        &::before{transform: translateY(-5px)}
+        &::after{transform: translateY(5px) rotate(180deg)}
     }
 
     .burger.open{
@@ -163,62 +227,22 @@ const Nav = styled.nav`
         &::after{transform: rotate(-45deg)}
     }
 
+    /* #icon{
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: .7rem;
+
+        background: #f7f7f7;
+        border: 3px solid #2b211850;
+        border-radius: 50%;
+        z-index: 4;
+    } */
+    
     // ----------------------------
 
     #login { position: absolute;}
     #reg { position: absolute;}
-
-    section{
-        display: flex;
-        position: fixed;
-        justify-content: space-between;
-        align-items: center;
-        margin-left: 1rem;
-
-        width: 90vw;}
-
-    #icon{
-        display: none;
-        margin-right: 1.8rem;
-        justify-content: center;
-        align-items: center;}
-
-    .nav-link{
-        h1{ color: black; font-size: 1.8rem; }
-        h2{ font-size: 1.3rem; color: #383838ce; }}
-
-
-    .user{ display: flex; 
-            margin: 0;
-            margin-left: 12rem; }
-
-    button{ all: unset; display: flex; justify-content: center; align-items: center; margin: 0px 1rem; cursor: pointer; font-weight: 600; text-decoration: 1px underline solid grey; color: #865c3ace; border-radius: 8px;}
-
-    div{ 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        margin-left: 1rem; 
-        padding: 0 1rem;
-
-        height: 3rem;
-
-        .routes{ 
-            all: unset; 
-            margin: 0px 1rem;
-            padding: .2rem 1rem;
-
-            
-            font-weight: 600; 
-            text-decoration: 1px underline solid grey; 
-            color: #383838ce; 
-
-            cursor: pointer; 
-            border-radius: 8px;
-
-            &:hover{border: 1px solid #c2c2c2; margin: 0rem .94rem; transition-delay: 0.05s;}}
-        a{ display: flex; justify-content: center; align-items: center; height: 3rem;}}
-
 
     input{ 
         all: unset; 
@@ -234,54 +258,46 @@ const Nav = styled.nav`
         color: grey;
 
         &:hover { border: 2px solid #00000050; transition: all 0.2s ease-in-out; }
-        &:focus { border: 2px solid #2e2e2e50; color: #4b4b4b; &::placeholder{color: #646464;}};}
+        &:focus { border: 2px solid #2e2e2e50; color: #4b4b4b; &::placeholder{color: #646464;}};
+    }
 
     
-    // menu for mobile
+    // menu for mobile nav
     @media (max-width: 1800px) {
         .sidenav{
             display: flex;
             flex-direction: column;
-            justify-content: unset;
-            position: absolute;
-            top: 3.95rem;
-            left: -3rem;
-            padding: 1rem 0;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            bottom: 0vh;
+            left: 0rem;
 
             color: transparent;
 
-            width: 20rem;
-            height: 100rem;
+            width: 100vw;
+            height: 105vh;
 
-            transform: translateX(-100%);
+            transform: translateY(-100%);
             background-color: #000000f4;
 
             .routes{padding: 1rem;}
             a{color: white; &:active{background-color: #ffffff29}} 
 
-            transition: all .5s ease;
-        &.open{ transform: translateX(0%); }}
-    }
-    
-    //what not to show on big screens
-    @media (min-width: 1800px){
-        border-bottom: 1px solid #cfcfcf;
-        #burger{display: none;}
-        .user{display: none;}
-        #mobile-q{display: none}
-        .sidenav{display: none;}
+            transition: all .5s ease-in-out;
+        &.open{ transform: translateY(0%); }}
     }
 
-    //small screens showning
-    @media (max-width: 1800px) {
+    //small screens showing
+    @media (max-width: 1200px) {
+        .mobile{display: flex; bottom: 2rem;}
         #icon {display: flex}
         #nav-link{h1{display: none;}}
-        #links{display: none;}
-        .routes{display: none;}
+        .desktop{#links{display: none;} input{display: none;} #Q{margin-right: 0;} margin-left: 0rem; justify-content: space-between;}
         form{display: none;}
         #Queup{display: none;}
         input{display: none;}
-        #mobile-q{all: unset; margin-left: -.5rem;}
+        section div{display: flex;}
     }
 
 

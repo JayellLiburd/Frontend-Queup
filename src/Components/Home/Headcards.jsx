@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { IoTicketOutline, IoFastFoodOutline } from 'react-icons/io5'
-import { GiJumpAcross } from 'react-icons/gi'
+import { MdFavoriteBorder } from 'react-icons/md'
 
 class Displaycase extends React.Component {
 
@@ -13,7 +13,7 @@ class Displaycase extends React.Component {
     { cases:  [
       {   'id': 1, 'image': 'Images/idea1.webp', 'label': 'Food', 'image': IoFastFoodOutline},
       {   'id': 2, 'image': 'Images/idea2.jpg', 'label': 'Raffles', 'image': IoTicketOutline},
-      {   'id': 3, 'image': 'Images/idea3.jpg', 'label': 'Events', 'image': GiJumpAcross}
+      {   'id': 3, 'image': 'Images/idea3.jpg', 'label': 'Favorites', 'image': MdFavoriteBorder}
     ]}
   };
 
@@ -40,7 +40,8 @@ render() {
 }
 
 const Wrapper = styled.div`
-  margin-top: 2rem;
+  position: absolute;
+  margin-top: 12rem;
   overflow-x: hidden;
 
   span{font-size: .7rem;}
@@ -66,10 +67,10 @@ const Wrapper = styled.div`
     height: 5rem; 
 
     color: black;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid grey;
-
-    background-color: #b19665bc;
+    background-color: #b19665f2;
+    cursor: pointer;
 
   }
 

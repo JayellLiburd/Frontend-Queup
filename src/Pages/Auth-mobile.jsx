@@ -57,7 +57,6 @@ function Authmobile() {
 }
 
 const Wrapper = styled.div`
-  margin-top: 4rem;
   padding: 6rem 0;
 
   color: white;

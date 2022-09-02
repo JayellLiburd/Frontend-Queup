@@ -22,7 +22,7 @@ function Account() {
   const [view, setView] = useState(false)
 
   useEffect(() => {
-    axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
+    axios.get('http://localhost:4000/verify', {withCredentials: true}).then((response) => {
         if (response.data.message) {
           setAuth(false)
           nav('/')
@@ -68,11 +68,9 @@ function Account() {
 }
 
 const Wrapper = styled.div`
-
 display: flex;
 justify-content: center;
 position: relative;
-top: 4rem;
 margin-bottom: 4rem;
 
 width: 90vw;
@@ -114,7 +112,6 @@ min-height: 70rem;
   @media (max-width: 1400px) {
     width: 100vw;
     min-height: 10rem;
-    top: 2rem;
 
     section{
       width: 100vw;
