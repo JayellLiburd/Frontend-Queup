@@ -3,158 +3,199 @@ import styled from "styled-components";
 import { modelContext } from "../../Helpers/Context";
 
 function Card_model(props) {
+  
 
-  // UI is a function coming from Home
-  const { UI } = useContext(modelContext);
 
-  const model = document.querySelector("#model");
-  const info = document.querySelector("#info");
-  const main = document.querySelector(".main");
-
-  const unfocus = () => {
-    model.classList.remove("open");
-    info.classList.remove("open");
-    main.classList.remove("open");
-    UI();
-  };
-
+  //button animation
   let menuOpen = false;
-  function menu() {
-    if (!menuOpen) {
-      info.classList.add("open");
-      main.classList.add("open");
-      model.classList.add("open");
-      menuOpen = true;
-    } else {
-      info.classList.remove("open");
-      main.classList.remove("open");
-      model.classList.remove("open");
-      menuOpen = false;
-    }
+  function menu(e) {
+      const menubg = document.querySelector('.arrow')
+      const openmenu = document.querySelector('.info')
+      const container = document.querySelector('.Container')
+      if(!menuOpen) {
+          menubg.classList.add('open')
+          openmenu.classList.add('open')
+          container.classList.add('open')
+          menuOpen = true;
+      }
+      else {
+          menubg.classList.remove('open');
+          openmenu.classList.remove('open')
+          container.classList.remove('open')
+          menuOpen = false
+      }
   }
 
+
   return (
-    <Wrapper id="W-Model">
-      <button id="close-btn" onClick={unfocus}>X</button>
-      <button id="unfocusmodal" onClick={unfocus} />
-      <div id="model">
-        <div id="info">
-          <h3>{props.data.label}</h3>
-          <button>Link To Menu</button>
-          <div>
-            <h4>Rules</h4>
-            <ul>
-              <li>
-                Once we call you when ready you have a 5 minutes to join the physical Line Queue
-              </li>
-              <li>
-                If Missed your skipped once after you will be kicked out of the
-                line
-              </li>
-            </ul>
-            <div>
-              <p>{"Current people in Queue " + 4}</p>
-              <button id="back-btn" onClick={menu}>Hide Info</button>
+    <Wrapper>
+        <div className="Container">
+          <div className="backdrop"/>
+          <div className="container2">
+            <div className="info">
+              <h3>Queue Info</h3>
+              <button>Link To Menu</button>
+              <div>
+                <h4>Rules</h4>
+                <ul>
+                  <li>
+                    Once we call you when ready you have a 5 minutes to join the physical Line Queue
+                  </li>
+                  <li>
+                    If Missed your skipped once after you will be kicked out of the
+                    line
+                  </li>
+                </ul>
+                <div>
+                  <p>{"Current people in Queue: " + 4}</p>
+                </div>
+              </div>
+            </div>
+            <div className="showcase">
+              <div className="imgholder"><img src="Images/cheese.png" alt="" /></div>
+              <h3>CheeseCake Factory</h3>
+              <p>5015 Westheimer Rd, Houston, TX 77056</p>
+              <div className="buttons">
+                <button onClick={menu}><button id='arrow'><div className='arrow'/></button>Info</button>
+                <button>Queup</button>
+              </div>
             </div>
           </div>
         </div>
-        <div className="main">
-          <img src={props.data.image} alt="" />
-          <h2>{props.data.label}</h2>
-          <p>5015 Westheimer Rd, Houston, TX 77056</p>
-
-          <div id="btn">
-            <button id="btn-info" onClick={menu}>
-              Info
-            </button>
-            <button>Join Queue</button>
-          </div>
-        </div>
-      </div>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-
-#close-btn{ all: unset; position: fixed; top: 5vh; right: 3vw; font-size: 1.2rem; font-weight: bold; z-index: 3;}
-
-  #model {
+  .Container{    
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    width: 30rem;
-    height: 60vh;
-
-    backdrop-filter: blur(15px);
-
-    background: linear-gradient(
-      90deg,
-      #bd6a6ae1 0%,
-      #a75050e6 14%,
-      #b95b5bef 25%,
-      #c96c6cfb 48%,
-      #b15e5eda 65%,
-      #b65656f9 79%,
-      #964b4bca 100%
-    );
-    border-radius: 2rem;
-
-    transition: all 0.5s ease-in-out;
-    z-index: 3;
-
-    &.open {
-      flex-direction: row;
-      justify-content: space-between;
-      width: 80rem;
-      button {
-        margin-left: 2rem;
-      }
-      div {
-        margin: 2rem;
+    position: relative;
+    margin-top: -5rem;
+    min-width: 85vw;
+    min-height: 70vh;
+    .backdrop{
+      position: relative;
+      min-width: 100%;
+      min-height: 70vh;
+      border-radius: .5rem;
+      background: linear-gradient(270deg, #8b0000 0%, #310000 16%, #b82c2c 100%);
+      overflow: hidden;
+      &::after{
+        position: absolute;
+        content: '';
+        min-width: 60vw;
+        min-height: 70vh; 
+        backdrop-filter: blur(50px);
+        border-radius: .5rem;
       }
     }
-
-    #info {
-      display: none;
-      &.open {
+    .container2{
+      display: flex;
+      flex-direction: row;
+      position: absolute;
+      color: white;
+    .showcase{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .imgholder{
         display: flex;
+        justify-content: center;
+        align-items: center;
+        aspect-ratio: 1/1;
+        background-color: white;
+        width: 15rem;
+        border: 5px solid #0a0000;
+        overflow: hidden;
+      }
+      h3{
+        font-family: 'Cinzel', serif; 
+        color: white
+      }
+      p{
+        margin: 0;
+        padding: 0;
+        color: white;
+        font-size: .8rem;
+      }
+      .buttons{
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        margin-top: 3rem;
+        button{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 6rem;
+          height: 2rem;
+          padding: .5rem 1rem;
+          border-radius: .5rem;
+          font-family: 'Cinzel', serif; 
+          font-weight: bold;
+          font-size: 1rem;
+          color: black;
+          border: unset;
+          cursor: pointer;
+          &:first-child{background-color: black; color: white;}
+        }
+      }
+    }
+    .info{
+      display: flex;
+      flex-direction: column;
+      width: 40vw;
+      visibility: hidden;
+      position: absolute;
+      &.open {
+        visibility: visible;
+        position: relative;
         flex-direction: column;
-        height: 35rem;
-        margin: 0 5rem;
-        animation: fadeout 0.8s;
-
-
-        
-      #back-btn{display: none; color: white !important;}
+        animation: fadeout 0.5s;
+        @keyframes fadeout {
+          0% {
+            opacity: 0%;
+          }
+          50% {
+            opacity: 0%;
+          }
+          100% {
+            opacity: 100%;
+          }
+        } 
+      #back-btn{
+        display: block; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        }
         button {
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-left: 2rem;
           width: 8rem;
           height: 2rem;
           font-size: .8rem;
-          color: black !important;
+          color: black;
           padding: 1rem;
           border: unset;
-          border-radius: 1rem;
-          background-color: #ffffffd7;
-          color: white;
+          border-radius: .5rem;
+          background-color: #ffffff;
           font-weight: 600;
           cursor: pointer;
         }
-
         h3 {
+          font-family: 'Cinzel', serif; 
           font-size: 2rem;
           color: white;
-          text-indent: 2rem;
         }
-
         h4 {
           font-size: 1.3rem;
+          text-decoration: underline black 3px;
         }
         ul {
           all: unset;
@@ -166,107 +207,88 @@ const Wrapper = styled.div`
         }
       }
     }
+    }
+  }
 
-    .main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      transition: all .5s ease-in-out;
-      img {
-        background-color: #000000ab;
-        margin-bottom: 1rem;
-        width: 18rem;
-        height: 18rem;
-        border: 2px solid;
-      }
-      p {
-        margin-top: -1rem;
-        font-size: 0.9rem;
-      }
-      #btn {
-        display: flex;
-        margin-top: 4rem;
-        button {
-          min-width: 8rem;
-          padding: 0.5rem 0rem;
-          margin: 0 1rem;
-
-          border: unset;
-
+  #arrow{
+        all: unset;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 2rem;
+        width: 2rem;
+        z-index: 2;
+        scale: .6;
+        .arrow{
+          all:unset;
+          display: flex; 
+          justify-content: unset;
+          height: .1rem;
+          width: 1.2rem;
           border-radius: 1rem;
-          font-weight: 600;
-          cursor: pointer;
-          &:first-child {
-            content: "dawin";
-            background-color: #020202;
-            color: white;
-            font-weight: 600;
-          }
+          background-color: white;
+          //z-index is negative because the small arrow visual svg was being pressed rather than the button itself 
+          z-index: -1;
+
+          &::before, ::after{
+              content: '';
+              position: absolute;
+              height: .1rem;
+              width: .8rem;
+              border-radius: 1rem;
+              background-color: white;
+              transition: all .8s ease;}
+          &::before{transform: translateY(-3px) rotate(-30deg)}
+          &::after{transform: translateY(3px) rotate(30deg)}
+      }
+      .arrow.open{
+          background-color: transparent;
+          &::before {transform: translateX(1px) rotate(45deg)}
+          &::after{transform: translateX(1px) rotate(-45deg)}
+      }
+    }
+
+  @media screen and (max-width: 940px) {
+    .Container{
+      min-width: 100vw;
+      min-height: 100vh;
+      align-items: unset;
+      .showcase{
+        margin-top: 9rem;
+      }
+      .backdrop{
+        &::after{
+          width: 100vw;
+          height: 100vh;
         }
       }
-      &.open {
-        animation: fadeout 0.8s;
+      &.open{
+        .backdrop{
+          min-height: 160vh;
+          &::after{
+            width: 100vw;
+            height: 200vh;
+          }
+        }
+        .info{
+          width: 90vw;
+          &.open{
+            h3{ margin-top: 3rem; font-size: 1rem; color: black}
+            h4{font-size: 1rem;}
+          }
+        }
+        .container2{
+          flex-direction: column-reverse;
+          align-items: center;
+          /* margin-top: 0rem; */
+        }
       }
     }
-    @keyframes fadeout {
-      0% {
-        opacity: 0%;
-      }
-      50% {
-        opacity: 0%;
-      }
-      100% {
-        opacity: 100%;
-      }
+    #arrow{
+      translate: -4px -1px;
+      rotate: -90deg;
     }
-  }
-  #unfocusmodal {
-    all: unset;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    transform: translate(-40%, -20%);
-
-    width: 150vw;
-    height: 100vh;
-    z-index: 0;
-    &.open {
-      display: none;
-    }
-  }
-
-  @media screen and (max-width: 1400px) {
-    
-    #close-btn{ right: 10vw; }
-    #model{width: 100vw; height: 100vh; border-radius: unset; transition: all .3s ease-in-out; 
-    }
-    
-    #info{
-      margin: 0rem 0rem !important; 
-      filter: opacity(0%);
-      
-      div{
-        position: relative; 
-        min-width: 15rem;}
-      h3 {font-size: 1.7rem !important; 
-        text-indent: 2rem;}
-      #back-btn{
-        display: block !important; 
-        position: relative; 
-        top: 5vh; 
-        left: 30vw;
-        padding: 0rem !important; 
-        background-color: #000000d8 !important;}
-
-      &.open{ 
-        position: relative;
-        width: 100vw; 
-        left: 5vw;
-        filter: opacity(100%);}}
   }
 `
 

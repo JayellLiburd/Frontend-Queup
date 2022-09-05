@@ -2,11 +2,20 @@ import { React, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Headcards from '../Components/Home/Headcards'
+import Card_model from '../Components/Models/Card_model'
 import { usersContext } from '../Connections/user'
+
+import { shuffle } from '../Functions/Arrayhelpers'
 
 function Home() {
 
-  const Test = [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}]
+  const Test = [
+    {Header: 'Trending', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]}, 
+    {Header: 'Food', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]},
+    {Header: 'Raffles', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]},
+    {Header: 'Hype-Gear', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]},
+    {Header: 'Hidden Gems', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]}
+  ]
 
   const {auth, user, ui} =  useContext(usersContext)
   const [ cardInfo, setInfo ] = useState([])
@@ -19,27 +28,11 @@ function Home() {
     else{ view.classList.remove('open');  menu = false}
   }
 
-  function shuffle(array) {
-    let currentIndex = array.length,  randomIndex;
-  
-    // While there remain elements to shuffle.
-    while (currentIndex != 0) {
-  
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-  
-    return array;
-  }
+ console.log( window.visualViewport)
+
 
   return (
     <Wrapper>
-      
 
       <div className="hero">
         <h2>Queup</h2>
@@ -49,62 +42,35 @@ function Home() {
         <img src="Images/hero.jpg" alt=""/>
         <div className='headcards'><Headcards/></div>
       </div>
-
+      <Card_model/>
       <div className="content">
-        <h3>Trending <button>view more</button></h3>
-        <div className='media-container'>
-          {shuffle(Test).filter((_, index) => index < 6).map(item => {return (
-            <div className="case">
-                <div className='media'> 
-                  <img src={item.Image} alt="" loading='lazy'/> 
-                </div>
-              <h3>{item.name}</h3>
-          </div>
-          )})}
-        </div>
-        <h3>Hotspots <button>view more</button></h3>
-        <div className='media-container'>
-          {shuffle(Test).filter((_, index) => index < 6).map(item => {return (
-            <div className="case">
-              <div className='media'> 
-                <img src={item.Image} alt="" loading='lazy'/> 
-              </div>
-            <h3>{item.name}</h3>
-        </div>
-          )})}
-        </div>
-        <h3>Yummy Spots <button>view more</button></h3>
-        <div className='media-container'>
-          {shuffle(Test).filter((_, index) => index < 6).map(item => {return (
-            <div className="case">
-              <div className='media'> 
-                <img src={item.Image} alt="" loading='lazy'/> 
-              </div>
-            <h3>{item.name}</h3>
-        </div>
-          )})}
-        </div>
-        <h3>Raffles <button>view more</button></h3>
-        <div className='media-container'>
-          {shuffle(Test).filter((_, index) => index < 6).map(item => {return (
-            <div className="case">
-              <div className='media'> 
-                <img src={item.Image} alt="" loading='lazy'/> 
-              </div>
-              <h3>{item.name}</h3>
+        {Test.map((item) => {
+        return (
+          <div>
+            <h3>{item.Header}<button>view more</button></h3>
+            <div className='media-container'>
+                {shuffle(item.results).filter((_, index) => index < 7).map(item => {return (
+                <button className="outter-case">
+                    <div className='media'>
+                      <button disabled>View</button>
+                      <img src={item.Image} alt="" lazt/> 
+                    </div>
+                    <h3>{item.name}</h3>
+                </button>)})}
             </div>
-          )})}
-        </div>
+          </div>
+          )
+        })}
       </div>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-  position: relative;
-  width: 100vw;
-  margin-top: 4rem;
-  min-height: 60rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   z-index: 1;
 
   .hero{
@@ -159,22 +125,28 @@ const Wrapper = styled.div`
     }
   }
 
+  .displaymedia{
+    position: fixed;
+    top: 6rem;
+    z-index: 6;
+  }
+
   .content{
     display: flex;
     flex-direction: column; 
     overflow-x: hidden;
-    margin-bottom: 1rem;
     padding-top: 2rem;
-    min-height: 50rem;
     background-color: white;
     z-index: 5;
     h3{
       display: flex; 
       justify-content: space-between;
-      margin: 0 1rem;
+      margin: .5rem 1rem;
       padding: 0;
-      color: #2b2118c1;
+      color: #686767;
+      font-size: 1rem;
       font-family: 'Cinzel', serif;
+      font-weight: 600;
       button{
         color: #2b2118;
       }
@@ -183,21 +155,30 @@ const Wrapper = styled.div`
       display: flex;
       position: relative;
       flex-direction: row;
-      align-items: top;
       overflow-x: scroll;
-      width: 95vw;
-      min-height: 11rem;
-      margin-bottom: 1rem;
-      padding-top: .5rem;
-      padding-right: 1rem;
-      h3{
+      width: 97vw;
+      min-height: 13rem;
+      .outter-case{
+        all: unset;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
         position: relative;
-        top: .3rem;
-        font-size: .8rem;
-        font-family: unset;
+        padding-top: .5rem;
+        min-width: 7rem;
+        h3{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          position: relative;
+          margin: 0;
+          margin-top: .5rem;
+          padding: 0;
+          font-size: .8rem;
+          font-family: unset;
+          font-weight: 600;
+        }
       }
     }
     .media{
@@ -205,17 +186,54 @@ const Wrapper = styled.div`
       justify-content: center;
       align-items: center;
       position: relative;
-      margin: 0 .2rem;
-      margin-left: .5rem;
-      min-width: 6rem; 
-      height: 8.5rem;
+      margin: 0;
+      padding: 0;
+      width: 6rem;
+      height: 9rem;
       background-color: white;
-      border-radius: .5rem;
-      box-shadow: 0 0 10px 1px #dbdbdb;
+      border-radius: .3rem;
+      box-shadow: 0 0 10px 1px #d1d1d1;
       overflow: hidden;
+      cursor: pointer;
+      &::after{
+        display: flex;
+        visibility: hidden;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        content: '';
+        background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgb(32,16,5,.5) 100%);
+        width: 6rem;
+        height: 9rem;
+        transition-delay: .1s;
+      }
+      button{
+        all: unset;
+        display: flex;
+        visibility: hidden;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        padding: .5rem;
+        aspect-ratio: 1/1;
+        width: 2rem;
+        font-weight: 600;
+        font-family: serif;
+        background-color: #c0c0c0a6;
+        border-radius: 1rem;
+        border: 3px solid grey;
+        z-index: 3;
+        cursor: pointer;
+        transition-delay: .1s;
+      }
+      &:hover{
+        &::after{visibility: visible}
+        button{visibility: visible; }
+      }
       img{
         position: absolute;
-        transform: scale(.7);
+        transform: scale(.4);
         -webkit-user-drag: none;
         -khtml-user-drag: none;
         -moz-user-drag: none;
@@ -225,8 +243,8 @@ const Wrapper = styled.div`
   }
 
   @media screen and (min-width: 940px){
-    margin-top: 5rem;
-    width: 60vw;
+    margin-top: 7rem;
+    width: 50vw;
     .filter{display: none;} 
     .hero{
       height: 22rem;
@@ -253,22 +271,31 @@ const Wrapper = styled.div`
         top: 2rem;
       }
     }
+
+    .displaymedia{top: 15rem;}
+
     .content{
       background-color: transparent;
       .media-container{
         transition-delay: 1s;
         min-height: 12rem;
+        width: 50vw;
+        height: 18rem;
         &::-webkit-scrollbar{ width: 15px; height: 10px;}
         &::-webkit-scrollbar-track{background-color: rgba(0, 0, 0, 0);}
         &::-webkit-scrollbar-thumb{ background-color: rgba(252, 222, 190, 0.096); border-radius: 12px;}
         &:hover{ ::-webkit-scrollbar-thumb{ background-color: rgba(211, 178, 142, 0.747);  border-radius: 12px;}}
+        .outter-case{
+          min-width: 12rem;
+        }
       }
       .media{
-        min-width: 17rem;
-        height: 9rem;
-        box-shadow: none;
-        border: 2px solid #b9b6b1;
-        border-radius: .5rem;
+        width: 9.5rem;
+        height: 14rem;
+        &::after{
+          width: 9.5rem;
+          height: 14rem;
+        }
         h3{
           align-items: center;
           padding: 1.5rem .2rem;
@@ -279,7 +306,7 @@ const Wrapper = styled.div`
           height: 2rem;
           z-index: 2;
       }
-        img{background-size: cover;}
+        img{background-size: cover; transform: scale(.6);}
       }
     }
   }

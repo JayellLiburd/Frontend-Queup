@@ -58,27 +58,15 @@ function Topnav() {
     return (
 
     <Nav>
-        <section className='desktop'>
+        <section className='normal'>
             
-            <a href='/' id='Q'><h3>queup</h3></a>
+            <a href='/' id='Q'><h3></h3></a>
             <input type="text" placeholder='Search...' />
             <div >
                 <button><AiOutlineSearch size='1.5rem'/></button>
                 <button><BsPersonFill size='1.5rem'/></button>
             </div>
             
-            <div id='links'>
-                {auth  ? <NavLink to='account'><button className='routes'>Account</button></NavLink>
-                : <><button id='logbutton' className='routes' style={openL  ? {backgroundColor: "#523a26cf", color: 'white'} : {} } onClick={openLogModal}>Login</button> {openL  ? <div id='login'><Log/></div> : <></>}</>}
-
-                {auth  ? <NavLink to='Overview'><button className='routes'>Business</button></NavLink>
-                :<><button className='routes' id='regbutton' style={openR  ? {backgroundColor: "#523a26cf", color: 'white'} : {} } onClick={openRegModal}>Sign Up</button> {openR  ? <div id='reg'><Reg/></div> : <></>}</>}
-
-                <button className='routes'>Rewards</button>
-
-                {auth  ? <button className='routes' onClick={logout}>Log Out</button>
-                :<><button className='routes' id='regbutton' >Contact</button></>}
-            </div>
         </section>
         <section className='mobile'>
             <div/>
@@ -111,18 +99,16 @@ const Nav = styled.nav`
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    top: 0rem;
-    left: 0;
+    position: sticky;
 
-    width: 100vw;
+    min-width: 100vw;
     height: 4rem;
 
     font-family: 'Cinzel', serif; 
 
     z-index: 10;
 
-    border-bottom: 1px solid #cfcfcf;
+    /* border-bottom: 1px solid #cfcfcf; */
 
 
     section{
@@ -132,7 +118,7 @@ const Nav = styled.nav`
         align-items: center;
         width: 90vw;
         div{
-            display: none;
+            display: flex;
             justify-content: space-between;
             width: 4rem;
             padding-right: 2rem;
@@ -145,19 +131,19 @@ const Nav = styled.nav`
         }
     }
 
-    .desktop{
+    .normal{
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         top: 0;
         margin: 0;
         width: 100vw;
         height: 4rem;
-        margin-left: -15rem;
         background-color: #ffffffa6;
         backdrop-filter: blur(15px);
-        #Q{ all: unset; font-size: 1.1rem; padding-left: 2rem;}
+        #Q{ all: unset; font-size: 1.1rem; padding: 0 5rem;}
         #links{
             display: flex;
+            margin-left: -10vw;
             .routes{font-size: 1rem; min-width: 5rem;}
             button{ 
                 all: unset; 
@@ -172,6 +158,7 @@ const Nav = styled.nav`
                 border-radius: 8px;
             }
         }
+        div{padding: 0 5rem;}
     }
     
     .mobile{
@@ -206,7 +193,7 @@ const Nav = styled.nav`
         width: 1.5rem;
         border-radius: 1rem;
         background-color: black;
-       //z-index is negative because the burger visual was being pressed rather than the button itself 
+       //z-index is negative because the small burger visual svg was being pressed rather than the button itself 
         z-index: -1;
 
         &::before, ::after{
@@ -216,7 +203,7 @@ const Nav = styled.nav`
             width: 1.5rem;
             border-radius: 1rem;
             background-color: black;
-            transition: all .8s ease;}
+            transition: all 1.2s ease;}
         &::before{transform: translateY(-5px)}
         &::after{transform: translateY(5px) rotate(180deg)}
     }
@@ -278,13 +265,13 @@ const Nav = styled.nav`
             width: 100vw;
             height: 105vh;
 
-            transform: translateY(-100%);
+            transform: translateY(-300%);
             background-color: #000000f4;
 
             .routes{padding: 1rem;}
             a{color: white; &:active{background-color: #ffffff29}} 
 
-            transition: all .5s ease-in-out;
+            transition: all .8s ease-in-out;
         &.open{ transform: translateY(0%); }}
     }
 
@@ -293,7 +280,14 @@ const Nav = styled.nav`
         .mobile{display: flex; bottom: 2rem;}
         #icon {display: flex}
         #nav-link{h1{display: none;}}
-        .desktop{#links{display: none;} input{display: none;} #Q{margin-right: 0;} margin-left: 0rem; justify-content: space-between;}
+        .normal{
+            margin-left: 0rem; 
+            justify-content: space-between;
+            #links{display: none;} 
+            input{display: none;} 
+            #Q{margin-right: 0; padding: 0 1rem;} 
+            div{padding: 0 1rem;}
+        }
         form{display: none;}
         #Queup{display: none;}
         input{display: none;}

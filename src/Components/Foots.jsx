@@ -38,19 +38,18 @@ const Wrapper = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    left: 0;
     padding: 3rem 0;
+    margin-top: 3rem;
 
     
     width: 100%;
 
-    background-color: #865c3ace;
+    background-color: whitesmoke;
     border-top: 2px grey solid;
 
     button{
         all: unset;
-        &:hover{text-decoration: underline solid white; color: #e2e2e2; cursor: pointer;}
+        &:hover{text-decoration: underline solid white; color: #707070; cursor: pointer;}
     }
     #foots{   
         display: flex;
@@ -58,7 +57,8 @@ const Wrapper = styled.div`
         justify-content: center;
         align-items: center;
 
-        color: white;
+        /* color: white; */
+        font-weight: bold;
         
         @media (max-width: 1400px) { flex-direction: row; font-size: .5rem; }
     }
