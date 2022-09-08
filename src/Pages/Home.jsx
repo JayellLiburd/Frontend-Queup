@@ -18,7 +18,7 @@ function Home() {
   ]
 
   const {auth, user, ui} =  useContext(usersContext)
-  const [ cardInfo, setInfo ] = useState([])
+  const [ media, setMedia ] = useState([{name: "sorry something went wrong..."},{Image: "Images/temp.png"}])
   let name = 'Welcome Back ' + user.name
 
   var menu = false
@@ -28,7 +28,11 @@ function Home() {
     else{ view.classList.remove('open');  menu = false}
   }
 
- console.log( window.visualViewport)
+  function Displaymedia(item) {
+    setMedia(item)
+    const outofbounds = document.querySelector('.card')
+    outofbounds.classList.add('open')
+  }
 
 
   return (
@@ -42,18 +46,18 @@ function Home() {
         <img src="Images/hero.jpg" alt=""/>
         <div className='headcards'><Headcards/></div>
       </div>
-      <Card_model/>
+      <div className="card"><Card_model info={media}/></div>
       <div className="content">
         {Test.map((item) => {
         return (
-          <div>
-            <h3>{item.Header}<button>view more</button></h3>
+          <div key={item.Header}>
+            <h3>{item.Header}<button>View More</button></h3>
             <div className='media-container'>
                 {shuffle(item.results).filter((_, index) => index < 7).map(item => {return (
-                <button className="outter-case">
+                <button className="outter-case" key={item.name} onClick={e => Displaymedia(item)}>
                     <div className='media'>
-                      <button disabled>View</button>
-                      <img src={item.Image} alt="" lazt/> 
+                      <button onClick={e => Displaymedia(item)}>View</button>
+                      <img src={item.Image} alt="" loading='lazy'/> 
                     </div>
                     <h3>{item.name}</h3>
                 </button>)})}
@@ -79,7 +83,7 @@ const Wrapper = styled.div`
     /* position: sticky; */
     top: 0;
     height: 18rem;
-    box-shadow: 0px -15px 50px 0px #acacac;
+    box-shadow: 0px 0px 20px 0px #acacac;
     overflow: hidden;
     z-index: -1;
     h2{
@@ -125,10 +129,14 @@ const Wrapper = styled.div`
     }
   }
 
-  .displaymedia{
+  .card{
+    display: none;
     position: fixed;
-    top: 6rem;
+    top: 20vh;
     z-index: 6;
+    &.open{
+      display: block;
+    }
   }
 
   .content{
@@ -148,7 +156,15 @@ const Wrapper = styled.div`
       font-family: 'Cinzel', serif;
       font-weight: 600;
       button{
+        border: unset;
+        border-radius: 1rem;
+        font-size: .7rem;
+        font-weight: bold;
         color: #2b2118;
+        cursor: pointer;
+        &:hover{
+          border: 1px solid silver;
+        }
       }
     }
     .media-container{
@@ -243,11 +259,11 @@ const Wrapper = styled.div`
   }
 
   @media screen and (min-width: 940px){
-    margin-top: 7rem;
-    width: 50vw;
+    margin-top: 2rem;
+    width: 60vw;
     .filter{display: none;} 
     .hero{
-      height: 22rem;
+      height: 15rem;
       border-radius: .5rem;
       position: relative;
       h2{left: 10rem;}
@@ -279,14 +295,14 @@ const Wrapper = styled.div`
       .media-container{
         transition-delay: 1s;
         min-height: 12rem;
-        width: 50vw;
+        width: 60vw;
         height: 18rem;
         &::-webkit-scrollbar{ width: 15px; height: 10px;}
         &::-webkit-scrollbar-track{background-color: rgba(0, 0, 0, 0);}
         &::-webkit-scrollbar-thumb{ background-color: rgba(252, 222, 190, 0.096); border-radius: 12px;}
         &:hover{ ::-webkit-scrollbar-thumb{ background-color: rgba(211, 178, 142, 0.747);  border-radius: 12px;}}
         .outter-case{
-          min-width: 12rem;
+          min-width: 11rem;
         }
       }
       .media{

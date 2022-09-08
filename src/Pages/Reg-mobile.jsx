@@ -27,7 +27,6 @@ function Regmobile() {
     // redirect after reload
     useEffect(()=>{if(window.location.hash) {nav('/');}})
 
-    const unFocus = (e) => {setOpenReg(false)}
 
     // redirect after reload
     useEffect(()=>{if(window.location.hash) {nav('/');}})

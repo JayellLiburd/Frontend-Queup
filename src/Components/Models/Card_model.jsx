@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
+import { IoTerminal } from "react-icons/io5";
 import styled from "styled-components";
 import { modelContext } from "../../Helpers/Context";
 
 function Card_model(props) {
   
-
-
+  let media = props.info
   //button animation
   let menuOpen = false;
   function menu(e) {
@@ -26,11 +26,19 @@ function Card_model(props) {
       }
   }
 
+  const outofbounds = document.querySelector('.card')
+  function unfocus(e) {
+    outofbounds.classList.remove('open')
+    console.log(e)
+  }
+
 
   return (
     <Wrapper>
         <div className="Container">
           <div className="backdrop"/>
+          <div className="unfocus" onClick={unfocus} />
+          <button className="close" onClick={unfocus}>X</button>
           <div className="container2">
             <div className="info">
               <h3>Queue Info</h3>
@@ -52,8 +60,8 @@ function Card_model(props) {
               </div>
             </div>
             <div className="showcase">
-              <div className="imgholder"><img src="Images/cheese.png" alt="" /></div>
-              <h3>CheeseCake Factory</h3>
+              <div className="imgholder"><img src={media.Image} alt="" /></div>
+              <h3>{media.name}</h3>
               <p>5015 Westheimer Rd, Houston, TX 77056</p>
               <div className="buttons">
                 <button onClick={menu}><button id='arrow'><div className='arrow'/></button>Info</button>
@@ -75,6 +83,19 @@ const Wrapper = styled.div`
     margin-top: -5rem;
     min-width: 85vw;
     min-height: 70vh;
+    .close{
+      all: unset;
+      position: absolute; 
+      top: 1vh; 
+      right: 5vw;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      &:hover{
+        color: silver;
+      }
+    }
     .backdrop{
       position: relative;
       min-width: 100%;
@@ -91,122 +112,128 @@ const Wrapper = styled.div`
         border-radius: .5rem;
       }
     }
+    .unfocus{
+      position: absolute;
+      width: 100vw;
+      height:100vh;
+      z-index: -1;
+    }
     .container2{
       display: flex;
       flex-direction: row;
       position: absolute;
       color: white;
-    .showcase{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      .imgholder{
+      .showcase{
         display: flex;
-        justify-content: center;
-        align-items: center;
-        aspect-ratio: 1/1;
-        background-color: white;
-        width: 15rem;
-        border: 5px solid #0a0000;
-        overflow: hidden;
-      }
-      h3{
-        font-family: 'Cinzel', serif; 
-        color: white
-      }
-      p{
-        margin: 0;
-        padding: 0;
-        color: white;
-        font-size: .8rem;
-      }
-      .buttons{
-        display: flex;
-        justify-content: space-evenly;
-        width: 100%;
-        margin-top: 3rem;
-        button{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 6rem;
-          height: 2rem;
-          padding: .5rem 1rem;
-          border-radius: .5rem;
-          font-family: 'Cinzel', serif; 
-          font-weight: bold;
-          font-size: 1rem;
-          color: black;
-          border: unset;
-          cursor: pointer;
-          &:first-child{background-color: black; color: white;}
-        }
-      }
-    }
-    .info{
-      display: flex;
-      flex-direction: column;
-      width: 40vw;
-      visibility: hidden;
-      position: absolute;
-      &.open {
-        visibility: visible;
-        position: relative;
         flex-direction: column;
-        animation: fadeout 0.5s;
-        @keyframes fadeout {
-          0% {
-            opacity: 0%;
-          }
-          50% {
-            opacity: 0%;
-          }
-          100% {
-            opacity: 100%;
-          }
-        } 
-      #back-btn{
-        display: block; 
-        display: flex;
         justify-content: center;
         align-items: center;
-        color: black;
-        }
-        button {
+        .imgholder{
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 8rem;
-          height: 2rem;
-          font-size: .8rem;
-          color: black;
-          padding: 1rem;
-          border: unset;
-          border-radius: .5rem;
-          background-color: #ffffff;
-          font-weight: 600;
-          cursor: pointer;
+          aspect-ratio: 1/1;
+          background-color: white;
+          width: 15rem;
+          border: 5px solid #0a0000;
+          overflow: hidden;
         }
-        h3 {
+        h3{
           font-family: 'Cinzel', serif; 
-          font-size: 2rem;
+          color: white
+        }
+        p{
+          margin: 0;
+          padding: 0;
           color: white;
+          font-size: .8rem;
         }
-        h4 {
-          font-size: 1.3rem;
-          text-decoration: underline black 3px;
-        }
-        ul {
-          all: unset;
-          background: rgba(2, 2, 2, 0);
-        }
-        li {
-          margin: 1rem 2rem;
-          font-weight: 600;
+        .buttons{
+          display: flex;
+          justify-content: space-evenly;
+          width: 100%;
+          margin-top: 3rem;
+          button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 6rem;
+            height: 2rem;
+            padding: .5rem 1rem;
+            border-radius: .5rem;
+            font-family: 'Cinzel', serif; 
+            font-weight: bold;
+            font-size: 1rem;
+            color: black;
+            border: unset;
+            cursor: pointer;
+            &:first-child{background-color: black; color: white;}
+          }
         }
       }
-    }
+      .info{
+        display: flex;
+        flex-direction: column;
+        width: 40vw;
+        visibility: hidden;
+        position: absolute;
+        &.open {
+          visibility: visible;
+          position: relative;
+          flex-direction: column;
+          animation: fadeout 0.5s;
+          @keyframes fadeout {
+            0% {
+              opacity: 0%;
+            }
+            50% {
+              opacity: 0%;
+            }
+            100% {
+              opacity: 100%;
+            }
+          } 
+        #back-btn{
+          display: block; 
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: black;
+          }
+          button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 8rem;
+            height: 2rem;
+            font-size: .8rem;
+            color: black;
+            padding: 1rem;
+            border: unset;
+            border-radius: .5rem;
+            background-color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+          }
+          h3 {
+            font-family: 'Cinzel', serif; 
+            font-size: 2rem;
+            color: white;
+          }
+          h4 {
+            font-size: 1.3rem;
+            text-decoration: underline black 3px;
+          }
+          ul {
+            all: unset;
+            background: rgba(2, 2, 2, 0);
+          }
+          li {
+            margin: 1rem 2rem;
+            font-weight: 600;
+          }
+        }
+      }
     }
   }
 
