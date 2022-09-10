@@ -1,4 +1,4 @@
-import { React, useContext, useEffect, useState } from 'react'
+import { React, useContext, useState } from 'react'
 import styled from 'styled-components'
 
 import Headcards from '../Components/Home/Headcards'
@@ -17,23 +17,15 @@ function Home() {
     {Header: 'Hidden Gems', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]}
   ]
 
-  const {auth, user, ui} =  useContext(usersContext)
-  const [ media, setMedia ] = useState([{name: "sorry something went wrong..."},{Image: "Images/temp.png"}])
+  const {auth, user} =  useContext(usersContext)
+  const [media, setMedia] = useState([{name: "sorry something went wrong..."},{Image: "Images/temp.png"}])
   let name = 'Welcome Back ' + user.name
-
-  var menu = false
-  function UI() {
-    const view = document.querySelector('#viewmodal')
-    if (!menu) {view.classList.add('open'); menu = true}
-    else{ view.classList.remove('open');  menu = false}
-  }
 
   function Displaymedia(item) {
     setMedia(item)
     const outofbounds = document.querySelector('.card')
     outofbounds.classList.add('open')
   }
-
 
   return (
     <Wrapper>

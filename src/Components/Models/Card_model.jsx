@@ -1,25 +1,26 @@
-import React, { useState, useContext } from "react";
-import { IoTerminal } from "react-icons/io5";
+import React from "react";
 import styled from "styled-components";
-import { modelContext } from "../../Helpers/Context";
 
 function Card_model(props) {
   
   let media = props.info
   //button animation
   let menuOpen = false;
+
   function menu(e) {
-      const menubg = document.querySelector('.arrow')
-      const openmenu = document.querySelector('.info')
-      const container = document.querySelector('.Container')
+    const menubg = document.querySelector('.arrow')
+    const openmenu = document.querySelector('.info')
+    const container = document.querySelector('.Container')
+    const container2 = document.querySelector('.container2')
       if(!menuOpen) {
           menubg.classList.add('open')
           openmenu.classList.add('open')
           container.classList.add('open')
+          container2.scrollTop = 0;
           menuOpen = true;
       }
       else {
-          menubg.classList.remove('open');
+          menubg.classList.remove('open')
           openmenu.classList.remove('open')
           container.classList.remove('open')
           menuOpen = false
@@ -28,10 +29,9 @@ function Card_model(props) {
 
   const outofbounds = document.querySelector('.card')
   function unfocus(e) {
+    if (menuOpen) {menu()}
     outofbounds.classList.remove('open')
-    console.log(e)
   }
-
 
   return (
     <Wrapper>
@@ -74,13 +74,17 @@ function Card_model(props) {
   );
 }
 
+const ThemePallets = {
+  white: '#fff',
+  red: '#ff0000'
+}
+
 const Wrapper = styled.div`
   .Container{    
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    margin-top: -5rem;
     min-width: 85vw;
     min-height: 70vh;
     .close{
@@ -92,6 +96,7 @@ const Wrapper = styled.div`
       font-weight: bold;
       color: white;
       cursor: pointer;
+      z-index: 2;
       &:hover{
         color: silver;
       }
@@ -140,7 +145,7 @@ const Wrapper = styled.div`
         }
         h3{
           font-family: 'Cinzel', serif; 
-          color: white
+          color: ${ThemePallets.white};
         }
         p{
           margin: 0;
@@ -278,28 +283,30 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 940px) {
     .Container{
-      min-width: 100vw;
-      min-height: 100vh;
+      min-width: 95vw;
+      min-height: 80vh;
       align-items: unset;
+      margin-top: -4rem;
       .showcase{
-        margin-top: 9rem;
+        padding-top: 5rem;
       }
       .backdrop{
         &::after{
-          width: 100vw;
-          height: 100vh;
+          width: 95vw;
+          height: 80vh;
         }
       }
       &.open{
         .backdrop{
-          min-height: 160vh;
+          min-height: 80vh;
           &::after{
-            width: 100vw;
-            height: 200vh;
+            width: 95vw;
+            height: 80vh;
           }
         }
         .info{
           width: 90vw;
+          padding-bottom: 5rem;
           &.open{
             h3{ margin-top: 3rem; font-size: 1rem; color: black}
             h4{font-size: 1rem;}
@@ -308,6 +315,8 @@ const Wrapper = styled.div`
         .container2{
           flex-direction: column-reverse;
           align-items: center;
+          height: 80vh;
+          overflow-y: scroll;
           /* margin-top: 0rem; */
         }
       }
