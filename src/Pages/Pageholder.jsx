@@ -17,7 +17,8 @@ import Regmobile from './Reg-mobile'
 
 import { useState } from 'react'
 import { usersContext } from '../Connections/user'
-import Card_model from '../Components/Models/Card_model'
+import Headcards from '../Components/Home/Headcards'
+
 
 function Pageholder() {
 
@@ -49,7 +50,7 @@ function Pageholder() {
   const GlobalStyle = createGlobalStyle`
     body { background-color: ${ui.dark === 'true' ? '#292929' : 'white'};}
   `
-  
+
   return (
     <BrowserRouter>
       <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>
@@ -60,10 +61,10 @@ function Pageholder() {
               <Route path='/' element={<Home />} />
               <Route path='/Overview' element={<Overview/>}/>
               <Route path='/line' element={<Line/>}/>
-              <Route path='/account'  element={<Account/>}/>
-              <Route path='/auth'  element={<Authmobile/>} />
-              <Route path='/reg'  element={<Regmobile/>} />
-              <Route path='/test'  element={<Card_model/>} />
+              <Route path='/account' element={<Account/>}/>
+              <Route path='/auth' element={<Authmobile/>} />
+              <Route path='/reg' element={<Regmobile/>} />
+              <Route path='/test' element={<Headcards/>} />
             </Routes>
           <Foots/>
         </GoogleOAuthProvider>

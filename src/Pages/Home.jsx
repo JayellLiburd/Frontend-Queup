@@ -72,16 +72,16 @@ const Wrapper = styled.div`
   .hero{
     display: flex;
     justify-content: center;
-    /* position: sticky; */
+    position: relative;
     top: 0;
-    height: 18rem;
+    height: 16rem;
+    width: 100vw;
     box-shadow: 0px 0px 20px 0px #acacac;
     overflow: hidden;
     z-index: -1;
     h2{
       position: absolute;
       top: 2rem;
-      left: 2rem;
       font-size: 1.8rem;
       font-family: 'Cinzel', serif;
       color: silver;
@@ -89,7 +89,7 @@ const Wrapper = styled.div`
     h3{
       position: absolute;
       top: 5.3rem;
-      left: 4rem;
+      /* left: 4rem; */
       font-size: 1rem;
       font-family: 'Cinzel', serif;
       color: silver;
@@ -114,17 +114,20 @@ const Wrapper = styled.div`
     }
     img{
       border: .5rem;
+      margin-top: -5rem;
+      width: 100vw;
+      height: 25rem;
     }
     .headcards{
       position: absolute;
-      left: 0rem;
+      bottom: 2rem;
     }
   }
 
   .card{
     display: none;
     position: fixed;
-    top: 20vh;
+    top: 9rem;
     z-index: 6;
     &.open{
       display: block;
@@ -255,11 +258,10 @@ const Wrapper = styled.div`
     width: 60vw;
     .filter{display: none;} 
     .hero{
+      width: 60vw;
       height: 15rem;
       border-radius: .5rem;
       position: relative;
-      h2{left: 10rem;}
-      h3{left: 12rem; font-size: 1rem;}
       .search{
         top: 11rem; 
         width: 30vw;
@@ -273,15 +275,8 @@ const Wrapper = styled.div`
         height: 40rem;
         z-index: -1;
       }
-      .headcards{
-        position: relative;
-        left: 37rem;
-        top: 2rem;
-      }
     }
-
     .displaymedia{top: 15rem;}
-
     .content{
       background-color: transparent;
       .media-container{

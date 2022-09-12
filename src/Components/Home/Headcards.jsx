@@ -40,25 +40,18 @@ render() {
 }
 
 const Wrapper = styled.div`
-  position: absolute;
-  margin-top: 12rem;
-  overflow-x: hidden;
-
   span{font-size: .7rem;}
-
- 
   #Container{
     display: flex;
     position: relative;
   }
-
   #Case{
     display: flex;
     flex-direction: column; 
     justify-content: center; 
     align-items: center;
     position: relative;
-    margin: 0rem 1.5rem;
+    &:nth-child(2) {margin: 0rem 3vw}
 
     font-size: 1.5rem;
     font-family: 'Cinzel', serif;
@@ -73,9 +66,7 @@ const Wrapper = styled.div`
     cursor: pointer;
 
   }
-
-
-  `
+`
 
 
 export default Displaycase

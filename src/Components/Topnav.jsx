@@ -59,14 +59,12 @@ function Topnav() {
 
     <Nav>
         <section className='normal'>
-            
-            <a href='/' id='Q'><h3></h3></a>
+            <a href='/' id='Q'><h3>Queup</h3></a>
             <input type="text" placeholder='Search...' />
             <div >
                 <button><AiOutlineSearch size='1.5rem'/></button>
                 <button><BsPersonFill size='1.5rem'/></button>
-            </div>
-            
+            </div>  
         </section>
         <section className='mobile'>
             <div/>
@@ -100,17 +98,11 @@ const Nav = styled.nav`
     justify-content: center;
     align-items: center;
     position: sticky;
-
     min-width: 100vw;
     height: 4rem;
-
     font-family: 'Cinzel', serif; 
-
     z-index: 10;
-
     /* border-bottom: 1px solid #cfcfcf; */
-
-
     section{
         display: flex;
         position: fixed;
@@ -130,7 +122,6 @@ const Nav = styled.nav`
             }
         }
     }
-
     .normal{
         display: flex;
         justify-content: space-between;
@@ -160,7 +151,6 @@ const Nav = styled.nav`
         }
         div{padding: 0 5rem;}
     }
-    
     .mobile{
         display: none;
         width: 80vw;
@@ -169,7 +159,6 @@ const Nav = styled.nav`
     }
 
     // ------ menu animation ------
-
     #burger{
         all: unset;
         display: flex; 
@@ -234,7 +223,7 @@ const Nav = styled.nav`
     input{ 
         all: unset; 
         height: 1.8rem;
-        width: 60vh;
+        width: 100vh;
         padding-left: 1rem;
 
         border: 2px solid #2e2e2e37; 
@@ -247,7 +236,6 @@ const Nav = styled.nav`
         &:hover { border: 2px solid #00000050; transition: all 0.2s ease-in-out; }
         &:focus { border: 2px solid #2e2e2e50; color: #4b4b4b; &::placeholder{color: #646464;}};
     }
-
     
     // menu for mobile nav
     @media (max-width: 1800px) {
@@ -284,13 +272,12 @@ const Nav = styled.nav`
             margin-left: 0rem; 
             justify-content: space-between;
             #links{display: none;} 
-            input{display: none;} 
-            #Q{margin-right: 0; padding: 0 1rem;} 
+            input{ margin-left: 1rem;}
+            #Q{margin-right: 0; padding: 0 1rem; display: none;} 
             div{padding: 0 1rem;}
         }
         form{display: none;}
         #Queup{display: none;}
-        input{display: none;}
         section div{display: flex;}
     }
 

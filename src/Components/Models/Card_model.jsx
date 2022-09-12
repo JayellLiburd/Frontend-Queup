@@ -87,6 +87,7 @@ const Wrapper = styled.div`
     position: relative;
     min-width: 85vw;
     min-height: 70vh;
+    overflow: hidden;
     .close{
       all: unset;
       position: absolute; 
@@ -128,6 +129,7 @@ const Wrapper = styled.div`
       flex-direction: row;
       position: absolute;
       color: white;
+      overflow-y: scroll;
       .showcase{
         display: flex;
         flex-direction: column;
