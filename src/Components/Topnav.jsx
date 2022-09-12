@@ -34,14 +34,17 @@ function Topnav() {
     function menu(e) {
         const menubg = document.querySelector('.burger')
         const openmenu = document.querySelector('.sidenav')
+        const topnavcolor = document.querySelector('.topnav')
         if(!menuOpen) {
             menubg.classList.add('open')
             openmenu.classList.add('open')
+            topnavcolor.classList.add('open')
             menuOpen = true;
         }
         else {
             menubg.classList.remove('open');
             openmenu.classList.remove('open')
+            topnavcolor.classList.remove('open')
             menuOpen = false
         }
     }
@@ -58,19 +61,20 @@ function Topnav() {
     return (
 
     <Nav>
-        <section className='normal'>
-            <a href='/' id='Q'><h3>Queup</h3></a>
-            <input type="text" placeholder='Search...' />
-            <div >
-                <button><AiOutlineSearch size='1.5rem'/></button>
-                <button><BsPersonFill size='1.5rem'/></button>
-            </div>  
+        <section className='topnav'>
+            <button><AiOutlineSearch size='1.5rem'/></button>
+            <a href='/' id='Q'><h3>Q</h3></a>
+            <button><NavLink style={{all: 'unset', display: 'flex', justifyContent: 'center', alignItems: 'center'}} to='/auth'><BsPersonFill size='1.5rem'/></NavLink></button> 
         </section>
-        <section className='mobile'>
+        <section className='mobilemenu'>
             <div/>
             <button id='burger' onClick={menu}> <div className='burger'/> <p>menu</p></button>
             
             <div className='sidenav'>
+                <div className='search'>
+                    <div><AiOutlineSearch size='1.5rem' color='#ffffffda'/></div>
+                    <input type="text" placeholder='Search Queup...' />
+                </div>
                 <NavLink onClick={menu} to='/' id='logbutton' className='routes'>Homepage</NavLink>
 
                 {auth  ? <NavLink onClick={menu} to='account' className='routes'>Account</NavLink>
@@ -122,11 +126,11 @@ const Nav = styled.nav`
             }
         }
     }
-    .normal{
+    .topnav{
         display: flex;
         justify-content: space-between;
         top: 0;
-        margin: 0;
+        margin: 0rem;
         width: 100vw;
         height: 4rem;
         background-color: #ffffffa6;
@@ -149,9 +153,21 @@ const Nav = styled.nav`
                 border-radius: 8px;
             }
         }
+        button{
+            all: unset;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 2rem;
+        }
         div{padding: 0 5rem;}
+        transition: all 0.5s ease-in-out;
+        &.open{
+            #Q{color: white;}
+            background-color: #000000f9;
+        }
     }
-    .mobile{
+    .mobilemenu{
         display: none;
         width: 80vw;
         margin: 0;
@@ -192,7 +208,7 @@ const Nav = styled.nav`
             width: 1.5rem;
             border-radius: 1rem;
             background-color: black;
-            transition: all 1.2s ease;}
+            transition: all .8s ease;}
         &::before{transform: translateY(-5px)}
         &::after{transform: translateY(5px) rotate(180deg)}
     }
@@ -219,61 +235,83 @@ const Nav = styled.nav`
 
     #login { position: absolute;}
     #reg { position: absolute;}
-
-    input{ 
-        all: unset; 
+    .search{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        position: relative;
         height: 1.8rem;
-        width: 100vh;
-        padding-left: 1rem;
+        width: 90vw;
+        height: 2.5rem;
+        padding: 1rem 0;
+        div{
+            all: unset;
+            position: absolute;
+            margin-top: 0.2rem;
+            left: .8rem;
+        }
+        input{ 
+        all: unset; 
+        width: 100%;
+        margin: 1rem 0;
+        padding-left: 2.8rem;
 
-        border: 2px solid #2e2e2e37; 
+        height: 2.5rem;
+        /* border: 2px solid #2e2e2e37;  */
+        background-color: #80808045;
         border-radius: .5rem;
 
         font-weight: bold;
         font-family: sans-serif;
         color: grey;
 
+        &::placeholder{color: #ffffffda;}}
         &:hover { border: 2px solid #00000050; transition: all 0.2s ease-in-out; }
-        &:focus { border: 2px solid #2e2e2e50; color: #4b4b4b; &::placeholder{color: #646464;}};
+        &:focus { border: 2px solid #2e2e2e50;}
     }
     
-    // menu for mobile nav
+    // menu for mobilemenu nav
     @media (max-width: 1800px) {
         .sidenav{
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: start;
             align-items: center;
             position: fixed;
-            bottom: 0vh;
+            top: 4rem;
             left: 0rem;
-
             color: transparent;
-
             width: 100vw;
-            height: 105vh;
-
-            transform: translateY(-300%);
-            background-color: #000000f4;
-
-            .routes{padding: 1rem;}
-            a{color: white; &:active{background-color: #ffffff29}} 
-
-            transition: all .8s ease-in-out;
-        &.open{ transform: translateY(0%); }}
+            height: 0vh;
+            background-color: #000000f9;
+            overflow: hidden;
+            .routes{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100vw;
+                padding: 1rem;
+                &:nth-child(2){ border-top: 2px solid #ffffff49; padding-top: 2rem;}
+            }
+            a{color: white; &:active{background-color: #ffffff29}}
+            transition: all .5s ease-in-out;
+        &.open{ height: 100vh; }}
     }
 
     //small screens showing
     @media (max-width: 1200px) {
-        .mobile{display: flex; bottom: 2rem;}
+        .mobilemenu{display: flex; bottom: 2rem;}
         #icon {display: flex}
         #nav-link{h1{display: none;}}
-        .normal{
+        .topnav{
             margin-left: 0rem; 
             justify-content: space-between;
             #links{display: none;} 
-            input{ margin-left: 1rem;}
-            #Q{margin-right: 0; padding: 0 1rem; display: none;} 
+            input{ 
+                margin-left: 1rem;
+                /* filter: opacity(0); */
+            }
+            #Q{margin-right: 0; padding: 0 1rem;} 
             div{padding: 0 1rem;}
         }
         form{display: none;}

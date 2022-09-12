@@ -28,7 +28,7 @@ render() {
             <div id='Case' key={item.id}>
               <item.image/>
               <div>
-              <span id='card'>{item.label}</span>
+                <span id='card'>{item.label}</span>
               </div>
             </div>
           )
@@ -43,6 +43,7 @@ const Wrapper = styled.div`
   span{font-size: .7rem;}
   #Container{
     display: flex;
+    flex-direction: row;
     position: relative;
   }
   #Case{
@@ -64,7 +65,9 @@ const Wrapper = styled.div`
     border: 1px solid grey;
     background-color: #b19665f2;
     cursor: pointer;
-
+    span{
+      margin-top: 3rem;
+    }
   }
 `
 

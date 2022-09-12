@@ -31,12 +31,14 @@ function Home() {
     <Wrapper>
 
       <div className="hero">
-        <h2>Queup</h2>
-        <h3 className='user'>{auth ? name + '...' : "Lets not wait any longer"}</h3>
+        <div className='header'>
+          <h2>Queup</h2>
+          <h3 className='user'>{auth ? name + '...' : "Lets not wait any longer"}</h3>
+          <div className='headcards'><Headcards/></div>
+        </div>
         {/* <input type="text" className="search" placeholder="🔎 Let's find something to do..."/> */}
         <div id="gradient" />
         <img src="Images/hero.jpg" alt=""/>
-        <div className='headcards'><Headcards/></div>
       </div>
       <div className="card"><Card_model info={media}/></div>
       <div className="content">
@@ -79,20 +81,32 @@ const Wrapper = styled.div`
     box-shadow: 0px 0px 20px 0px #acacac;
     overflow: hidden;
     z-index: -1;
-    h2{
+    .header{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       position: absolute;
-      top: 2rem;
+      padding-top: 3rem;
+      h2{
+      position: relative;
+      margin: 0;
+      margin-bottom: -.8rem;
       font-size: 1.8rem;
       font-family: 'Cinzel', serif;
       color: silver;
-    }
-    h3{
-      position: absolute;
-      top: 5.3rem;
-      /* left: 4rem; */
-      font-size: 1rem;
-      font-family: 'Cinzel', serif;
-      color: silver;
+      }
+      h3{
+        /* left: 4rem; */
+        position: relative;
+        margin: 1rem 0;
+        font-size: 1rem;
+        font-family: 'Cinzel', serif;
+        color: silver;
+      }
+      .headcards{
+        position: relative;
+      }
     }
     .search{
       position: absolute;
@@ -117,10 +131,6 @@ const Wrapper = styled.div`
       margin-top: -5rem;
       width: 100vw;
       height: 25rem;
-    }
-    .headcards{
-      position: absolute;
-      bottom: 2rem;
     }
   }
 
@@ -259,7 +269,7 @@ const Wrapper = styled.div`
     .filter{display: none;} 
     .hero{
       width: 60vw;
-      height: 15rem;
+      min-height: 20vh;
       border-radius: .5rem;
       position: relative;
       .search{
