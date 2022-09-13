@@ -68,6 +68,8 @@ function Topnav() {
         }
     }
 
+    const logout = () => logout()
+
     return (
     <Nav>   
         <section className='topnav'>
@@ -82,7 +84,7 @@ function Topnav() {
 
                 <NavLink to='/' className='routes'>Rewards</NavLink>
 
-                {auth  ? <button style={{color: '#865c3ace'}} onClick={Logout()} className='routes'>LogOut</button>
+                {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>LogOut</button>
                 :<NavLink to='/' className='routes' id='regbutton'>Contact</NavLink>}
             </div>
             <button className='nav mobile'><AiOutlineSearch size='1.5rem'/></button>
@@ -110,7 +112,7 @@ function Topnav() {
 
                 <NavLink onClick={menu} to='/' className='routes'>Rewards</NavLink>
 
-                {auth  ? <button style={{color: '#865c3ace'}} onClick={Logout()} className='routes'>Log Out</button>
+                {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>Log Out</button>
                 :<NavLink onClick={menu} to='/' className='routes' id='regbutton'>Contact</NavLink>}
             </div>
 
