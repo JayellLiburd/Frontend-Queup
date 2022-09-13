@@ -53,9 +53,8 @@ export function setCookies(response) {
 })}
 
 export function Logout() {
-    let nav = useNavigate()
     axios.get('https://app.queueupnext.com/logout', {withCredentials: true}).then((response) => {
-        nav('/', {replace: true})
+        window.location.assign('/')
         window.location.reload()
     })
 }
