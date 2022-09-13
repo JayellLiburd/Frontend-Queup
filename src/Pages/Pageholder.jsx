@@ -51,13 +51,12 @@ function Pageholder() {
   const GlobalStyle = createGlobalStyle`
     body { background-color: ${ui.dark === 'true' ? '#292929' : 'white'};}
   `
-  console.log(process.env.client_id)
 
   return (
     <BrowserRouter>
       <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>
       <GlobalStyle/>
-        <GoogleOAuthProvider clientId={process.env.client_id}>
+        <GoogleOAuthProvider clientId='606581966610-lj50c1q3d7vdl2tm35dub289hod5ql0v.apps.googleusercontent.com'>
           <Topnav/>
             <Routes>
               <Route path='/' element={<Home />} />
