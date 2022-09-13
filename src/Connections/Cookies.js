@@ -8,7 +8,7 @@ import { usersContext } from "./user"
 
 
 export async function setUserLogin(checkUsername, checkPassword) {
-    axios.post('https://queueupnext.com/login',  new URLSearchParams({
+    axios.post('https://app.queueupnext.com/login',  new URLSearchParams({
         username: checkUsername, 
         password: checkPassword,
         withCredentials: true,
@@ -20,12 +20,12 @@ export async function setUserLogin(checkUsername, checkPassword) {
 
         else {
             //set backend cookies with url
-            axios.get('https://queueupnext.com/' + (response.data[1]) + '/login', {withCredentials: true,})}
+            axios.get('https://app.queueupnext.com/' + (response.data[1]) + '/login', {withCredentials: true,})}
 })}
 
 
 export function sendRegistation(first, last, email, username, password) {
-    axios.post('https://queueupnext.com/reg',  new URLSearchParams({
+    axios.post('https://app.queueupnext.com/reg',  new URLSearchParams({
         withCredentials: true,
         Credentials: 'include',
         username: username, 
@@ -37,7 +37,7 @@ export function sendRegistation(first, last, email, username, password) {
 }
 
 export function setCookies(response) {
-    axios.get('https://queueupnext.com/set/' + (response.data[1]) + '/login', {withCredentials: true}).then((result) => {
+    axios.get('https://app.queueupnext.com/set/' + (response.data[1]) + '/login', {withCredentials: true}).then((result) => {
     let nav = useNavigate()
     console.log(result)
     //get prefrences
@@ -54,7 +54,7 @@ export function setCookies(response) {
 
 export function Logout() {
     let nav = useNavigate()
-    axios.get('https://queueupnext.com/logout', {withCredentials: true}).then((response) => {
+    axios.get('https://app.queueupnext.com/logout', {withCredentials: true}).then((response) => {
         nav('/', {replace: true})
         window.location.reload()
     })
@@ -63,7 +63,7 @@ export function Logout() {
 export function VerifyAuth() {
     let nav = useNavigate()
     const {setAuth} = useContext(usersContext)
-    axios.get('https://queueupnext.com/verify', {withCredentials: true}).then((response) => {
+    axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
         console.log(response)
         if (response.data.message) {setAuth(false)
              nav('/Home', {replace: true})

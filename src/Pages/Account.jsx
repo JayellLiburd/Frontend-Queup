@@ -22,7 +22,7 @@ function Account() {
   const [view, setView] = useState(false)
 
   useEffect(() => {
-    axios.get('https://queueupnext.com/verify', {withCredentials: true}).then((response) => {
+    axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
         if (response.data.message) {
           setAuth(false)
           nav('/')
