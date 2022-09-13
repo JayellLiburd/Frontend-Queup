@@ -51,6 +51,7 @@ function Pageholder() {
   const GlobalStyle = createGlobalStyle`
     body { background-color: ${ui.dark === 'true' ? '#292929' : 'white'};}
   `
+  console.log(process.env.client_id)
 
   return (
     <BrowserRouter>
