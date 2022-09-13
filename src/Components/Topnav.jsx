@@ -68,7 +68,7 @@ function Topnav() {
         }
     }
 
-    const logout = () => logout()
+    const logout = () => {Logout()}
 
     return (
     <Nav>   
