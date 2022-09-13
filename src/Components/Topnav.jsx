@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { NavLink, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from 'react-icons/ai'
@@ -10,24 +9,12 @@ import { usersContext } from '../Connections/user';
 
 import Reg from './Register';
 import Log from './Login'
-import { useState } from 'react';
+import { Logout } from '../Connections/Cookies';
 
 
 function Topnav() {
 
-    const Filters = ['Trending in ' + 'Houston', 'Food', 'Events', 'Hype Gear', 'Unicorns']
-
-    const {auth, openL, setOpenLog, openR, setOpenReg, setMenu} = useContext(usersContext);
-
-    const openLogModal = () => {setOpenLog(true); setOpenReg(false)}
-    const openRegModal = () => {setOpenLog(false); setOpenReg(true)}
-
-    const [sidenav, setSidenav] = useState(false)
-
-    const nav = useNavigate()
-
-    const OpenNav = () => {setSidenav(true)}
-    const  CloseNav = () => {setSidenav(false)}
+    const {auth} = useContext(usersContext);
 
     //button animation
     let menuOpen = false;
@@ -49,23 +36,61 @@ function Topnav() {
         }
     }
 
+    function loginmodal() {
+        const login = document.querySelector('.login_modal')
+        const signup = document.querySelector('.signup')
+        signup.classList.remove('open')
+        if(!menuOpen) {
+            menu()
+            login.classList.add('open')
+            menuOpen = true;
+        }
+        else {
+            menu()
+            login.classList.remove('open')
+            menuOpen = false
+        }
+    }
 
-    const logout = () => { 
-        axios.get('http://localhost:4000/logout', {withCredentials: true}).then((response) => {
-            nav('/', {replace: true})
-            window.location.reload()
-            CloseNav()
-        })}
-
+    function signupmodal() {
+        const login = document.querySelector('.login_modal')
+        const signup = document.querySelector('.signup')
+        login.classList.remove('open')
+        if(!menuOpen) {
+            menu()
+            signup.classList.add('open')
+            menuOpen = true;
+        }
+        else {
+            menu()
+            signup.classList.remove('open')
+            menuOpen = false
+        }
+    }
 
     return (
-
-    <Nav>
+    <Nav>   
         <section className='topnav'>
-            <button><AiOutlineSearch size='1.5rem'/></button>
-            <a href='/' id='Q'><h3>Q</h3></a>
-            <button><NavLink style={{all: 'unset', display: 'flex', justifyContent: 'center', alignItems: 'center'}} to='/auth'><BsPersonFill size='1.5rem'/></NavLink></button> 
+            <a className='nav large Queup' href="/">Queup</a>
+            <input className='nav large' type="text" placeholder='Search Queup...'/>
+            <div className='nav large'>
+                {auth  ? <NavLink to='account' className='routes'>Account</NavLink>
+                :<button onClick={loginmodal} id='logbutton' className='routes'>Login</button>}
+
+                {auth  ? <NavLink  to='Overview' className='routes'>Business</NavLink>
+                :<button onClick={signupmodal} className='routes' id='regbutton'>Sign Up</button>}
+
+                <NavLink to='/' className='routes'>Rewards</NavLink>
+
+                {auth  ? <button style={{color: '#865c3ace'}} onClick={Logout} className='routes'>LogOut</button>
+                :<NavLink to='/' className='routes' id='regbutton'>Contact</NavLink>}
+            </div>
+            <button className='nav mobile'><AiOutlineSearch size='1.5rem'/></button>
+            <a className='nav mobile' href='/' id='Q'><h3>Q</h3></a>
+            <button className='nav mobile'><NavLink style={{all: 'unset', display: 'flex', justifyContent: 'center', alignItems: 'center'}} to='/auth'><BsPersonFill size='1.5rem'/></NavLink></button> 
         </section>
+        <div className="log"><Log/></div>
+        <div className="register"><Reg/></div>
         <section className='mobilemenu'>
             <div/>
             <button id='burger' onClick={menu}> <div className='burger'/> <p>menu</p></button>
@@ -85,7 +110,7 @@ function Topnav() {
 
                 <NavLink onClick={menu} to='/' className='routes'>Rewards</NavLink>
 
-                {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>Log Out</button>
+                {auth  ? <button style={{color: '#865c3ace'}} onClick={Logout} className='routes'>Log Out</button>
                 :<NavLink onClick={menu} to='/' className='routes' id='regbutton'>Contact</NavLink>}
             </div>
 
@@ -117,7 +142,6 @@ const Nav = styled.nav`
             display: flex;
             justify-content: space-between;
             width: 4rem;
-            padding-right: 2rem;
             button{
                 all: unset;
                 display: flex;
@@ -128,7 +152,8 @@ const Nav = styled.nav`
     }
     .topnav{
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
+        align-items: center;
         top: 0;
         margin: 0rem;
         width: 100vw;
@@ -160,13 +185,69 @@ const Nav = styled.nav`
             align-items: center;
             margin: 0 2rem;
         }
-        div{padding: 0 5rem;}
-        transition: all 0.5s ease-in-out;
+        a{
+            all: unset;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            &:first-child{padding-left: 5vw}
+        }
+        div{
+            width: min-content;
+            button{ font-weight: bold;}
+            .routes{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-width: 5rem; 
+                margin: 0 1rem;
+                cursor: pointer;
+                &:hover{color:#772705 }
+            }
+            min-height: 2rem;
+            font-size: 1.1rem;
+        }
+        input{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            position: relative;
+            right: -8rem;
+            padding-left: 2.8rem;
+            height: 1.8rem;
+            width: 30%;
+            height: 2rem;
+            border: unset;
+            background-color: #80808045;
+            border-radius: .5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: sans-serif;
+            color: #000000;
+            transition: all 0.2s ease-in-out;
+            &::placeholder{color: #424242da;}
+            &input:focus{ border: 2px solid #c5323250;}
+        }
+        #Q, .mobile{display: none;}
+        transition: all 0.3s ease-in-out;
         &.open{
+            a{color: white;}
+            .routes{color: white;}
+            input{filter: opacity(0%)}
             #Q{color: white;}
             background-color: #000000f9;
         }
     }
+
+    .log{
+        position: fixed; 
+        top: 4rem;
+    }
+    .register{
+        position: fixed; 
+        top: 4rem;
+    }
+
     .mobilemenu{
         display: none;
         width: 80vw;
@@ -189,6 +270,7 @@ const Nav = styled.nav`
         background: #f7f7f7;
         border: 3px solid #2b211850;
         border-radius: .5rem;
+        cursor: pointer;
         p{position: absolute; font-size: .8rem; top: 1.1rem;}
     }
 
@@ -299,7 +381,7 @@ const Nav = styled.nav`
     }
 
     //small screens showing
-    @media (max-width: 1200px) {
+    @media (max-width: 1400px) {
         .mobilemenu{display: flex; bottom: 2rem;}
         #icon {display: flex}
         #nav-link{h1{display: none;}}
@@ -313,6 +395,10 @@ const Nav = styled.nav`
             }
             #Q{margin-right: 0; padding: 0 1rem;} 
             div{padding: 0 1rem;}
+            a{display: none;}
+            input{display: none;}
+            .large{display: none;}
+            #Q, .mobile{display: flex;}
         }
         form{display: none;}
         #Queup{display: none;}
@@ -321,6 +407,5 @@ const Nav = styled.nav`
 
 
 `
-
 
 export default Topnav

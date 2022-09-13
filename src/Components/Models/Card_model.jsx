@@ -3,9 +3,16 @@ import styled from "styled-components";
 
 function Card_model(props) {
   
+  let Queue = [
+    {subject: 'Active in Line', data: 4},
+    {subject: 'Rate per/h', data: 12},
+    {subject: 'Close', data: '10:00pm'},
+    {subject: 'Open', data: '9:00am'}
+  ]
+  
   let media = props.info
   //button animation
-  let menuOpen = false;
+  let menuOpen = false
 
   function menu(e) {
     const menubg = document.querySelector('.arrow')
@@ -55,7 +62,15 @@ function Card_model(props) {
                   </li>
                 </ul>
                 <div>
-                  <p>{"Current people in Queue: " + 4}</p>
+                  <div className="layout">
+                      {Queue.map(data => {return (
+                          <div className="data" key={data.subject}>
+                              <h3>{data.data}</h3>
+                              <p>{data.subject}</p>
+                              <span/>
+                          </div>
+                      )})}
+                  </div>
                 </div>
               </div>
             </div>
@@ -64,7 +79,7 @@ function Card_model(props) {
               <h3>{media.name}</h3>
               <p>5015 Westheimer Rd, Houston, TX 77056</p>
               <div className="buttons">
-                <button onClick={menu}><button id='arrow'><div className='arrow'/></button>Info</button>
+                <button onClick={menu}><div id='arrow'><div className='arrow'/></div>Info</button>
                 <button>Queup</button>
               </div>
             </div>
@@ -127,9 +142,11 @@ const Wrapper = styled.div`
     .container2{
       display: flex;
       flex-direction: row;
-      position: absolute;
+      align-items: center;
+      position: absolute; 
       color: white;
-      overflow-y: scroll;
+      overflow: hidden;
+      height: 70vh;
       .showcase{
         display: flex;
         flex-direction: column;
@@ -144,6 +161,12 @@ const Wrapper = styled.div`
           width: 15rem;
           border: 5px solid #0a0000;
           overflow: hidden;
+          img{
+          -webkit-user-drag: none;
+          -khtml-user-drag: none;
+          -moz-user-drag: none;
+          -o-user-drag: none;
+          }
         }
         h3{
           font-family: 'Cinzel', serif; 
@@ -189,6 +212,33 @@ const Wrapper = styled.div`
           position: relative;
           flex-direction: column;
           animation: fadeout 0.5s;
+          .layout{
+            display: flex;
+            flex-direction: row; 
+            .data{
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              position: relative;
+              width: 9rem;
+              h3{margin: 0; margin-top: 1rem; color: white; font-size: 1.4rem; z-index: 2;}
+              p{
+                  margin: 0;
+                  text-align: center;
+                  color: black;
+                  font-weight: bold;
+              }
+              span{
+                  position: absolute;
+                  top: 1rem;
+                  aspect-ratio: 1/1;
+                  width: 0px;
+                  background-color: transparent;
+                  border-radius: 50%;
+                  box-shadow: 0 -5px 50px 1.5vh #7c7a74; 
+              }
+            }
+          }
           @keyframes fadeout {
             0% {
               opacity: 0%;
@@ -289,6 +339,9 @@ const Wrapper = styled.div`
       min-height: 80vh;
       align-items: unset;
       margin-top: -4rem;
+      .container2{
+        overflow-y: hidden;
+      }
       .showcase{
         padding-top: 5rem;
       }
@@ -312,6 +365,8 @@ const Wrapper = styled.div`
           &.open{
             h3{ margin-top: 3rem; font-size: 1rem; color: black}
             h4{font-size: 1rem;}
+            .layout .data h3{font-size: 1rem}
+            .layout .data p{font-size: .9rem}
           }
         }
         .container2{

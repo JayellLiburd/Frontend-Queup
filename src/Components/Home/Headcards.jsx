@@ -57,16 +57,24 @@ const Wrapper = styled.div`
     font-size: 1.5rem;
     font-family: 'Cinzel', serif;
     font-weight: bold;
-    width: 4.5rem;;
-    height: 5rem; 
+    width: 4vw;
+    height: 5.5rem;
 
     color: black;
     border-radius: 5px;
     border: 1px solid grey;
     background-color: #b19665f2;
+    z-index: 2;
     cursor: pointer;
     span{
       margin-top: 3rem;
+    }
+  }
+
+  @media screen and (max-width: 1800px){
+    #Case{    
+      width: 4.5rem;
+      height: 5rem; 
     }
   }
 `

@@ -8,7 +8,7 @@ import { usersContext } from "./user"
 
 
 export async function setUserLogin(checkUsername, checkPassword) {
-    axios.post('http://localhost:4000/login',  new URLSearchParams({
+    axios.post('https://queueupnext.com/login',  new URLSearchParams({
         username: checkUsername, 
         password: checkPassword,
         withCredentials: true,
@@ -20,12 +20,12 @@ export async function setUserLogin(checkUsername, checkPassword) {
 
         else {
             //set backend cookies with url
-            axios.get('http://localhost:4000/' + (response.data[1]) + '/login', {withCredentials: true,})}
+            axios.get('https://queueupnext.com/' + (response.data[1]) + '/login', {withCredentials: true,})}
 })}
 
 
-export function sendRegistation(username, password, first, last, email) {
-    axios.post('http://localhost:4000/reg',  new URLSearchParams({
+export function sendRegistation(first, last, email, username, password) {
+    axios.post('https://queueupnext.com/reg',  new URLSearchParams({
         withCredentials: true,
         Credentials: 'include',
         username: username, 
@@ -34,11 +34,10 @@ export function sendRegistation(username, password, first, last, email) {
         last_name: last,
         email: email,
     })).then(alert('User Created Please Head back and Log in'))
-
 }
 
 export function setCookies(response) {
-    axios.get('http://localhost:4000/set/' + (response.data[1]) + '/login', {withCredentials: true}).then((result) => {
+    axios.get('https://queueupnext.com/set/' + (response.data[1]) + '/login', {withCredentials: true}).then((result) => {
     let nav = useNavigate()
     console.log(result)
     //get prefrences
@@ -53,11 +52,18 @@ export function setCookies(response) {
     else { alert(response.data.message)}
 })}
 
+export function Logout() {
+    let nav = useNavigate()
+    axios.get('https://queueupnext.com/logout', {withCredentials: true}).then((response) => {
+        nav('/', {replace: true})
+        window.location.reload()
+    })
+}
 
 export function VerifyAuth() {
     let nav = useNavigate()
     const {setAuth} = useContext(usersContext)
-    axios.get('http://localhost:4000/verify', {withCredentials: true}).then((response) => {
+    axios.get('https://queueupnext.com/verify', {withCredentials: true}).then((response) => {
         console.log(response)
         if (response.data.message) {setAuth(false)
              nav('/Home', {replace: true})

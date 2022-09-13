@@ -48,13 +48,13 @@ function Home() {
             <h3>{item.Header}<button>View More</button></h3>
             <div className='media-container'>
                 {shuffle(item.results).filter((_, index) => index < 7).map(item => {return (
-                <button className="outter-case" key={item.name} onClick={e => Displaymedia(item)}>
+                <div className="outter-case" key={item.name} onClick={e => Displaymedia(item)}>
                     <div className='media'>
                       <button onClick={e => Displaymedia(item)}>View</button>
                       <img src={item.Image} alt="" loading='lazy'/> 
                     </div>
                     <h3>{item.name}</h3>
-                </button>)})}
+                </div>)})}
             </div>
           </div>
           )
@@ -88,6 +88,7 @@ const Wrapper = styled.div`
       align-items: center;
       position: absolute;
       padding-top: 3rem;
+      z-index: 2;
       h2{
       position: relative;
       margin: 0;
@@ -286,11 +287,10 @@ const Wrapper = styled.div`
         z-index: -1;
       }
     }
-    .displaymedia{top: 15rem;}
     .content{
       background-color: transparent;
       .media-container{
-        transition-delay: 1s;
+        transition-delay: .3s;
         min-height: 12rem;
         width: 60vw;
         height: 18rem;
@@ -314,11 +314,11 @@ const Wrapper = styled.div`
           padding: 1.5rem .2rem;
           padding-bottom: 1rem;
           margin: 0;
-          font-size: .9rem;
+          font-size: 2rem;
           min-width: 17rem;
           height: 2rem;
           z-index: 2;
-      }
+        }
         img{background-size: cover; transform: scale(.6);}
       }
     }

@@ -1,142 +1,177 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components'
-
-import { sendRegistation } from '../Connections/Cookies';
-import { usersContext } from '../Connections/user';
+import { GoogleLogin } from '@react-oauth/google';
+import sendRegistation from '../Connections/Cookies';
+import setAbclogin from '../Connections/login';
 
 
 function Reg() {
 
-    const nav = useNavigate();
+    const menubg = document.querySelector('.burger')
+    const openmenu = document.querySelector('.sidenav')
+    const topnavcolor = document.querySelector('.topnav')
+    const login = document.querySelector('.login_modal')
+    const signup = document.querySelector('.signup')
+    function menu(e) {
+        menubg.classList.remove('open');
+        openmenu.classList.remove('open')
+        topnavcolor.classList.remove('open')
+        signup.classList.remove('open')
+    }
 
-    const {setOpenReg} = useContext(usersContext);
+    function Switchform() {
+        login.classList.add('open')
+        signup.classList.remove('open')
+    }
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [first, setFirst] = useState('')
-    const [last, setLast] = useState('')
-    const [email, setEmail] = useState('')
+    let form = []
+    const submit = (e) => {
+        form = []
+        e.preventDefault()
+        const formData = new FormData(document.querySelector('.login'))
+        for (var data of formData.entries()) {
+          form.push(data[1]);
+        }
+        sendRegistation(form[0], form[1], form[2], form[3], form[4])
+    }
 
-    //Connections
-        //sign up
-    const userRegister = () => {sendRegistation(username, password, first, last, email); nav('/', {replace: true}); setOpenReg(false)}
+    const responseGoogle = (response) => { setAbclogin(response) } 
 
-
-    // redirect after reload
-    useEffect(()=>{if(window.location.hash) {nav('/');}})
-
-    const unFocus = (e) => {setOpenReg(false)}
-
-  return (
-    <Wrapper>
-        <div id='reg'>
-            <label htmlFor="Register">Register</label>
-            <div>
-                <input className='inputinfo'
-                    type="text" 
-                    placeholder='First Name' 
-                    name='First' 
-                    onChange={(e) => {setFirst(e.target.value)}}/>
-
-                <input className='inputinfo'
-                    type="text" 
-                    placeholder='Last Name' 
-                    name='Last' 
-                    onChange={(e) => {setLast(e.target.value)}}/>
+    return (
+      <Wrapper>
+          <form className='reg'>
+            <div className='socials'>
+                    <GoogleLogin 
+                        onSuccess={responseGoogle}
+                        size='medium' 
+                        width='350'
+                    />
             </div>
-            <input className='inputreg'
+            <h2 className='close' onClick={menu}>X</h2>
+                <h2>Sign Up for Queup</h2>
+                <div className='name'>
+                    <input className='inputinfo'
+                        type="text" 
+                        placeholder='First Name' 
+                        name='First' />
+
+                    <input className='inputinfo'
+                        type="text" 
+                        placeholder='Last Name' 
+                        name='Last' />
+                </div>
+                <input className='inputreg'
+                        type="text" 
+                        placeholder='Email' 
+                        name='Email' />
+
+                <input className='inputreg'
                     type="text" 
-                    placeholder='Email' 
-                    name='Email' 
-                    onChange={(e) => {setEmail(e.target.value)}}/>
+                    placeholder='Create Username' 
+                    name='username' />
 
-            <input className='inputreg'
-                type="text" 
-                placeholder='Create Username' 
-                name='username' 
-                onChange={(e) => {setUsername(e.target.value)}}/>
+                <input className='inputreg' type="text" placeholder='Create Password'/>
 
-            <input className='inputreg' type="text" placeholder='Create Password'/>
-
-            <input className='inputreg'
-                type="text"
-                placeholder='Re-type Password' 
-                name='password' 
-                onChange={(e) => {setPassword(e.target.value)}}
-            />
-            <button id='btn' onClick={userRegister}>Register</button>
-        </div>
-        <button id='unfocus' onClick={unFocus}></button>
-    </Wrapper>
-  )
-}
-
-const Wrapper = styled.div`
-    all: unset;
-    position: absolute;
-    top: 3.6rem;
-    left: -17.8rem;
-
-    width: 25rem;
-    min-height: 25rem;
-    font-size: 1.3rem;
-
-    background-color: #694b24f0;
-
-    #unfocus{all: unset; position: absolute; top: -4rem; left: -118rem;  height: 200vh; width: 200vw; z-index: -1;}
-
-    #reg{
-        all: unset;
+                <input className='inputreg'
+                    type="text"
+                    placeholder='Re-type Password' 
+                    name='password'/>
+                <h3 style={{ fontSize: '1rem', fontFamily: 'serif' }}>{'If you do have an account go to '}
+                    <p onClick={Switchform} style={{color: 'brown'}}>{' Login Page'}</p>
+                </h3>
+                <button id='btn' onClick={submit}>Register</button>
+            </form>
+      </Wrapper>
+    )
+  }
+  
+  const Wrapper = styled.div.attrs({className: 'signup'})`
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 0vh;
+    background-color: #000000ae;
+    .reg{
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        position: relative;
         align-items: center;
-
-        color: white;
-        font-size: 1.5rem;
-        width: 20rem;
-        height: 20rem;
-
-        label{margin-top: -1rem}
-        .inputreg{
-            all: unset; 
-            margin: .5rem 0;
-            padding: .7rem;
-
-            width: 20rem;
-            height: 1rem;
-            font-size: .9rem;
-            font-family: 'Roboto Mono', monospace;
-            
-            background-color: grey;
-            border: 1px solid #d3d3d3;
-            border-radius: .4rem;
-
-            &::placeholder{color: black;}
-            &:focus { border: 2px solid white; background-color: grey; color: white; &::placeholder{color: white;}}
-            }}
-            
-        .inputinfo{
-            all: unset; 
-            margin: 1rem 1rem;
-            margin-left: .1rem;
-            padding: .7rem;
-
-            width: 8.6rem;
-            height: 1rem;
-            font-size: .9rem;
-            font-family: 'Roboto Mono', monospace;
-            
-            background-color: grey;
-            border: 1px solid #d3d3d3;
-            border-radius: .4rem;
-
-            &::placeholder{color: black;}
-            &:focus { border: 2px solid white; background-color: grey; color: white; &::placeholder{color: white;}}
+        width: 30vw;
+        height: 0vh;
+        overflow: hidden;
+        background-color: white;
+        border-radius: 0 0 .5rem .5rem;
+        transition: all 0.2s ease-in-out;
+        .close{
+            position: absolute;
+            right: 2rem; 
+            top: 0rem;
+            cursor: pointer;
         }
-
-    #btn{ padding: .2rem; background-color: #ac9787cf; color: white; text-decoration: unset; }
-`
+        .socials{
+            padding: 1rem 1vw;
+            border-bottom: 2px solid black;
+        }
+        h2{color: #72460c;}
+        input{
+            all: unset;
+            margin: .5rem 0; 
+            padding: .5rem;
+            padding-left: 1rem;
+            width: 20vw;
+            height: 1.5rem;
+            font-weight: bold;
+            background-color: #8d8d8d;
+            border-radius: .5rem;
+            cursor: pointer;
+            &::placeholder{color: white;}
+        }
+        h3{display: flex; justify-content: center; align-items: center; p{text-indent: .3rem; font-size: .8rem; cursor: pointer;}}
+        button{
+            all: unset;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 2rem;
+            aspect-ratio: 3/1;
+            width: 6rem;
+            color: white;
+            font-weight: bold;
+            background-color: #58370b;
+            border-radius: .5rem;
+            &:hover{
+                border: 1px solid black;
+                color: #e0e0e0;
+            }
+        }
+        .name{
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            width: 30vw;
+            margin: .5rem 0;
+            input{
+                width: 8.9vw; 
+                margin: 0 1rem;
+            }
+        }
+      }
+      &.open{
+        height: 100vh;
+        .reg{
+            padding: 3rem;
+            padding-top: 2rem;
+            padding-bottom: 5rem;
+            width: 30vw;
+            height: max-content;
+        }
+    }
+    @media (max-width: 1400px) {
+        display: none;
+    }
+  `
 
 
 
