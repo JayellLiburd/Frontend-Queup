@@ -27,7 +27,7 @@ function Create() {
       form.push(data[1]);
     }
     console.log(form)
-    axios.post('https://app.queueupnext.com/createque', {
+    axios.post(process.env.REACT_APP_Server + '/createque', {
       0: form[0],
       1: form[1],
       2: form[2],
@@ -72,7 +72,7 @@ function Create() {
 
   return (
     <Wrapper>
-      <form id='form' name='CreateQue' action='https://app.queueupnext.com/createque' method='post' onSubmit={submitbutton}>
+      <form id='form' name='CreateQue' action={process.env.REACT_APP_Server + '/createque'} method='post' onSubmit={submitbutton}>
         <section id="data-form">
           <h3>Create Business Queue</h3>
           <label>

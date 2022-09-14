@@ -34,7 +34,7 @@ function Pageholder() {
   //Settings mobile sidebar
   const [menu, setMenu] = useState(false)
 
-  useLayoutEffect( ()=>{axios.get('https://app.queueupnext.com/verify', {withCredentials: true}).then((response) => {
+  useLayoutEffect( ()=>{axios.get(process.env.REACT_APP_Server + '/verify', {withCredentials: true}).then((response) => {
     // const key = (jwt_decode((document.cookie).split('=')[1]))
 
     // Setting access and some visuals
@@ -51,7 +51,7 @@ function Pageholder() {
   const GlobalStyle = createGlobalStyle`
     body { background-color: ${ui.dark === 'true' ? '#292929' : 'white'};}
   `
-
+  
   return (
     <BrowserRouter>
       <usersContext.Provider value={{user, setUser, auth, setAuth, setOpenLog, openL, setOpenReg, openR, setUI, ui, setMenu, menu}}>

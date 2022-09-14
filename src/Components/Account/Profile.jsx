@@ -17,7 +17,7 @@ function Profile() {
     const [user, setUser] = useState('')
 
 
-    useEffect(()=>{axios.get('https://app.queueupnext.com/verify/pro', {withCredentials: true}).then((response) => {
+    useEffect(()=>{axios.get(process.env.REACT_APP_Server + '/verify/pro', {withCredentials: true}).then((response) => {
         if (response) {setAuth(true); setUser(response.data[0])}});},
     [setAuth])
 
@@ -31,7 +31,7 @@ function Profile() {
 
     let nav = useNavigate()
 
-    const update = () => {axios.get('https://app.queueupnext.com/verify/pro', {withCredentials: true}).then((response) => {
+    const update = () => {axios.get(process.env.REACT_APP_Server + '/verify/pro', {withCredentials: true}).then((response) => {
 
         if (!response.data[0]) {
             setAuth(false) 
