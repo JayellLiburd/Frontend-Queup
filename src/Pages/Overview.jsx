@@ -25,7 +25,7 @@ function Overview() {
         }
 
         if (response.data[0]) {setAuth(true)}
-  })}, [nav, setAuth])
+  })}, [nav, auth])
 
   function menu() {
     const menubg = document.querySelector('.burger')

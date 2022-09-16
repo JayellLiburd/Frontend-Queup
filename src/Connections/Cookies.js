@@ -16,7 +16,7 @@ export function sendRegistation(first, last, email, username, password) {
 
 export function Logout() {
     axios.get(process.env.REACT_APP_Server + '/logout',{withCredentials: true}).then((response) => {
-        window.location.assign('/')
+        window.location.reload()
     })
 }
 
