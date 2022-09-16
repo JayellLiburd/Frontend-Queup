@@ -7,12 +7,11 @@ import setAbclogin from '../Connections/login';
 
 function Reg() {
 
-    const menubg = document.querySelector('.burger')
-    const openmenu = document.querySelector('.sidenav')
-    const topnavcolor = document.querySelector('.topnav')
-    const login = document.querySelector('.login_modal')
-    const signup = document.querySelector('.signup')
     function menu(e) {
+        const menubg = document.querySelector('.burger')
+        const openmenu = document.querySelector('.sidenav')
+        const topnavcolor = document.querySelector('.topnav')
+        const signup = document.querySelector('.signup')
         menubg.classList.remove('open');
         openmenu.classList.remove('open')
         topnavcolor.classList.remove('open')
@@ -20,6 +19,8 @@ function Reg() {
     }
 
     function Switchform() {
+        const login = document.querySelector('.login_modal')
+        const signup = document.querySelector('.signup')
         login.classList.add('open')
         signup.classList.remove('open')
     }

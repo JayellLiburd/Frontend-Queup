@@ -17,7 +17,7 @@ import Accountsettings from '../Components/Account/accountsettings';
 function Account() {
 
   const nav = useNavigate();
-  const {setAuth, setOpenLog, setMenu, menu} = useContext(usersContext)
+  const {setAuth, setMenu, menu} = useContext(usersContext)
 
   const [view, setView] = useState(false)
 
@@ -27,12 +27,21 @@ function Account() {
           setAuth(false)
           nav('/')
           alert('Please Sign In')
-          setOpenLog(true)
-          window.location.reload()
+          signin()
         }
-
         if (response.data[0]) {setAuth(true); setView(true)}
-  })}, [nav, setAuth, setOpenLog])
+  })}, [nav, setAuth])
+
+  function signin() {
+    const menubg = document.querySelector('.burger')
+    const openmenu = document.querySelector('.sidenav')
+    const topnavcolor = document.querySelector('.topnav')
+    const login = document.querySelector('.login_modal')
+    menubg.classList.add('open');
+    openmenu.classList.add('open')
+    topnavcolor.classList.add('open')
+    login.classList.add('open')
+  }
 
   //settings nav view weather true or false -- active is being set in the settingsNav.jsx in account folder
   const [active, setActive] = useState([{prof: true, con: false, not: false, pref: false, acc: false}])

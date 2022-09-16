@@ -13,22 +13,30 @@ import { usersContext } from '../Connections/user'
 function Overview() {
 
   const nav = useNavigate();
-  const {setAuth, setOpenLog} = useContext(usersContext)
+  const {setAuth, auth} = useContext(usersContext)
 
-  const [view, setView] = useState(true)
+  useEffect(() => {
+    axios.get(process.env.REACT_APP_Server + '/verify', {withCredentials: true}).then((response) => {
+        if (response.data.message) {
+          setAuth(false)
+          nav('/')
+          alert('Please Sign In')
+          menu()
+        }
 
-  // useEffect(() => {
-  //   axios.get(process.env.REACT_APP_Server + '/verify', {withCredentials: true}).then((response) => {
-  //       if (response.data.message) {
-  //         setAuth(false)
-  //         nav('/')
-  //         alert('Please Sign In')
-  //         setOpenLog(true)
-  //         window.location.reload()
-  //       }
+        if (response.data[0]) {setAuth(true)}
+  })}, [nav, setAuth])
 
-  //       if (response.data[0]) {setAuth(true); setView(true)}
-  // })}, [nav, setAuth])
+  function menu() {
+    const menubg = document.querySelector('.burger')
+    const openmenu = document.querySelector('.sidenav')
+    const topnavcolor = document.querySelector('.topnav')
+    const login = document.querySelector('.login_modal')
+    menubg.classList.add('open');
+    openmenu.classList.add('open')
+    topnavcolor.classList.add('open')
+    login.classList.add('open')
+  }
 
   const [bus, setBus] = useState(true)
   const [active, setActive] = useState(false)
@@ -42,21 +50,23 @@ function Overview() {
   return (
     <Wrapper>
       <div id='banner'><h1>Taqueria Durango</h1></div>
-      {view ? 
-        <>
-          <nav id='views'>
-            <button className='pages' onClick={buttonbus} style={bus  ? {backgroundColor: '#bcd6ee'} : {} }>Lines</button>
-            <button className='pages' onClick={buttonactive} style={active  ? {backgroundColor: '#dbbb90'} : {}}>Active</button>
-            <button className='pages' onClick={buttonset} style={set  ? {backgroundColor: '#4a6781'} : {} }>Create</button>
-          </nav>
-          <div style={{minHeight: '80vh'}}>
-            {bus ? <Lineoverview/> : <></>}
-            {active ? <Activelines/> : <></>}
-            {set ? <Create/> : <></>}
-          </div>
-        </>
-        :
-        <></>}
+      <nav id='views'>
+            <button className='pages' onClick={buttonbus} style={bus ? {backgroundColor: '#bcd6ee'} : {} }>Lines</button>
+            <button className='pages' onClick={buttonactive} style={active? {backgroundColor: '#dbbb90'} : {}}>Active</button>
+            <button className='pages' onClick={buttonset} style={set ? {backgroundColor: '#4a6781'} : {} }>Create</button>
+      </nav>
+      <div className="container">
+        {true ? 
+          <>
+            <div style={{minHeight: '80vh'}}>
+              {bus ? <Lineoverview/> : <></>}
+              {active ? <Activelines/> : <></>}
+              {set ? <Create/> : <></>}
+            </div>
+          </>
+          :
+          <></>}
+      </div>
     </Wrapper>
   )
 }
@@ -89,6 +99,7 @@ const Wrapper = styled.div`
 
     width: 20rem;
 
+
     background-color: #f7f7f7;
     border: 2px #dddddd solid;
     border-radius: 1.5rem;
@@ -104,7 +115,10 @@ const Wrapper = styled.div`
       transition: all 0.2s ease-in-out;
       &:hover{background-color: #e4e4e4;}
     }
-    
+  }
+
+  .container{
+    min-height: 60vh;
   }
   
   @media (max-width: 1800px) {

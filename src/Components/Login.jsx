@@ -5,18 +5,13 @@ import { GoogleLogin } from '@react-oauth/google';
 import setAbclogin, { standardLogin } from '../Connections/login';
 
 
-// import { usersContext } from '../Connections/user';
-// import { setAbclogin, standardLogin } from '../Connections/login';
-
-
 function Log() {
 
-    const menubg = document.querySelector('.burger')
-    const openmenu = document.querySelector('.sidenav')
-    const topnavcolor = document.querySelector('.topnav')
-    const login = document.querySelector('.login_modal')
-    const signup = document.querySelector('.signup')
-    function menu(e) {
+    function menu() {
+        const menubg = document.querySelector('.burger')
+        const openmenu = document.querySelector('.sidenav')
+        const topnavcolor = document.querySelector('.topnav')
+        const login = document.querySelector('.login_modal')
         menubg.classList.remove('open');
         openmenu.classList.remove('open')
         topnavcolor.classList.remove('open')
@@ -24,6 +19,8 @@ function Log() {
     }
 
     function Switchform() {
+        const login = document.querySelector('.login_modal')
+        const signup = document.querySelector('.signup')
         login.classList.remove('open')
         signup.classList.add('open')
     }
@@ -55,7 +52,7 @@ function Log() {
                 <h2 className='close' onClick={menu}>X</h2>
                 <h2>Sign In to Queup</h2>
                 <input type="text" name='user' placeholder='Username or Email'/>
-                <input type="text" name='password' placeholder='Password'/>
+                <input type="password" name='password' placeholder='Password'/>
                 <h3 style={{ fontSize: '1rem', marginTop: '2rem', fontFamily: 'serif' }}>{'If you do not have an account go to '}
                     <p onClick={Switchform} style={{color: 'brown'}}>{' Signup Page'}</p>
                 </h3>

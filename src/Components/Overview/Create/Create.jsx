@@ -13,71 +13,58 @@ function Create() {
 
   let a
 
-  const [address, setAddress] = useState('')
-  const [preview, setPreview] = useState([true])
-  const [preview2, setPreview2] = useState([true])
-
-  let form = []
-  const submitbutton = (e) => { 
-    form = []
+  const submitbutton = (e) =>{
+    let form = []
     e.preventDefault()
-    const formData = new FormData(document.querySelector('form'))
+    const formData = new FormData(document.querySelector('#createform'))
     for (var data of formData.entries()) {
-      // console.log(data[1])
-      form.push(data[1]);
+      form.push(data[1])
     }
-    console.log(form)
+    let img = document.getElementById('img').files[0]
     axios.post(process.env.REACT_APP_Server + '/createque', {
-      0: form[0],
-      1: form[1],
-      2: form[2],
-      3: form[3],
-      4: form[4],
-      5: form[5],
-      6: form[6],
-      7: form[7],
-      8: form[9],
-      9: form[9],
-      10: form[10],
-      11: form[11],
-      12: form[12],
+      name: form[0],
+      address: form[1],
+      address2: form[2],
+      city: form[3],
+      zipcode: form[4],
+      state: form[5],
+      country: form[6],
+      small: form[7],
+      rate: form[8],
+      category: form[9],
+      raffle: form[10],
+      promo: form[11],
+      host: form[12],
+      img: img}, {
+      headers: {"Content-Type": "multipart/form-data"},
+      withCredentials: true,
+    }).then(response => {
+        if (response.data.message) { window.location.reload()}
     })
   }
-
-  function useDebounce(value, delay) {
-    const [debouncedValue, setDebouncedValue] = useState(value);
-    useEffect(
-      () => {
-        // Update debounced value after delay
-        const handler = setTimeout(() => {
-          setDebouncedValue(value)
-        }, delay);
-        return () => {
-          clearTimeout(handler);
-        };
-      },
-      [value, delay]
-    );
-    return debouncedValue;
-  }
-
-  const deBounce = useDebounce(address, 500)
 
   const { ref } = usePlacesWidget({
     apiKey: 'AIzaSyCk0A43vnPFAWIeRWiIqTKIGgCPIhAnf_I',
     onPlaceSelected: (place) => {console.log(place)},
   })
 
+  function Preview(e) {
+    if (e.target.files[0]) {
+      document.getElementById('previewimg').src=URL.createObjectURL(e.target.files[0])
+      document.getElementById("busname").innerHTML = document.getElementById("inputbusname").value
+    }
+    else {document.getElementById('previewimg').src = ''}
+  }
 
 
   return (
     <Wrapper>
-      <form id='form' name='CreateQue' action={process.env.REACT_APP_Server + '/createque'} method='post' onSubmit={submitbutton}>
+      <form id='createform' name='CreateQue' onSubmit={e => submitbutton(e)}>
         <section id="data-form">
           <h3>Create Business Queue</h3>
           <label>
             Business Name
-            <input type="text" placeholder="ex: John's Cafe" name='name'/>
+            <input type="text" id='inputbusname' placeholder="ex: John's Cafe" name='name'/>
           </label>
           <label>
             Address
@@ -93,7 +80,7 @@ function Create() {
             Address 2
             <input
               type="text"
-              name='address 2'
+              name='address2'
               defaultValue='0'
               placeholder="ex: #Unit, Postal Office, etc"
             />
@@ -194,6 +181,17 @@ function Create() {
               placeholder="ex: John Doe"
             />
           </label>
+          <div className='imgholder'>
+            <img id="previewimg" src='' alt='' />
+            <p id='busname'/>
+          </div>
+          <input type="file" 
+            accept="image/apng, image/avif, image/jpeg, image/png, image/webp"
+            style={{marginTop: '1rem', paddingTop: '.5rem'}}
+            onChange={e => Preview(e)}
+            id='img'
+            name='img'
+          />
           <button>Create Queue</button>
         </section>
       </form>
@@ -206,7 +204,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-left: -10rem;
 
   form {
     display: flex;
@@ -217,6 +214,19 @@ const Wrapper = styled.div`
       flex-direction: column;
       justify-content: center;
       width: 30vw;
+    }
+    .imgholder{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-top: .5rem;
+      align-items: center;
+      width: 100%;
+      img{
+        max-width: 6rem;
+        max-height: 9rem;
+        border-radius: .5rem;
+      }
     }
     input {
       border-radius: 0.5rem;
@@ -276,166 +286,6 @@ const Wrapper = styled.div`
     }
   }
 
-  #previews {
-    display: flex;
-    flex-direction: row;
-    margin-right: 8rem;
-
-    height: 20rem;
-
-    input {
-      width: 5rem;
-    }
-  }
-
-  .views {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-
-    font-weight: bold;
-    font-family: serif;
-    font-size: 1.2rem;
-
-    min-width: 22rem;
-    height: 20rem;
-
-    #full-view {
-      position: relative;
-      top: 1.5rem;
-      width: 36rem;
-      height: 26rem;
-      border: 3px solid;
-      border-radius: 1rem;
-      z-index: 2;
-    }
-
-    #mobile {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: -0.5rem;
-      margin-bottom: 1rem;
-
-      transform: scale(1);
-      min-height: 30rem;
-      text-decoration: none;
-
-      overflow: hidden;
-      z-index: 2;
-
-      svg {
-        z-index: 1;
-      }
-      .gradient {
-        position: absolute;
-        width: 6rem;
-        height: 10rem;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0) 50%,
-          #242424ca 100%
-        );
-        z-index: 6;
-        border-radius: 1rem;
-      }
-      img {
-        position: absolute;
-        width: 6rem;
-        height: 10rem;
-        z-index: 5;
-        border-radius: 1rem;
-      }
-      .upload-btn-wrapper {
-        top: 21rem;
-        left: 3.6rem;
-        height: 2rem;
-        .btn {
-          width: 7rem;
-          height: 2rem;
-          font-size: 0.8rem;
-          margin-top: 0;
-          padding: 0;
-          border-radius: 2rem;
-        }
-        input {
-          margin-top: 0rem;
-          height: 2rem;
-        }
-      }
-    }
-
-    #website {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      top: -62%;
-      left: -0.6rem;
-
-      z-index: 5;
-
-      #gradient {
-        position: absolute;
-        width: 12.5rem;
-        height: 6.8rem;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0) 50%,
-          #242424ca 100%
-        );
-        z-index: 6;
-        border-radius: 0.5rem;
-      }
-      img {
-        width: 12.5rem;
-        height: 6.8rem;
-        border-radius: 0.5rem;
-      }
-      .upload-btn-wrapper {
-        left: 1rem;
-        bottom: -2.5rem;
-        .btn {
-          margin: 0;
-          padding: 0;
-        }
-        input {
-          margin-top: 0rem;
-          width: 10rem;
-          height: 1.5rem;
-        }
-      }
-    }
-  }
-
-  .upload-btn-wrapper {
-    position: absolute;
-    /* overflow: hidden; */
-    display: inline-block;
-    z-index: 10;
-    text-decoration: unset !important;
-    &.btn2 {
-      top: 0rem;
-      left: unset;
-    }
-  }
-
-  .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid gray;
-    color: #252525cf;
-    background-color: #ffffffa4;
-    width: 10rem;
-    height: 1.3rem;
-    padding: 8px 20px;
-    border-radius: 2rem;
-    font-size: 15px;
-    font-weight: bold;
-  }
-
   .upload-btn-wrapper input[type="file"] {
     font-size: 100px;
     position: absolute;
@@ -445,75 +295,10 @@ const Wrapper = styled.div`
   }
 
   @media (max-width: 550px) {
-    height: 35rem;
     section {
       display: flex;
       flex-direction: column;
       margin-right: unset;
-    }
-
-    .views {
-      min-width: 10rem;
-      font-size: 1rem;
-      margin-top: -5rem;
-      margin-bottom: 3rem;
-      h3 {
-        top: 4.5rem;
-        left: 33%;
-      }
-      #mobile {
-        margin-top: -8rem;
-        width: 6.5rem;
-        height: 10rem;
-        img {
-          width: 3rem;
-          height: 5rem;
-          border-radius: 0.5rem;
-        }
-        .gradient {
-          width: 3rem;
-          height: 5rem;
-          border-radius: 0.5rem;
-        }
-        .upload-btn-wrapper {
-          left: -0.3rem;
-          bottom: -2.5rem;
-          .btn {
-            position: relative;
-            margin: 0.5rem 0;
-            left: 0.3rem;
-            width: 6.4rem;
-          }
-        }
-      }
-      #website {
-        top: -38%;
-        left: -0.3rem;
-        width: 6.5rem;
-        height: 10rem;
-        margin-top: 1.5rem;
-        img {
-          position: relative;
-          top: -0.6rem;
-          width: 5.35rem;
-          height: 2.5rem;
-          border-radius: 0.3rem;
-        }
-        #gradient {
-          top: 2.1rem;
-          width: 5.4rem;
-          height: 2rem;
-        }
-        .btn {
-          position: relative;
-          left: -2.5rem;
-        }
-      }
-      #full-view {
-        top: 1rem;
-        width: 15rem;
-        height: 10rem;
-      }
     }
   }
 
@@ -535,7 +320,8 @@ const Wrapper = styled.div`
     justify-content: center;
     margin-top: 2rem;
     margin-left: 0rem;
+    form{#data-form{width: 80vw;}}
   }
-`;
+`
 
-export default Create;
+export default Create

@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Log from '../Components/Login'
 
 function Test() {
 

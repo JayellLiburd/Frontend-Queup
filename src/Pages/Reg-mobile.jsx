@@ -11,22 +11,17 @@ function Regmobile() {
 
     const nav = useNavigate();
 
-    const {setOpenReg} = useContext(usersContext);
-
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [first, setFirst] = useState('')
     const [last, setLast] = useState('')
     const [email, setEmail] = useState('')
 
-    //Connections
-        //sign up
-    const userRegister = () => {sendRegistation(username, password, first, last, email); nav('/', {replace: true}); setOpenReg(false)}
-
-
-    // redirect after reload
-    useEffect(()=>{if(window.location.hash) {nav('/');}})
-
+    //sign up
+    const userRegister = () => {
+        sendRegistation(username, password, first, last, email)
+        nav('/', {replace: true})
+    }
 
     // redirect after reload
     useEffect(()=>{if(window.location.hash) {nav('/');}})
