@@ -65,11 +65,11 @@ function Regmobile() {
                 name='password' 
                 onChange={(e) => {setPassword(e.target.value)}}
             />
+            <h3 style={{ fontSize: '.9rem', margin: '1rem' }}>{'If alreay have an account go to '}
+                <NavLink to='/auth' style={{color: 'brown'}}>login page</NavLink>
+            </h3>
             <button id='btn' onClick={userRegister}>Register</button>
         </div>
-        <h3 style={{ fontSize: '1rem', marginLeft: '4rem', marginTop: '3rem', fontFamily: 'serif' }}>{'If alreay have an account go to '}
-            <NavLink to='/auth' style={{color: 'yellow'}}>login page</NavLink>
-        </h3>
 
     </Wrapper>
 
@@ -79,12 +79,9 @@ function Regmobile() {
 const Wrapper = styled.div`
   padding: 6rem 0;
 
-  color: white;
   width: 100vw;
   height: 60vh;
   font-size: 1.5rem;
-
-  background-color: #694b24f0;
 
   #reg{
         all: unset;
@@ -92,47 +89,63 @@ const Wrapper = styled.div`
         flex-direction: column;
         align-items: center;
 
-        color: white;
         font-size: 1.5rem;
 
-        label{margin-top: -2rem;}
+        label{margin-top: -2rem; font-weight: bold;}
         .inputreg{
-          all: unset; 
-          margin: 1rem 0;
-          padding: .5rem;
-
-          width: 19rem;
-          height: 1.1rem;
-          font-size: 1rem;
-          font-family: 'Roboto Mono', monospace;
-          
-          background-color: grey;
-          border: 1px solid #d3d3d3;
-          border-radius: .4rem;
-
-          &::placeholder{color: black;}
-          &:focus { border: 2px solid white; background-color: grey; color: white; &::placeholder{color: white;}}
-
-          }}
-        .inputinfo{
-            all: unset; 
-            margin: 1rem 1rem;
-            padding: 0.5rem;
-
-            width: 8rem;
-            height: 1rem;
-            font-size: .9rem;
-            font-family: 'Roboto Mono', monospace;
-            
-            background-color: grey;
-            border: 1px solid #d3d3d3;
-            border-radius: .4rem;
-
-            &::placeholder{color: black;}
-            &:focus { border: 2px solid white; background-color: grey; color: white; &::placeholder{color: white;}}
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            position: relative;
+            margin: .5rem 0;
+            padding-left: 1rem;
+            width: 80vw;
+            height: 3rem;
+            border: unset;
+            background-color: #80808045;
+            border-radius: .5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: sans-serif;
+            color: #000000;
+            transition: all 0.2s ease-in-out;
+            &::placeholder{color: #424242da;}
+            &input:focus{ border: 2px solid #c5323250;}
         }
 
-  #btn{margin-top: 1rem; padding: .2rem .5rem; background-color: #ac9787cf; color: white; text-decoration: unset; }
+        #btn{
+            all: unset;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: .5rem;
+            aspect-ratio: 3/1;
+            width: 6rem;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #58370b;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+        .inputinfo{
+            all: unset; 
+            margin: 1rem .5rem;
+            padding: 0.5rem;
+            width: 36vw;
+            height: 2rem;
+            border: unset;
+            background-color: #80808045;
+            border-radius: .5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: sans-serif;
+            color: #000000;
+            transition: all 0.2s ease-in-out;
+            &::placeholder{color: #424242da;}
+            &input:focus{ border: 2px solid #c5323250;}
+        }
+  }
 
  @media screen and (min-width: 800px) {
   padding-bottom: 50rem;

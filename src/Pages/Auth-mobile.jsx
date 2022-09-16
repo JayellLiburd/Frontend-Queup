@@ -25,12 +25,14 @@ function Authmobile() {
 
     <Wrapper>
         <div id='log'>
-            <GoogleLogin 
-                onSuccess={responseGoogle}
-                size='medium' 
-                width='350'
-                ux_mode='redirect'
-            />
+            <div className='abc'>
+                <GoogleLogin 
+                    onSuccess={responseGoogle}
+                    size='medium' 
+                    width='300'
+                    ux_mode='redirect'
+                />
+            </div>
             <label htmlFor="Login">Login</label>
             <input className='inputreg'
                 type="text"
@@ -46,10 +48,10 @@ function Authmobile() {
                 onChange={(e) => {
                     setCheckpassword(e.target.value)}}
             />
-            <button id='btn' onClick={setUserLogin}>login</button>
-            <h3 style={{ fontSize: '1rem', marginTop: '3rem', fontFamily: 'serif' }}>{'If you do not have an account go to '}
-                <NavLink to='/reg' style={{color: 'yellow'}}>Signup Page</NavLink>
+            <h3 style={{color: 'black', fontSize: '.8rem', marginTop: '1rem' }}>{'If you do not have an account go to '}
+                <NavLink to='/reg' style={{color: 'brown'}}>Signup Page</NavLink>
             </h3>
+            <button id='btn' onClick={setUserLogin}>login</button>
         </div>
     </Wrapper>
 
@@ -57,46 +59,57 @@ function Authmobile() {
 }
 
 const Wrapper = styled.div`
-  padding: 6rem 0;
+  padding: 5rem 0;
 
   color: white;
   width: 100vw;
-  height: 60vh;
+  min-height: 80vh;
   font-size: 1.5rem;
-
-  background-color: #694b24f0;
 
   #log{
       all: unset;
       display: flex;
       flex-direction: column;
       align-items: center;
+      .abc{padding: 1rem 0; border-bottom: 2px solid black;}
+      label{margin: 1rem 0; color: black; font-weight: bold;}
+      .inputreg{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            position: relative;
+            margin: .5rem 0;
+            padding-left: 1rem;
+            width: 80vw;
+            height: 3rem;
+            border: unset;
+            background-color: #80808045;
+            border-radius: .5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: sans-serif;
+            color: #000000;
+            transition: all 0.2s ease-in-out;
+            &::placeholder{color: #424242da;}
+            &input:focus{ border: 2px solid #c5323250;}
+        }
 
-      label{margin-top: 2rem;}
-      input{
-          all: unset; 
-          margin: 1rem 0;
-          padding: .8rem;
-
-          width: 20rem;
-          height: 1rem;
-          font-size: 1rem;
-          font-family: 'Roboto Mono', monospace;
-          
-          background-color: grey;
-          border: 1px solid #d3d3d3;
-          border-radius: .4rem;
-
-          &::placeholder{color: black;}
-          &:focus { border: 2px solid white; background-color: grey; color: white; &::placeholder{color: white;}}
-
-          }}
-
-          #btn{margin-top: 1rem; padding: .2rem 1rem; background-color: #ac9787cf; color: white; text-decoration: unset; }
-
- @media screen and (min-width: 800px) {
-  padding-bottom: 50rem;
- }
+          #btn{
+            all: unset;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: .5rem;
+            aspect-ratio: 3/1;
+            width: 6rem;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #58370b;
+            border-radius: 0.5rem;
+            cursor: pointer;
+           }
+    }
 
 `
 
