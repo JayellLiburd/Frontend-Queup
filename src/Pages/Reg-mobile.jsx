@@ -46,7 +46,7 @@ function Regmobile() {
                     onChange={(e) => {setLast(e.target.value)}}/>
             </div>
             <input className='inputreg'
-                    type="text" 
+                    type="email" 
                     placeholder='Email' 
                     name='Email' 
                     onChange={(e) => {setEmail(e.target.value)}}/>
@@ -57,10 +57,10 @@ function Regmobile() {
                 name='username' 
                 onChange={(e) => {setUsername(e.target.value)}}/>
 
-            <input className='inputreg' type="text" placeholder='Create Password'/>
+            <input className='inputreg' type="password" placeholder='Create Password'/>
 
             <input className='inputreg'
-                type="text"
+                type="password"
                 placeholder='Re-type Password' 
                 name='password' 
                 onChange={(e) => {setPassword(e.target.value)}}

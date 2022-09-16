@@ -39,32 +39,40 @@ function Topnav() {
     function loginmodal() {
         const login = document.querySelector('.login_modal')
         const signup = document.querySelector('.signup')
-        signup.classList.remove('open')
-        if(!menuOpen) {
-            menu()
+        if (signup.classList.contains('open')) {
             login.classList.add('open')
-            menuOpen = true;
-        }
-        else {
-            menu()
-            login.classList.remove('open')
-            menuOpen = false
+            signup.classList.remove('open')
+        } else {
+            if(!menuOpen) {
+                menu()
+                login.classList.add('open')
+                menuOpen = true;
+            }
+            else {
+                menu()
+                login.classList.remove('open')
+                menuOpen = false
+            }
         }
     }
 
     function signupmodal() {
         const login = document.querySelector('.login_modal')
         const signup = document.querySelector('.signup')
-        login.classList.remove('open')
-        if(!menuOpen) {
-            menu()
+        if (login.classList.contains('open')) {
             signup.classList.add('open')
-            menuOpen = true;
-        }
-        else {
-            menu()
-            signup.classList.remove('open')
-            menuOpen = false
+            login.classList.remove('open')
+        } else {
+            if(!menuOpen) {
+                menu()
+                signup.classList.add('open')
+                menuOpen = true;
+            }
+            else {
+                menu()
+                signup.classList.remove('open')
+                menuOpen = false
+            }
         }
     }
 
@@ -163,6 +171,7 @@ const Nav = styled.nav`
         background-color: #ffffffa6;
         backdrop-filter: blur(15px);
         #Q{ all: unset; font-size: 1.1rem; padding: 0 5rem;}
+        .Queup{position: relative; left: 8rem; font-size: 1.2rem;}
         #links{
             display: flex;
             margin-left: -10vw;

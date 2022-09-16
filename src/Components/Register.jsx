@@ -29,7 +29,7 @@ function Reg() {
     const submit = (e) => {
         form = []
         e.preventDefault()
-        const formData = new FormData(document.querySelector('.login'))
+        const formData = new FormData(document.querySelector('.reg'))
         for (var data of formData.entries()) {
           form.push(data[1]);
         }
@@ -118,6 +118,7 @@ function Reg() {
         h2{color: #72460c;}
         input{
             all: unset;
+            display: none;
             margin: .5rem 0; 
             padding: .5rem;
             padding-left: 1rem;
@@ -168,6 +169,7 @@ function Reg() {
             padding-bottom: 5rem;
             width: 30vw;
             height: max-content;
+            input{display: block;}
         }
     }
     @media (max-width: 1400px) {

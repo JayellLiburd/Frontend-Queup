@@ -5,14 +5,12 @@ import { standardLogin } from "./login"
 
 export function sendRegistation(first, last, email, username, password) {
     axios.post(process.env.REACT_APP_Server + '/reg',  new URLSearchParams({
-        withCredentials: true,
-        Credentials: 'include',
-        username: username, 
-        password: password,
         first_name: first,
         last_name: last,
         email: email,
-    })).then(standardLogin(username, password))
+        username: username, 
+        password: password
+    })).then(response => standardLogin(username, password))
 }
 
 export function Logout() {

@@ -19,7 +19,10 @@ export function standardLogin(checkUsername, checkPassword) {
         password: checkPassword,
     }),{withCredentials: true}).then((response) => {
         // get prefrences
-        if (response.data[1]) {localStorage.setItem('prfs', response.data[1]);}
+        if (response.data[1]) {
+            localStorage.setItem('prfs', response.data[1]);
+            window.location.assign('/')
+        }
         else { alert(response.data.message)}
     })
 }

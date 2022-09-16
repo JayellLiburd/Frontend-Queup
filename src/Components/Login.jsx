@@ -96,6 +96,7 @@ function Log() {
         h2{color: #72460c;}
         input{
             all: unset;
+            display: none;
             margin: .5rem 0; 
             padding: .5rem;
             padding-left: 1rem;
@@ -136,6 +137,7 @@ function Log() {
             padding-bottom: 5rem;
             width: 30vw;
             height: max-content;
+            input{display: block;}
         }
     }
     @media (max-width: 1400px) {
