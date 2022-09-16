@@ -1,4 +1,5 @@
 import axios from "axios"
+import { standardLogin } from "./login"
 
 
 
@@ -11,7 +12,7 @@ export function sendRegistation(first, last, email, username, password) {
         first_name: first,
         last_name: last,
         email: email,
-    })).then(alert('User Created Please Head back and Log in'))
+    })).then(standardLogin(username, password))
 }
 
 export function Logout() {
