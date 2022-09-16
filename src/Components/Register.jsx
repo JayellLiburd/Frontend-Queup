@@ -71,10 +71,10 @@ function Reg() {
                     placeholder='Create Username' 
                     name='username' />
 
-                <input className='inputreg' type="text" placeholder='Create Password'/>
+                <input className='inputreg' type="password" placeholder='Create Password'/>
 
                 <input className='inputreg'
-                    type="text"
+                    type="password"
                     placeholder='Re-type Password' 
                     name='password'/>
                 <h3 style={{ fontSize: '1rem', fontFamily: 'serif' }}>{'If you do have an account go to '}
@@ -98,6 +98,7 @@ function Reg() {
         justify-content: center;
         position: relative;
         align-items: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         width: 30vw;
         height: 0vh;
         overflow: hidden;
