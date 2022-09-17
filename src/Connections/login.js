@@ -21,7 +21,7 @@ export function standardLogin(checkUsername, checkPassword) {
         // get prefrences
         if (response.data[1]) {
             localStorage.setItem('prfs', response.data[1]);
-            window.location.assign('/')
+            // window.location.assign('/')
         }
         else { alert(response.data.message)}
     })

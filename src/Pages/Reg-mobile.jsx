@@ -8,68 +8,36 @@ import { usersContext } from '../Connections/user';
 
 function Regmobile() {
 
-
-    const nav = useNavigate();
-
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [first, setFirst] = useState('')
-    const [last, setLast] = useState('')
-    const [email, setEmail] = useState('')
-
     //sign up
-    const userRegister = () => {
-        sendRegistation(username, password, first, last, email)
-        nav('/', {replace: true})
+    const userRegister = (e) => {
+        e.preventDefault()
+        let form = []
+        const formdata = new FormData(document.getElementById('mobilereg'))
+        for (let data of formdata.entries()) {form.push(data[1])}
+        if (form[4] === form[5]) {
+            sendRegistation(form[0], form[1], form[2], form[3], form[5])
+        } else { alert('Please make sure passwords are same')}
     }
-
-    // redirect after reload
-    useEffect(()=>{if(window.location.hash) {nav('/');}})
 
 
   return (
 
     <Wrapper>
-        <div id='reg'>
+        <form id='mobilereg' onSubmit={userRegister}>
             <label htmlFor="Register">Register</label>
             <div>
-                <input className='inputinfo'
-                    type="text" 
-                    placeholder='First Name' 
-                    name='First' 
-                    onChange={(e) => {setFirst(e.target.value)}}/>
-
-                <input className='inputinfo'
-                    type="text" 
-                    placeholder='Last Name' 
-                    name='Last' 
-                    onChange={(e) => {setLast(e.target.value)}}/>
+                <input className='inputinfo' type="text" placeholder='First Name' name='First' required/>
+                <input className='inputinfo'type="text" placeholder='Last Name' name='Last' required/>
             </div>
-            <input className='inputreg'
-                    type="email" 
-                    placeholder='Email' 
-                    name='Email' 
-                    onChange={(e) => {setEmail(e.target.value)}}/>
-
-            <input className='inputreg'
-                type="text" 
-                placeholder='Create Username' 
-                name='username' 
-                onChange={(e) => {setUsername(e.target.value)}}/>
-
-            <input className='inputreg' type="password" placeholder='Create Password'/>
-
-            <input className='inputreg'
-                type="password"
-                placeholder='Re-type Password' 
-                name='password' 
-                onChange={(e) => {setPassword(e.target.value)}}
-            />
+            <input className='inputreg'type="email" placeholder='Email' name='Email' required/>
+            <input className='inputreg'type="text" placeholder='Create Username' name='username' required/>
+            <input className='inputreg' type="password" placeholder='Create Password' name='createpassword'required/>
+            <input className='inputreg'type="password"placeholder='Re-type Password' name='password' required/>
             <h3 style={{ fontSize: '.9rem', margin: '1rem' }}>{'If alreay have an account go to '}
                 <NavLink to='/auth' style={{color: 'brown'}}>login page</NavLink>
             </h3>
-            <button id='btn' onClick={userRegister}>Register</button>
-        </div>
+            <button>Register</button>
+        </form>
 
     </Wrapper>
 
@@ -80,10 +48,10 @@ const Wrapper = styled.div`
   padding: 6rem 0;
 
   width: 100vw;
-  height: 60vh;
+  height: 80vh;
   font-size: 1.5rem;
 
-  #reg{
+  #mobilereg{
         all: unset;
         display: flex;
         flex-direction: column;
@@ -113,7 +81,7 @@ const Wrapper = styled.div`
             &input:focus{ border: 2px solid #c5323250;}
         }
 
-        #btn{
+        button{
             all: unset;
             display: flex;
             justify-content: center;

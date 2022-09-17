@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { GoogleLogin } from '@react-oauth/google';
 
 import { setAbclogin, standardLogin } from '../Connections/login';
-
+import axios from 'axios';
 
 function Authmobile() {
 
@@ -15,7 +15,13 @@ function Authmobile() {
   //Connections
 
   //login
-  const setUserLogin = () => {standardLogin(checkUsername, checkPassword)}
+  const setUserLogin = (e) => {
+    e.preventDefault()
+    let form = []
+    const formdata = new FormData(document.getElementById('mobilelog'))
+    for (let data of formdata.entries()) {form.push(data[1])}
+    standardLogin(form[0], form[1])
+  }
 
   const responseGoogle = (response) => { setAbclogin(response) } 
   
@@ -24,36 +30,24 @@ function Authmobile() {
   return (
 
     <Wrapper>
-        <div id='log'>
+        <form id='mobilelog' onSubmit={e => setUserLogin(e)}>
             <div className='abc'>
                 <GoogleLogin 
                     onSuccess={responseGoogle}
                     size='medium' 
                     width='300'
                     ux_mode='redirect'
-                    redirectUri='https://queueupnext.com/'
+                    redirectUri='https://queueupnext.com'
                 />
             </div>
             <label htmlFor="Login">Login</label>
-            <input className='inputreg'
-                type="text"
-                placeholder='Username or Email' 
-                name='username' 
-                onChange={(e) => {
-                    setCheckusername(e.target.value)}}
-            />
-            <input className='inputreg'
-                type="password"
-                placeholder='Password' 
-                name='password' 
-                onChange={(e) => {
-                    setCheckpassword(e.target.value)}}
-            />
+            <input className='inputreg'type="text"placeholder='Username or Email' name='username' required/>
+            <input className='inputreg'type="password"placeholder='Password' name='password' required/>
             <h3 style={{color: 'black', fontSize: '.8rem', marginTop: '1rem' }}>{'If you do not have an account go to '}
                 <NavLink to='/reg' style={{color: 'brown'}}>Signup Page</NavLink>
             </h3>
-            <button id='btn' onClick={setUserLogin}>login</button>
-        </div>
+            <button>login</button>
+        </form>
     </Wrapper>
 
   )
@@ -67,7 +61,7 @@ const Wrapper = styled.div`
   min-height: 80vh;
   font-size: 1.5rem;
 
-  #log{
+  #mobilelog{
       all: unset;
       display: flex;
       flex-direction: column;
@@ -95,7 +89,7 @@ const Wrapper = styled.div`
             &input:focus{ border: 2px solid #c5323250;}
         }
 
-          #btn{
+        button{
             all: unset;
             display: flex;
             justify-content: center;

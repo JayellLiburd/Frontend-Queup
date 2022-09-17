@@ -10,7 +10,7 @@ export function sendRegistation(first, last, email, username, password) {
         email: email,
         username: username, 
         password: password
-    })).then(response => standardLogin(username, password))
+    }), {withCredentials: true}).then(response => {standardLogin(username, password)})
 }
 
 export function Logout() {
