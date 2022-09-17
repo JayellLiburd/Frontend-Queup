@@ -31,6 +31,7 @@ function Authmobile() {
                     size='medium' 
                     width='300'
                     ux_mode='redirect'
+                    redirectUri='https://queueupnext.com/'
                 />
             </div>
             <label htmlFor="Login">Login</label>
@@ -42,7 +43,7 @@ function Authmobile() {
                     setCheckusername(e.target.value)}}
             />
             <input className='inputreg'
-                type="text"
+                type="password"
                 placeholder='Password' 
                 name='password' 
                 onChange={(e) => {
