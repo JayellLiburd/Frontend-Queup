@@ -4,15 +4,10 @@ import styled from 'styled-components'
 import { GoogleLogin } from '@react-oauth/google';
 
 import { setAbclogin, standardLogin } from '../Connections/login';
-import axios from 'axios';
+
+
 
 function Authmobile() {
-
-
-  const [checkUsername, setCheckusername] = useState('')
-  const [checkPassword, setCheckpassword] = useState('')
-
-  //Connections
 
   //login
   const setUserLogin = (e) => {
