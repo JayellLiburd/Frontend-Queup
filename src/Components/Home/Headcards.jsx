@@ -11,9 +11,9 @@ class Displaycase extends React.Component {
 
     this.state = 
     { cases:  [
-      {   'id': 1, 'image': 'Images/idea1.webp', 'label': 'Food', 'image': IoFastFoodOutline},
-      {   'id': 2, 'image': 'Images/idea2.jpg', 'label': 'Raffles', 'image': IoTicketOutline},
-      {   'id': 3, 'image': 'Images/idea3.jpg', 'label': 'Favorites', 'image': MdFavoriteBorder}
+      {  'id': 1, 'label': 'Food', 'image': IoFastFoodOutline},
+      {  'id': 2, 'label': 'Raffles', 'image': IoTicketOutline},
+      {  'id': 3, 'label': 'Favorites', 'image': MdFavoriteBorder}
     ]}
   };
 

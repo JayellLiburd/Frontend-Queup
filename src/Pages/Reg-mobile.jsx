@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components'
 
 import sendRegistation from '../Connections/Cookies';
-import { usersContext } from '../Connections/user';
 
 
 function Regmobile() {

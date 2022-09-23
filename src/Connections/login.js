@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function setAbclogin(response) {
-    axios.post(process.env.REACT_APP_Server + '/login',{ user: response.credential}, {withCredentials: true}).then((result) => {
+    axios.post(process.env.REACT_APP_Server + '/login',{user: response.credential}, {withCredentials: true}).then((result) => {
         //get prefrences
         if (result.data[1]) { 
             localStorage.setItem('prfs', result.data[1])

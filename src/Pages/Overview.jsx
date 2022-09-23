@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect, } from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import axios from 'axios'
-import jwt_decode from 'jwt-decode'
 
 import Activelines from '../Components/Overview/Activelines'
 import Lineoverview from '../Components/Overview/Lineoverview'
@@ -25,7 +24,7 @@ function Overview() {
         }
 
         if (response.data[0]) {setAuth(true)}
-  })}, [nav, auth])
+  })}, [nav, auth, setAuth])
 
   function menu() {
     const menubg = document.querySelector('.burger')

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function Card_model(props) {
+function card_Model(props) {
   
   let Queue = [
     {subject: 'Active in Line', data: 4},
@@ -385,4 +385,4 @@ const Wrapper = styled.div`
   }
 `
 
-export default Card_model;
+export default card_Model;

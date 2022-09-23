@@ -1,11 +1,9 @@
 import axios from 'axios'
-import React, { useState, createContext, useEffect } from 'react'
+import React, {createContext } from 'react'
 import styled from 'styled-components'
 import countryList from '../../../Helpers/Countries'
 import { States } from '../../../Helpers/States'
 import { usePlacesWidget } from 'react-google-autocomplete'
-
-import Temp from './temp.png'
 
 export const createbusContext = createContext()
 
@@ -73,6 +71,7 @@ function Create() {
               name='address'
               defaultValue=''
               placeholder="ex: Lakewater Path Lane"
+              ref={ref}
             />
             {a < 3 ? <p>Please enter a Valid Street Address</p> : <></>}
           </label>

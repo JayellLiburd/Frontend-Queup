@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import styled, { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 import jwt_decode from 'jwt-decode'
 
 import { GoogleOAuthProvider } from '@react-oauth/google'
@@ -17,9 +17,7 @@ import Regmobile from './Reg-mobile'
 
 import { useState } from 'react'
 import { usersContext } from '../Connections/user'
-import Headcards from '../Components/Home/Headcards'
 import Test from './Test'
-import { Logout } from '../Connections/Cookies'
 
 
 function Pageholder() {

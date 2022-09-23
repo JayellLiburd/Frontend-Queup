@@ -2,7 +2,7 @@ import { React, useContext, useState } from 'react'
 import styled from 'styled-components'
 
 import Headcards from '../Components/Home/Headcards'
-import Card_model from '../Components/Models/Card_model'
+import Cardmodel from '../Components/Models/Card_model'
 import { usersContext } from '../Connections/user'
 
 import { shuffle } from '../Functions/Arrayhelpers'
@@ -40,7 +40,7 @@ function Home() {
         <div id="gradient" />
         <img src="Images/hero.jpg" alt=""/>
       </div>
-      <div className="card"><Card_model info={media}/></div>
+      <div className="card"><Cardmodel info={media}/></div>
       <div className="content">
         {Test.map((item) => {
         return (
