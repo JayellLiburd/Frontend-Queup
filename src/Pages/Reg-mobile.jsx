@@ -28,10 +28,14 @@ function Regmobile() {
                 <input className='inputinfo' type="text" placeholder='First Name' name='First' required/>
                 <input className='inputinfo'type="text" placeholder='Last Name' name='Last' required/>
             </div>
-            <input className='inputreg'type="email" placeholder='Email' name='Email' required/>
+            <input className='inputreg'type="email" placeholder='Email' name='Email' 
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/>
             <input className='inputreg'type="text" placeholder='Create Username' name='username' required/>
-            <input className='inputreg' type="password" placeholder='Create Password' name='createpassword'required/>
-            <input className='inputreg'type="password"placeholder='Re-type Password' name='password' required/>
+            <input className='inputreg' type="password" placeholder='Create Password' name='createpassword' 
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
+            <input className='inputreg'type="password"placeholder='Re-type Password' name='password' 
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>
             <h3 style={{ fontSize: '.9rem', margin: '1rem' }}>{'If alreay have an account go to '}
                 <NavLink to='/auth' style={{color: 'brown'}}>login page</NavLink>
             </h3>

@@ -6,6 +6,7 @@ import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from 'react-icons/ai'
 
 import { usersContext } from '../Connections/user';
+import { Testwords } from '../Helpers/words';
 
 import Reg from './Register';
 import Log from './Login'
@@ -15,6 +16,9 @@ import { Logout } from '../Connections/Cookies';
 function Topnav() {
 
     const {auth} = useContext(usersContext);
+
+    const searchfield = document.getElementById('searchfield')
+    console.log(searchfield)
 
     //button animation
     let menuOpen = false;
@@ -97,7 +101,7 @@ function Topnav() {
             </div>
             <button className='nav mobile'><AiOutlineSearch size='1.5rem'/></button>
             <a className='nav mobile' href='/' id='Q'><h3>Q</h3></a>
-            <button className='nav mobile'><NavLink style={{all: 'unset', display: 'flex', justifyContent: 'center', alignItems: 'center'}} to='/auth'><BsPersonFill size='1.5rem'/></NavLink></button> 
+            <button className='nav mobile'><NavLink style={{all: 'unset', display: 'flex', justifyContent: 'center', alignItems: 'center'}} to={auth ? '/account' : '/auth'}><BsPersonFill size='1.5rem'/></NavLink></button> 
         </section>
         <div className="log"><Log/></div>
         <div className="register"><Reg/></div>
@@ -108,20 +112,31 @@ function Topnav() {
             <div className='sidenav'>
                 <div className='search'>
                     <div><AiOutlineSearch size='1.5rem' color='#ffffffda'/></div>
-                    <input type="text" placeholder='Search Queup...' />
+                    <input type="text" placeholder='Search Queup...' id='searchfield'/>
                 </div>
-                <NavLink onClick={menu} to='/' id='logbutton' className='routes'>Homepage</NavLink>
+                <div className='searches'>
+                    {Testwords.filter((_, index) => index > 4).map(searches => {
+                        
+                        return (
+                            <NavLink onClick={menu} to={'/store/' + j} className='routes' key={searches}>{j}</NavLink>
+                        )
+                })}
+                </div>
+                <div className='mobilenav'>
 
-                {auth  ? <NavLink onClick={menu} to='account' className='routes'>Account</NavLink>
-                :<NavLink onClick={menu} to='auth' id='logbutton' className='routes'>Login</NavLink>}
+                    <NavLink onClick={menu} to='/' id='logbutton' className='routes'>Homepage</NavLink>
 
-                {auth  ? <NavLink onClick={menu} to='Overview' className='routes'>Business</NavLink>
-                :<NavLink onClick={menu} to='/reg' className='routes' id='regbutton'>Sign Up</NavLink>}
+                    {auth  ? <NavLink onClick={menu} to='account' className='routes'>Account</NavLink>
+                    :<NavLink onClick={menu} to='auth' id='logbutton' className='routes'>Login</NavLink>}
 
-                <NavLink onClick={menu} to='/' className='routes'>Rewards</NavLink>
+                    {auth  ? <NavLink onClick={menu} to='Overview' className='routes'>Business</NavLink>
+                    :<NavLink onClick={menu} to='/reg' className='routes' id='regbutton'>Sign Up</NavLink>}
 
-                {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>Log Out</button>
-                :<NavLink onClick={menu} to='/' className='routes' id='regbutton'>Contact</NavLink>}
+                    <NavLink onClick={menu} to='/' className='routes'>Rewards</NavLink>
+
+                    {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>Log Out</button>
+                    :<NavLink onClick={menu} to='/' className='routes' id='regbutton'>Contact</NavLink>}
+                </div>
             </div>
 
         </section>
@@ -264,6 +279,18 @@ const Nav = styled.nav`
         width: 80vw;
         margin: 0;
         z-index: 4;
+        .mobilenav{
+            display: none;
+            flex-direction: column;
+            width: max-content;
+            &.open{display: flex}
+        }
+        .searches{
+            display: flex;
+            flex-direction: column;
+            width: max-content;
+            &.open{display: flex}
+        }
     }
 
     // ------ menu animation ------
@@ -384,7 +411,7 @@ const Nav = styled.nav`
                 align-items: center;
                 width: 100vw;
                 padding: 1rem;
-                &:nth-child(2){ border-top: 2px solid #ffffff49; padding-top: 2rem;}
+                &:nth-child(1){ border-top: 2px solid #ffffff49; padding-top: 2rem;}
             }
             a{color: white; &:active{background-color: #ffffff29}}
             transition: all .5s ease-in-out;
