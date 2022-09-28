@@ -48,7 +48,7 @@ function Overview() {
 
   return (
     <Wrapper>
-      <div id='banner'><h1>Taqueria Durango</h1></div>
+      <div id='banner'><h1>CheeseCake Factory</h1></div>
       <nav id='views'>
             <button className='pages' onClick={buttonbus} style={bus ? {backgroundColor: '#bcd6ee'} : {} }>Lines</button>
             <button className='pages' onClick={buttonactive} style={active? {backgroundColor: '#dbbb90'} : {}}>Active</button>
@@ -85,7 +85,7 @@ const Wrapper = styled.div`
     width: 100vw;
     min-height: 10rem;
 
-    background-color: grey;
+    background-color: #ad8c5a;
     h1{margin: 0 5rem; color: white; font-family: 'Cinzel', serif; }
   }
 

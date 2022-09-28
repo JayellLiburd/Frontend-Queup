@@ -10,15 +10,58 @@ import { Testwords } from '../Helpers/words';
 
 import Reg from './Register';
 import Log from './Login'
+import Results from './Search';
 import { Logout } from '../Connections/Cookies';
+import { useState } from 'react';
+import { useEffect } from 'react';
+
 
 
 function Topnav() {
 
     const {auth} = useContext(usersContext);
 
-    const searchfield = document.getElementById('searchfield')
-    console.log(searchfield)
+
+
+    const [value, setValue] = useState('')
+    const [results, setResults] = useState([])
+    useEffect(() => {
+        const handler = setTimeout(() => value != '' || null || undefined ? filterItems(Testwords, value) : '', 500)
+        if (value == '' || null || undefined) {setResults(['CheeseCake Factory', 'Trusted Kicks', 'Micro Center', 'Nike', 'Turkey Leg Hut'])}
+        return () => {clearTimeout(handler)}
+    },[value])
+
+    function filterItems(arr, query) {
+        const filtered = arr.filter((el) => el.toLowerCase().match(query.toLowerCase())).slice(0, 5);
+        setResults(filtered)
+    }
+
+    // Set Event listeners
+    useEffect(() => {
+        //Nick says think about already intergrated back buttons
+        const login = document.querySelector('.login_modal')
+        const signup = document.querySelector('.signup')
+        const inputfield = document.getElementById('searchfield')
+        const view = document.querySelector('.mobilemenu')
+        const searchbar = document.getElementById('searchbar')
+        const resultslist = document.querySelector('.resultslist')
+        inputfield.addEventListener('focusout', e => { view.classList.remove('opensearch') })
+        inputfield.addEventListener('focusin', e => { view.classList.add('opensearch')})
+        searchbar.addEventListener('focusin', e => {
+            if (resultslist.classList.contains('open') || login.classList.contains('open') || signup.classList.contains('open')) {
+                resultslist.classList.add('open')
+                login.classList.remove('open')
+                signup.classList.remove('open')
+            } 
+            else {
+                menu()
+                resultslist.classList.add('open')
+                login.classList.remove('open')
+                signup.classList.remove('open')
+            }
+        })
+    })
+
 
     //button animation
     let menuOpen = false;
@@ -43,9 +86,11 @@ function Topnav() {
     function loginmodal() {
         const login = document.querySelector('.login_modal')
         const signup = document.querySelector('.signup')
-        if (signup.classList.contains('open')) {
+        const resultslist = document.querySelector('.resultslist')
+        if (signup.classList.contains('open') || resultslist.classList.contains('open')) {
             login.classList.add('open')
             signup.classList.remove('open')
+            resultslist.classList.remove('open')
         } else {
             if(!menuOpen) {
                 menu()
@@ -63,9 +108,11 @@ function Topnav() {
     function signupmodal() {
         const login = document.querySelector('.login_modal')
         const signup = document.querySelector('.signup')
-        if (login.classList.contains('open')) {
+        const resultslist = document.querySelector('.resultslist')
+        if (login.classList.contains('open' || resultslist.classList.contains('open'))) {
             signup.classList.add('open')
             login.classList.remove('open')
+            resultslist.classList.remove('open')
         } else {
             if(!menuOpen) {
                 menu()
@@ -80,13 +127,19 @@ function Topnav() {
         }
     }
 
+    function Searchicon() {
+        const inputfield = document.getElementById('searchfield')
+        menu()
+        inputfield.focus()
+    }
+
     const logout = () => {Logout()}
 
     return (
     <Nav>   
         <section className='topnav'>
             <a className='nav large Queup' href="/">Queup</a>
-            <input className='nav large' type="text" placeholder='Search Queup...'/>
+            <input className='nav large' id='searchbar' type="text" placeholder='Search Queup...' onChange={e => {setValue(e.target.value)}}/>
             <div className='nav large'>
                 {auth  ? <NavLink to='account' className='routes'>Account</NavLink>
                 :<button onClick={loginmodal} id='logbutton' className='routes'>Login</button>}
@@ -96,15 +149,16 @@ function Topnav() {
 
                 <NavLink to='/' className='routes'>Rewards</NavLink>
 
-                {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>LogOut</button>
+                {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>Logout</button>
                 :<NavLink to='/' className='routes' id='regbutton'>Contact</NavLink>}
             </div>
-            <button className='nav mobile'><AiOutlineSearch size='1.5rem'/></button>
+            <button className='nav mobile'><AiOutlineSearch size='1.5rem' onClick={Searchicon}/></button>
             <a className='nav mobile' href='/' id='Q'><h3>Q</h3></a>
             <button className='nav mobile'><NavLink style={{all: 'unset', display: 'flex', justifyContent: 'center', alignItems: 'center'}} to={auth ? '/account' : '/auth'}><BsPersonFill size='1.5rem'/></NavLink></button> 
         </section>
         <div className="log"><Log/></div>
         <div className="register"><Reg/></div>
+        <div className="results"><Results value={value}/></div>
         <section className='mobilemenu'>
             <div/>
             <button id='burger' onClick={menu}> <div className='burger'/> <p>menu</p></button>
@@ -112,15 +166,14 @@ function Topnav() {
             <div className='sidenav'>
                 <div className='search'>
                     <div><AiOutlineSearch size='1.5rem' color='#ffffffda'/></div>
-                    <input type="text" placeholder='Search Queup...' id='searchfield'/>
+                    <input type="text" placeholder='Search Queup...' id='searchfield' onChange={e => setValue(e.target.value)}/>
                 </div>
                 <div className='searches'>
-                    {Testwords.filter((_, index) => index > 4).map(searches => {
-                        
+                    {results.map(searches => {
                         return (
-                            <NavLink onClick={menu} to={'/store/' + j} className='routes' key={searches}>{j}</NavLink>
+                            <NavLink onClick={menu} to={'/store/' + searches} className='routes' key={searches}>{searches}</NavLink>
                         )
-                })}
+                    })}
                 </div>
                 <div className='mobilenav'>
 
@@ -134,7 +187,7 @@ function Topnav() {
 
                     <NavLink onClick={menu} to='/' className='routes'>Rewards</NavLink>
 
-                    {auth  ? <button style={{color: '#865c3ace'}} onClick={logout} className='routes'>Log Out</button>
+                    {auth  ? <button style={{color: '#865c3ace', justifyContent: 'unset', textIndent: '1.5rem'}} onClick={logout} className='routes'>Logout</button>
                     :<NavLink onClick={menu} to='/' className='routes' id='regbutton'>Contact</NavLink>}
                 </div>
             </div>
@@ -154,7 +207,9 @@ const Nav = styled.nav`
     position: sticky;
     min-width: 100vw;
     height: 4rem;
-    font-family: 'Cinzel', serif; 
+
+    a{text-decoration: unset !important;}
+    
     z-index: 10;
     /* border-bottom: 1px solid #cfcfcf; */
     section{
@@ -185,25 +240,8 @@ const Nav = styled.nav`
         height: 4rem;
         background-color: #ffffffa6;
         backdrop-filter: blur(15px);
-        #Q{ all: unset; font-size: 1.1rem; padding: 0 5rem;}
-        .Queup{position: relative; left: 8rem; font-size: 1.2rem;}
-        #links{
-            display: flex;
-            margin-left: -10vw;
-            .routes{font-size: 1rem; min-width: 5rem;}
-            button{ 
-                all: unset; 
-                display: flex; 
-                justify-content: center; 
-                align-items: center; 
-                margin: 0px 1rem; 
-                cursor: pointer; 
-                font-weight: 600; 
-                text-decoration: 1px underline solid grey; 
-                color: #865c3ace;
-                border-radius: 8px;
-            }
-        }
+        #Q{ all: unset; font-size: 1.1rem; padding: 0 5rem; font-family: 'Cinzel', serif }
+        .Queup{position: relative; left: 3rem; font-size: 1.3rem;}
         button{
             all: unset;
             display: flex;
@@ -214,9 +252,9 @@ const Nav = styled.nav`
         a{
             all: unset;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             cursor: pointer;
-            &:first-child{padding-left: 5vw}
+            &:first-child{padding-left: 10vw}
         }
         div{
             width: min-content;
@@ -238,7 +276,7 @@ const Nav = styled.nav`
             justify-content: start;
             align-items: center;
             position: relative;
-            right: -8rem;
+            right: -5rem;
             padding-left: 2.8rem;
             height: 1.8rem;
             width: 30%;
@@ -259,7 +297,7 @@ const Nav = styled.nav`
         &.open{
             a{color: white;}
             .routes{color: white;}
-            input{filter: opacity(0%)}
+            input{background-color: white;}
             #Q{color: white;}
             background-color: #000000f9;
         }
@@ -273,23 +311,36 @@ const Nav = styled.nav`
         position: fixed; 
         top: 4rem;
     }
+    .results{
+        position: fixed; 
+        top: 4rem;
+    }
 
     .mobilemenu{
         display: none;
         width: 80vw;
         margin: 0;
         z-index: 4;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
         .mobilenav{
-            display: none;
+            height: max-content;
             flex-direction: column;
             width: max-content;
-            &.open{display: flex}
+            overflow: hidden;
+            opacity: 100%;
+            transition: opacity 1s ease-in-out, height .5s ease-in-out;
         }
         .searches{
-            display: flex;
+            height: 0rem;
             flex-direction: column;
             width: max-content;
-            &.open{display: flex}
+            overflow: hidden;
+            transition: opacity 1s ease-in-out, height .5s ease-in-out;
+            opacity: 0%;
+        }
+        &.opensearch{
+            .mobilenav{ height: 0%; opacity: 0%;}
+            .searches{ height: max-content; opacity: 100%;}
         }
     }
 
@@ -353,8 +404,6 @@ const Nav = styled.nav`
     
     // ----------------------------
 
-    #login { position: absolute;}
-    #reg { position: absolute;}
     .search{
         display: flex;
         justify-content: start;
@@ -380,7 +429,7 @@ const Nav = styled.nav`
         /* border: 2px solid #2e2e2e37;  */
         background-color: #80808045;
         border-radius: .5rem;
-
+        font-size: 1rem;
         font-weight: bold;
         font-family: sans-serif;
         color: grey;
@@ -401,14 +450,15 @@ const Nav = styled.nav`
             top: 4rem;
             left: 0rem;
             color: transparent;
+            font-size: 1.2rem;
             width: 100vw;
             height: 0vh;
             background-color: #000000f9;
             overflow: hidden;
             .routes{
                 display: flex;
-                justify-content: center;
                 align-items: center;
+                text-indent: 1.5rem;
                 width: 100vw;
                 padding: 1rem;
                 &:nth-child(1){ border-top: 2px solid #ffffff49; padding-top: 2rem;}

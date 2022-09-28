@@ -21,7 +21,7 @@ function Lineoverview() {
             <p id='description' style={{fontWeight: '600'}}>{item.address}</p>
             <p>Currently in line: {item.currentline}</p>
             <p>Rate Served per hour: {item.rate}</p>
-            <p>Maxed: {item.max}</p>
+            <p>Max: {item.max}</p>
             <p>Running Promo's: {item.promo}</p>
           </div>
         )})}
