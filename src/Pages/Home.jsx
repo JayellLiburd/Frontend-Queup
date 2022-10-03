@@ -180,6 +180,9 @@ const Wrapper = styled.div`
       overflow-x: scroll;
       width: 97vw;
       min-height: 13rem;
+      &::-webkit-scrollbar{ width: 8px; height: 8px}
+      &::-webkit-scrollbar-track{background-color: rgba(167, 167, 167, 0); margin: 0 1rem;}
+      &::-webkit-scrollbar-thumb{ background-color: rgba(157, 123, 96, 0.952); border-radius: 12px;}
       .outter-case{
         all: unset;
         display: flex;
@@ -247,7 +250,7 @@ const Wrapper = styled.div`
         border: 3px solid grey;
         z-index: 3;
         cursor: pointer;
-        transition-delay: .1s;
+        transition-delay: .07s;
       }
       &:hover{
         &::after{visibility: visible}

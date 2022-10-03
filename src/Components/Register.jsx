@@ -96,11 +96,11 @@ function Reg() {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        position: relative;
         align-items: center;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        position: relative;
         width: 30vw;
         height: 0vh;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
         overflow: hidden;
         background-color: white;
         border-radius: 0 0 .5rem .5rem;
@@ -167,7 +167,6 @@ function Reg() {
             padding: 3rem;
             padding-top: 2rem;
             padding-bottom: 5rem;
-            width: 30vw;
             height: max-content;
             input{display: block;}
         }

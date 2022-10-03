@@ -16,29 +16,15 @@ function Create() {
     e.preventDefault()
     const formData = new FormData(document.querySelector('#createform'))
     for (var data of formData.entries()) {
-      form.push(data[1])
+      form.push({[data[0]]: data[1]})
     }
+    form = Object.assign({}, ...form)
     let img = document.getElementById('img').files[0]
-    axios.post(process.env.REACT_APP_Server + '/createque', {
-      name: form[0],
-      address: form[1],
-      address2: form[2],
-      city: form[3],
-      zipcode: form[4],
-      state: form[5],
-      country: form[6],
-      small: form[7],
-      rate: form[8],
-      category: form[9],
-      raffle: form[10],
-      promo: form[11],
-      host: form[12],
-      img: img}, {
-      headers: {"Content-Type": "multipart/form-data"},
-      withCredentials: true,
-    }).then(response => {
-        if (response.data.message) { window.location.reload()}
-    })
+    console.log(form)
+    axios.post(process.env.REACT_APP_Server + '/createque', form, 
+      { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }).then(response => {
+        if (response.data.messageSuccess) { window.location.reload()}
+      })
   }
 
   const { ref } = usePlacesWidget({
@@ -69,18 +55,15 @@ function Create() {
             <input
               type="text"
               name='address'
-              defaultValue=''
               placeholder="ex: Lakewater Path Lane"
-              ref={ref}
+              // ref={ref}
             />
-            {a < 3 ? <p>Please enter a Valid Street Address</p> : <></>}
           </label>
           <label>
             Address 2
             <input
               type="text"
               name='address2'
-              defaultValue='0'
               placeholder="ex: #Unit, Postal Office, etc"
             />
           </label>

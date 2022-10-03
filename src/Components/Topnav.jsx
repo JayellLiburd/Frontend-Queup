@@ -34,6 +34,7 @@ function Topnav() {
     function filterItems(arr, query) {
         const filtered = arr.filter((el) => el.toLowerCase().match(query.toLowerCase())).slice(0, 5);
         setResults(filtered)
+        console.log(results.length)
     }
 
     // Set Event listeners
@@ -109,7 +110,7 @@ function Topnav() {
         const login = document.querySelector('.login_modal')
         const signup = document.querySelector('.signup')
         const resultslist = document.querySelector('.resultslist')
-        if (login.classList.contains('open' || resultslist.classList.contains('open'))) {
+        if (login.classList.contains('open') || resultslist.classList.contains('open')) {
             signup.classList.add('open')
             login.classList.remove('open')
             resultslist.classList.remove('open')
@@ -139,7 +140,7 @@ function Topnav() {
     <Nav>   
         <section className='topnav'>
             <a className='nav large Queup' href="/">Queup</a>
-            <input className='nav large' id='searchbar' type="text" placeholder='Search Queup...' onChange={e => {setValue(e.target.value)}}/>
+            <input className='searchbar' id='searchbar' type="text" placeholder='Search Queup...' onChange={e => {setValue(e.target.value)}}/>
             <div className='nav large'>
                 {auth  ? <NavLink to='account' className='routes'>Account</NavLink>
                 :<button onClick={loginmodal} id='logbutton' className='routes'>Login</button>}
@@ -174,6 +175,7 @@ function Topnav() {
                             <NavLink onClick={menu} to={'/store/' + searches} className='routes' key={searches}>{searches}</NavLink>
                         )
                     })}
+                    {results.length < 5 ? <p style={{color: 'white', display: 'flex', justifyContent: 'center', width: '100vw', margin: 'auto', fontSize: '.8rem'}}>------ End of Results ------</p> : <></>}
                 </div>
                 <div className='mobilenav'>
 
@@ -206,7 +208,7 @@ const Nav = styled.nav`
     align-items: center;
     position: sticky;
     min-width: 100vw;
-    height: 4rem;
+    height: 3rem;
 
     a{text-decoration: unset !important;}
     
@@ -237,11 +239,11 @@ const Nav = styled.nav`
         top: 0;
         margin: 0rem;
         width: 100vw;
-        height: 4rem;
+        height: 3rem;
         background-color: #ffffffa6;
         backdrop-filter: blur(15px);
         #Q{ all: unset; font-size: 1.1rem; padding: 0 5rem; font-family: 'Cinzel', serif }
-        .Queup{position: relative; left: 3rem; font-size: 1.3rem;}
+        .Queup{position: relative; left: 3rem; font-size: 1.3rem; font-family: 'Cinzel', serif}
         button{
             all: unset;
             display: flex;
@@ -276,10 +278,10 @@ const Nav = styled.nav`
             justify-content: start;
             align-items: center;
             position: relative;
-            right: -5rem;
+            right: -2.5vw;
             padding-left: 2.8rem;
             height: 1.8rem;
-            width: 30%;
+            width: 40rem;
             height: 2rem;
             border: unset;
             background-color: #80808045;
@@ -293,7 +295,7 @@ const Nav = styled.nav`
             &input:focus{ border: 2px solid #c5323250;}
         }
         #Q, .mobile{display: none;}
-        transition: all 0.3s ease-in-out;
+        transition: all .2s ease-in;
         &.open{
             a{color: white;}
             .routes{color: white;}
@@ -305,15 +307,15 @@ const Nav = styled.nav`
 
     .log{
         position: fixed; 
-        top: 4rem;
+        top: 3rem;
     }
     .register{
         position: fixed; 
-        top: 4rem;
+        top: 3rem;
     }
     .results{
         position: fixed; 
-        top: 4rem;
+        top: 3rem;
     }
 
     .mobilemenu{
@@ -426,7 +428,7 @@ const Nav = styled.nav`
         padding-left: 2.8rem;
 
         height: 2.5rem;
-        /* border: 2px solid #2e2e2e37;  */
+        border: 2px solid #2e2e2e37; 
         background-color: #80808045;
         border-radius: .5rem;
         font-size: 1rem;
@@ -447,7 +449,7 @@ const Nav = styled.nav`
             justify-content: start;
             align-items: center;
             position: fixed;
-            top: 4rem;
+            top: 3rem;
             left: 0rem;
             color: transparent;
             font-size: 1.2rem;

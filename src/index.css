@@ -12,6 +12,10 @@ body {
   overflow-x: hidden;
 }
 
+::-webkit-scrollbar{ width: 12px;}
+::-webkit-scrollbar-track{background-color: rgb(167, 167, 167);}
+::-webkit-scrollbar-thumb{ background-color: rgba(157, 123, 96, 0.952); border-radius: 12px;}
+
 #root{
   display: flex;
   flex-direction: column;

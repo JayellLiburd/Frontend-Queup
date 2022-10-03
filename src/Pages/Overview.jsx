@@ -12,7 +12,7 @@ import { usersContext } from '../Connections/user'
 function Overview() {
 
   const nav = useNavigate();
-  const {setAuth, auth} = useContext(usersContext)
+  const {setAuth, auth, user} = useContext(usersContext)
 
   useEffect(() => {
     axios.get(process.env.REACT_APP_Server + '/verify', {withCredentials: true}).then((response) => {
@@ -48,7 +48,7 @@ function Overview() {
 
   return (
     <Wrapper>
-      <div id='banner'><h1>CheeseCake Factory</h1></div>
+      <div id='banner'><h1>{'Welcome Back ' + user.name}</h1></div>
       <nav id='views'>
             <button className='pages' onClick={buttonbus} style={bus ? {backgroundColor: '#bcd6ee'} : {} }>Lines</button>
             <button className='pages' onClick={buttonactive} style={active? {backgroundColor: '#dbbb90'} : {}}>Active</button>
@@ -121,6 +121,10 @@ const Wrapper = styled.div`
   }
   
   @media (max-width: 1800px) {
+    #banner{
+      min-height: 5rem;
+      h1{font-size: 1.5rem; margin: 0 auto;}
+    }
   }
   
 `

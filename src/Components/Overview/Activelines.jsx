@@ -1,11 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
 import {NavLink} from 'react-router-dom';
+import Edit from './Edit';
+import { useEffect, useState } from 'react';
+import { MyRoster } from '../../Helpers/Context';
 
 function Activelines() {
 
+  const Staff = [{
+    admin: [ {employee: {name: 'Jayell Liburd', employeeID: 111147}} ],
+    manager: [ {employee: {name: 'Glen', employeeID: 123456}}, {employee: {name: 'Madonnad', employeeID: 123456}}, {employee: {name: 'Randy', employeeID: 123456}} ],
+    staff: [ {employee: {name:'Pauli', employeeID: 123456}}, {employee:  {name:'Nora', employeeID: 123456}}, {employee: {name:'Morgan', employeeID: 123456}}, {employee: {name: 'Brenda', employeeID: 123456}}, {employee: {name: 'Nola', employeeID: 123456}} ]
+  }]
+  const [staff, setStaff] = useState(Staff)
+  useEffect(()=> {}, [staff])
+
+
   return (
+    <MyRoster.Provider value={{staff, setStaff, Staff}}>
     <Wrapper>
+      <Edit />
       <div className='preview'>
         <div className="map"><img src="" alt="" /></div>
         <div id='partion'>
@@ -40,18 +54,49 @@ function Activelines() {
     <div className="management">
         <h2>Employee Roster</h2>
         <div className="employee">
-          <h3>Manager role</h3>
-          <p>Genny</p>
-          <p>Katy</p>
-          <h3>Staff role</h3>
-          <p>Celie</p>
-          <p>Indira</p>
-          <p>Arlene</p>
-          <p>Sheri</p>
-          <p>Wally</p>
+        {staff.map(roster => {
+                return (
+                    <div className='employees'>
+                        <h4>Admin's</h4>
+                        <div className='name'>
+                            {roster.admin.map(people => {
+                                return (
+                                  <div>
+                                    <p>{people.employee.name}</p>
+                                    <p>{"EmployeeID: " + people.employee.employeeID}</p>
+                                  </div>
+                                )
+                            })}
+                        </div>
+                        <h4>Manager's</h4>
+                        <div className='name'>
+                            {roster.manager.map(people => {
+                                return (
+                                  <div>
+                                    <p>{people.employee.name}</p>
+                                    <p>{"EmployeeID: " + people.employee.employeeID}</p>
+                                  </div>
+                                )
+                            })}
+                        </div>
+                        <h4>Staff</h4>
+                        <div className='name'>
+                            {roster.staff.map(people => {
+                                return (
+                                  <div>
+                                    <p>{people.employee.name}</p>
+                                    <p>{"EmployeeID: " + people.employee.employeeID}</p>
+                                  </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                )
+            })}
         </div>
       </div>
   </Wrapper>
+  </MyRoster.Provider>
   )
 }
 
@@ -65,9 +110,11 @@ const Wrapper = styled.div`
   width: 80vw;
   .preview{
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
+    position: relative;
+    left: -3rem;
+    justify-content: space-evenly;
+    width: 55%;
+    min-height: 40rem;
     #partion{
       display: flex;
       flex-direction: column; 
@@ -93,29 +140,41 @@ const Wrapper = styled.div`
     }
     .map{
       margin: 1rem 5rem;
-      margin-left: -5rem;
-      aspect-ratio: 1/1;
-      width: 20rem;
+      width: 22rem;
+      height: 22rem;
       background-color: grey;
     }
   }
   .management{
     position: absolute;
-    top: 1rem;
+    top: 0rem;
     left: 0rem;
     width: 20%;
+    overflow: hidden;
+    overflow-x: auto;
+    .name{
+      p{
+        width: max-content;
+        &:nth-child(1) {margin: 1rem 0; margin-right: 1rem; min-width: 5rem;}
+      }
+      div{display: flex; width: max-content;}
+    }
   }
 
   @media (max-width: 1400px) {
     .preview{
+      left: unset;
+      height: 40rem;
       width: 80%; 
       flex-direction: column;
+      border: unset;
       #partion{
         width: 100%;
       }
       .map{
+        aspect-ratio: 1/1;
         width: 50%;
-        margin: unset;
+        margin: 1rem auto;
         margin-bottom: 2rem;
       }
     }
@@ -124,9 +183,18 @@ const Wrapper = styled.div`
       top: unset;
       left: unset;
       width: 80%;
-      h2{margin-top: 4rem; font-size: 1.2rem;}
-      h3{font-size: 1rem;}
-      p{font-size: .9rem;}
+      h2{margin-top: 2rem; font-size: 1.2rem;}
+      li{font-size: 1rem; font-weight: bold; font-size: 1.1rem;}
+      p{font-size: .9rem; text-indent: 1.5rem;}
+      .name{
+        overflow: hidden;
+        overflow-x: auto;
+        p{
+          min-width: max-content;
+          &:nth-child(2) {margin: 1rem;}
+        }
+        div{display: flex;}
+      }
     }
   }
   @media (max-width: 712px) {

@@ -1,30 +1,42 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components'
 
+
 function Lineoverview() {
 
-    const user = [
-        {id: 1, 'Name': 'McDonalds', address: '132 Westhimer st 77023 Houston Tx', currentline: 32, max: 100, rate: 67, promo: 'Yes'},
-        {id: 2, 'Name': 'Shoe Palace', address: '11323 sheperd st 77023 Houston Tx', currentline: 62, max: 100, rate: 12, promo: 'No'}
-      ]
+  
+  const [lines, setLines] = useState(false)
+  const [isloading, setIsloading] = useState(false)
+  
 
+  useEffect(() => {
+    setIsloading(true)
+    axios.get(process.env.REACT_APP_Server + '/MyQueues', {withCredentials: true}).then(response => {
+      if ( response.data[0] ) { setLines(response.data) }
+      setIsloading(false)
+    })
+  },[])
 
   return (
     <Wrapper>
       <input type="text" placeholder='Search for specific line...' />
       <div id='main'>
-        {user.map((item) => {
+      {!isloading && lines ? <>
+        {lines.map((item) => {
           return(
-          <div className='businesses' key={item.id}>
-            <NavLink to={'/line/' + {}} style={{color: 'black'}}><h3>{item.Name}:</h3></NavLink>
-            <p id='description' style={{fontWeight: '600'}}>{item.address}</p>
-            <p>Currently in line: {item.currentline}</p>
+          <div className='businesses' key={item.line_id}>
+            <NavLink to={'/line/' + item.line_id} style={{color: 'black'}}><h3>{item.bus_name}:</h3></NavLink>
+            <p id='description' style={{fontWeight: '600'}}>{item.address_1}</p>
+            {/* <p>Currently in line: {item.currentline}</p> */}
             <p>Rate Served per hour: {item.rate}</p>
-            <p>Max: {item.max}</p>
+            {/* <p>Max: {item.max}</p> */}
             <p>Running Promo's: {item.promo}</p>
+            <p>Current Manager: {item.host}</p>
           </div>
         )})}
+      </> : <></>}
       </div>
     </Wrapper>
 
@@ -45,9 +57,11 @@ const Wrapper = styled.div`
     display: flex; 
     align-items: baseline;
     margin: 1rem 0;
-
-    h3{margin: unset; font-size: 1.3rem;}
-    p{ margin: unset; padding: .5rem;}}
+    width: max-content;
+    overflow: hidden;
+    overflow-x: auto;
+    h3{margin: unset; font-size: 1.3rem; min-width: 12rem;}
+    p{ margin: unset; padding: .5rem; width: max-content;}}
   
   input{ 
       all: unset; 

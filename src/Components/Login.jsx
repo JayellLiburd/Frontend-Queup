@@ -65,6 +65,7 @@ function Log() {
   const Wrapper = styled.div.attrs({className: 'login_modal'})`
     display: flex;
     justify-content: center;
+    position: relative;
     width: 100vw;
     height: 0vh;
     background-color: #000000ae;
@@ -73,8 +74,8 @@ function Log() {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        position: relative;
         align-items: center;
+        position: relative;
         width: 30vw;
         height: 0;
         overflow: hidden;
@@ -102,7 +103,7 @@ function Log() {
             width: 20vw;
             height: 1.5rem;
             font-weight: bold;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
             background-color: #8d8d8d;
             border-radius: .5rem;
             &::placeholder{color: white;}
@@ -134,7 +135,6 @@ function Log() {
             padding: 3rem;
             padding-top: 2rem;
             padding-bottom: 5rem;
-            width: 30vw;
             height: max-content;
             input{display: block;}
         }

@@ -65,8 +65,8 @@ function Results(props) {
         width: 50vw;
         height: 0rem;
         overflow: hidden;
-        background-color: #000000f9;
-        border-radius: 0 0 .5rem .5rem;
+        background-color: #050505f8;
+        border-radius: 0 0 1rem 1rem;
         z-index: 2;
         transition: all 0.15s ease-in-out;
         .routes{
