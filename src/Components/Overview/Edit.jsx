@@ -7,36 +7,47 @@ import { MyRoster } from '../../Helpers/Context'
 
 function Edit(props) {
 
-    const {Staff, staff, setStaff} = useContext(MyRoster)
+    const {staff, setStaff, isloading, count, setCount} = useContext(MyRoster)
     const Permissions = 'admin'
     const [ableEdit, setAbleEdit] = useState(false)
-    useEffect(() => {if (Permissions == 'admin' || Permissions =='manager') { setAbleEdit(true) }}, []) 
+    useEffect(() => {
+        if (Permissions === 'admin' || Permissions === 'manager') { setAbleEdit(true) }
+        const editor = document.getElementById('editor')
+        editor.style.display = 'none'
+        if (count > 0) {editor.style.display = 'block'; console.log(editor.style.display)}
+    }, [count]) 
     
     let array = []
-    useEffect(()=> {console.log(Staff)}, [array])
-
     const addEmployee = (e) => {
-        array = []
+        array = [{line_id: props.line_id}]
         e.preventDefault()
         const grabForm = document.querySelector('.addstaff')
         const form = new FormData(grabForm)
         for (let data of form.entries()) {array.push({[data[0]]: data[1]})}
         array = Object.assign({}, ...array)
-        if (array.role === 'admin') {Staff[0].admin.push({employee: array})}
-        if (array.role === 'staff') {Staff[0].staff.push({employee: array})}
-        if (array.role === 'manager') {Staff[0].admin.push({employee: array})}
         console.log(array)
         axios.post(process.env.REACT_APP_Server + '/addemployee', (array), {withCredentials: true}).then(response => {
             setStaff(curr => [...curr])
+            setCount(count + 1)
         })
     }
+
+    const closEditor = () =>  {
+        const editor = document.getElementById('editor')
+        const close = document.getElementById('unfocusEditor')
+        editor.style.display = 'none'
+        close.style.display = 'none'
+        setCount(0)
+      }
 
 
   return (
     <Wrapper>
+        <button id='clsbtn' onClick={closEditor} style={{position: 'absolute', top: 0, right: '3rem', margin: '1rem 0', borderRadius: '.5rem', padding: '.5rem 1rem', border: 'unset', background: 'grey', cursor: 'pointer', zIndex: 3,}}>close</button>
+        {!isloading ? <>
         <div className="header">
-            <h2>CheeseCake Factory</h2>
-            <p>for: 5015 Westheimer Rd, Houston, TX 77056</p>
+            <input type="text" value={staff[0].line_info[0].bus_name} disabled={ableEdit}/>
+            <p>for: <input type="text" value={staff[0].line_info[0].address_1} disabled={ableEdit}/></p>
         </div>
         <section>
             <div className="nav">
@@ -52,15 +63,15 @@ function Edit(props) {
                     <h3>Configs</h3>
                     <section className='checkboxes'>
                         <div className="configs">
-                            <input type="checkbox" name="promo" disabled={false}/>
+                            <input type="checkbox" name="promo" disabled={ableEdit}/>
                             <label htmlFor="promo">Promo</label>
                         </div>
                         <div className="configs">
-                            <input type="checkbox" name="onlyverified" disabled={false}/>
+                            <input type="checkbox" name="onlyverified" disabled={ableEdit}/>
                             <label htmlFor="onlyverified">Only Verified</label>
                         </div>
                         <div className="configs">
-                            <input type="checkbox" name="Nearby" disabled={false}/>
+                            <input type="checkbox" name="Nearby" disabled={ableEdit}/>
                             <label htmlFor="Nearby">Nearby</label>
                         </div>
                     </section>
@@ -79,7 +90,7 @@ function Edit(props) {
                     <input type="text" placeholder='Employee Id' name='employeeID' pattern="[a-zA-Z0-9]*" maxLength='32' required/>
                     <select type="text" placeholder='Employee Role' name='role' required>
                         {Permissions === 'admin' ? <option value="admin">admin</option> : <></>}
-                        {Permissions == 'admin' || Permissions =='manager' ? <><option value="manager">manager</option><option value="staff">staff</option></> : <></>}
+                        {Permissions === 'admin' || Permissions === 'manager' ? <><option value="manager">manager</option><option value="staff">staff</option></> : <></>}
                     </select>
                     <input type="number" min='0' minLength='6' maxLength='8' placeholder='Employee Temp Pin' pattern="[0-9]+" required/>
                     <button>+ add employee</button>
@@ -91,9 +102,9 @@ function Edit(props) {
                             <div className='name'>
                                 {roster.admin.map(people => {
                                     return (
-                                    <div>
+                                    <div key={people.employee.idemployee}>
                                         <p>{people.employee.name}</p>
-                                        <p>{"EmployeeID: " + people.employee.employeeID}</p>
+                                        <p>{"EmployeeID: " + people.employee.idemployee}</p>
                                     </div>
                                     )
                                 })}
@@ -102,9 +113,9 @@ function Edit(props) {
                             <div className='name'>
                                 {roster.manager.map(people => {
                                     return (
-                                        <div>
-                                            <p key={people.employee.employeeID}>{people.employee.name}</p>
-                                            <p key={people.employee.employeeID}>{"EmployeeID: " + people.employee.employeeID}</p>
+                                        <div key={people.employee.idemployee}>
+                                            <p>{people.employee.name}</p>
+                                            <p>{"EmployeeID: " + people.employee.idemployee}</p>
                                         </div>
                                     )
                                 })}
@@ -113,9 +124,9 @@ function Edit(props) {
                             <div className='name'>
                                 {roster.staff.map(people => {
                                     return (
-                                        <div>
-                                            <p key={people.employee.employeeID}>{people.employee.name}</p>
-                                            <p key={people.employee.employeeID}>{"EmployeeID: " + people.employee.employeeID}</p>
+                                        <div key={people.employee.idemployee}>
+                                            <p>{people.employee.name}</p>
+                                            <p>{"EmployeeID: " + people.employee.idemployee}</p>
                                         </div>
                                     )
                                 })}
@@ -124,13 +135,15 @@ function Edit(props) {
                     )
                 })}
             </div>
-        </section>
+        </section> 
+        <button style={{position: 'absolute', right: '3rem', margin: '-3rem 0', borderRadius: '.5rem', padding: '.5rem 1.5rem', border: '1px solid skyblue', cursor: 'pointer', zIndex: 3}} >save</button>
+        </>
+        : <></>}
     </Wrapper>
   )
 }
 
-const Wrapper = styled.div`
-/* display: none; */
+const Wrapper = styled.div.attrs({id: 'editor'})`
     position: absolute;
     top: -4rem;
     width: 65rem;
@@ -151,6 +164,26 @@ const Wrapper = styled.div`
     .header{
         display: flex;
         flex-direction: column;
+        position: relative;
+        input{
+            all: unset;
+            margin: 0rem 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        p{
+            display: flex;
+            width: 100%;
+            position: relative;
+            input{
+                all: unset;
+                display: flex;
+                flex-wrap: wrap;
+                margin-left: .5rem;
+                width: 80%;
+                font-weight: unset;
+            
+        }}
         p, h2{ margin: .2rem 1rem;}
     }
     section{
@@ -260,8 +293,7 @@ const Wrapper = styled.div`
                 &::-webkit-scrollbar-track{background-color: rgba(167, 167, 167, 0); margin: 0 1rem;}
                 &::-webkit-scrollbar-thumb{ background-color: rgba(157, 123, 96, 0.952); border-radius: 12px;}
             }
-        }
-        
+        }  
     }
 
     @media (max-width: 1400px) {
@@ -270,6 +302,7 @@ const Wrapper = styled.div`
         height: 70vh;
         border: 4px solid black;
         backdrop-filter: blur(15px);
+        #clsbtn{ display: none }
         section{
             display: block;
             .nav{

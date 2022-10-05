@@ -23,7 +23,7 @@ function Account() {
 
   useEffect(() => {
     axios.get(process.env.REACT_APP_Server + '/verify', {withCredentials: true}).then((response) => {
-        if (response.data.message) {
+        if (response.data.messageAuth) {
           setAuth(false)
           nav('/')
           alert('Please Sign In')

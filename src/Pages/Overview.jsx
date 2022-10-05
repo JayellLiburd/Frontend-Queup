@@ -7,6 +7,7 @@ import Activelines from '../Components/Overview/Activelines'
 import Lineoverview from '../Components/Overview/Lineoverview'
 import Create from '../Components/Overview/Create/Create'
 import { usersContext } from '../Connections/user'
+import { Links } from '../Helpers/Context';
 
 
 function Overview() {
@@ -16,7 +17,7 @@ function Overview() {
 
   useEffect(() => {
     axios.get(process.env.REACT_APP_Server + '/verify', {withCredentials: true}).then((response) => {
-        if (response.data.message) {
+        if (response.data.messageAuth) {
           setAuth(false)
           nav('/')
           alert('Please Sign In')
@@ -45,8 +46,12 @@ function Overview() {
   const buttonactive = () => {setActive(true); setBus(false); setSet(false)}
   const buttonset = () => {setSet(true); setActive(false); setBus(false) }
   
+  
+  const [ links, setLink ] = useState('')
 
   return (
+
+    <Links.Provider value={{links, setLink, buttonactive}} >
     <Wrapper>
       <div id='banner'><h1>{'Welcome Back ' + user.name}</h1></div>
       <nav id='views'>
@@ -55,11 +60,11 @@ function Overview() {
             <button className='pages' onClick={buttonset} style={set ? {backgroundColor: '#4a6781'} : {} }>Create</button>
       </nav>
       <div className="container">
-        {true ? 
+        {auth ? 
           <>
             <div style={{minHeight: '80vh'}}>
               {bus ? <Lineoverview/> : <></>}
-              {active ? <Activelines/> : <></>}
+              {active ? <Activelines links={links}/> : <></>}
               {set ? <Create/> : <></>}
             </div>
           </>
@@ -67,6 +72,7 @@ function Overview() {
           <></>}
       </div>
     </Wrapper>
+    </Links.Provider>
   )
 }
 

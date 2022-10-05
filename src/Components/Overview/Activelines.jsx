@@ -1,34 +1,69 @@
 import React from 'react'
 import styled from 'styled-components'
-import {NavLink} from 'react-router-dom';
 import Edit from './Edit';
 import { useEffect, useState } from 'react';
 import { MyRoster } from '../../Helpers/Context';
+import axios from 'axios';
 
-function Activelines() {
+function Activelines(props) {
 
-  const Staff = [{
-    admin: [ {employee: {name: 'Jayell Liburd', employeeID: 111147}} ],
-    manager: [ {employee: {name: 'Glen', employeeID: 123456}}, {employee: {name: 'Madonnad', employeeID: 123456}}, {employee: {name: 'Randy', employeeID: 123456}} ],
-    staff: [ {employee: {name:'Pauli', employeeID: 123456}}, {employee:  {name:'Nora', employeeID: 123456}}, {employee: {name:'Morgan', employeeID: 123456}}, {employee: {name: 'Brenda', employeeID: 123456}}, {employee: {name: 'Nola', employeeID: 123456}} ]
-  }]
-  const [staff, setStaff] = useState(Staff)
-  useEffect(()=> {}, [staff])
+  const [count, setCount] = useState(0)
+  
+  const [staff, setStaff] = useState([false])
+  const [isloading, setIsloading] = useState(true)
+
+  useEffect(()=> {
+    let array = [{
+      admin: [],
+      manager: [],
+      staff: [],
+      line_info: [],
+    }]
+    setIsloading(true)
+
+    // TODO: this url to server will be changed to have live data using web sockets so response.data.results will be changes soon
+    axios.get(process.env.REACT_APP_Server + '/MyQueues/' + props.links + '/Queue', {withCredentials: true}).then(response => {
+      for (let i = 0; i < response.data.results2.length; i++) {
+        if ( response.data.results2[i].role === 'admin') { array[0].admin.push({employee: response.data.results2[i]}) }
+        if ( response.data.results2[i].role === 'manager') { array[0].manager.push({employee: response.data.results2[i]}) }
+        if ( response.data.results2[i].role === 'staff') { array[0].staff.push({employee: response.data.results2[i]}) }
+      }
+      array[0].line_info.push(response.data.results[0])
+      setStaff(array)
+      setIsloading(false)
+    })
+  }, [count, props.links])
+
+  const openEdit = () => { 
+    const editor = document.getElementById('editor')
+    const close = document.getElementById('unfocusEditor')
+    close.style.display = 'block' 
+    editor.style.display = 'block'
+  }
+  const closEditor = () =>  {
+    const editor = document.getElementById('editor')
+    const close = document.getElementById('unfocusEditor')
+    editor.style.display = 'none'
+    close.style.display = 'none'
+    setCount(0)
+  }
 
 
   return (
-    <MyRoster.Provider value={{staff, setStaff, Staff}}>
+    <MyRoster.Provider value={{setStaff, staff, isloading, count, setCount}}>
     <Wrapper>
-      <Edit />
+    <button id='unfocusEditor' onClick={closEditor} style={{top: 0, width: '100vw', height: '100vh', background: 'transparent', position: 'fixed', display: 'none'}}/>
+    {!isloading && staff ? <>
+      <Edit line_id={props.links}/>
       <div className='preview'>
         <div className="map"><img src="" alt="" /></div>
         <div id='partion'>
           <div id='name'>
-            <h3>CheeseCake Factory</h3>
-            <NavLink to='/Currline' id='view'><button>edit</button></NavLink>
+            <h3>{staff[0].line_info[0].bus_name}</h3>
+            <button onClick={openEdit}>edit</button>
           </div>
           <section>
-              <p>Addrress: 5015 Westheimer Rd, Houston, TX 77056</p>
+              <p>Addrress: {staff[0].line_info[0].address_1}</p>
               <p>People currently in line: 13</p>
               <p>Max people: false</p>
               <p>Movement: 22 Every 30min</p>
@@ -63,7 +98,7 @@ function Activelines() {
                                 return (
                                   <div>
                                     <p>{people.employee.name}</p>
-                                    <p>{"EmployeeID: " + people.employee.employeeID}</p>
+                                    <p>{"EmployeeID: " + people.employee.idemployee}</p>
                                   </div>
                                 )
                             })}
@@ -74,7 +109,7 @@ function Activelines() {
                                 return (
                                   <div>
                                     <p>{people.employee.name}</p>
-                                    <p>{"EmployeeID: " + people.employee.employeeID}</p>
+                                    <p>{"EmployeeID: " + people.employee.idemployee}</p>
                                   </div>
                                 )
                             })}
@@ -85,7 +120,7 @@ function Activelines() {
                                 return (
                                   <div>
                                     <p>{people.employee.name}</p>
-                                    <p>{"EmployeeID: " + people.employee.employeeID}</p>
+                                    <p>{"EmployeeID: " + people.employee.idemployee}</p>
                                   </div>
                                 )
                             })}
@@ -94,7 +129,7 @@ function Activelines() {
                 )
             })}
         </div>
-      </div>
+      </div> </> : <></> }
   </Wrapper>
   </MyRoster.Provider>
   )
@@ -106,7 +141,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 4rem;
+  margin-top: 2rem;
   width: 80vw;
   .preview{
     display: flex;
@@ -125,6 +160,7 @@ const Wrapper = styled.div`
         display: flex;
         align-items: center;
         width: 100%;
+        button{ margin-left: 1rem; padding: .2rem 1rem; border-radius: 1rem; border: unset; &:hover{border: 1px solid}}
       }
       .checkboxes{
         display: flex;
@@ -148,16 +184,20 @@ const Wrapper = styled.div`
   .management{
     position: absolute;
     top: 0rem;
-    left: 0rem;
-    width: 20%;
+    left: -5rem;
+    width: 25%;
     overflow: hidden;
     overflow-x: auto;
+
+    h4{margin: 1rem 0; margin-bottom: .2rem;}
     .name{
       p{
+        margin: .5rem 0;
+        font-size: .9rem;
         width: max-content;
-        &:nth-child(1) {margin: 1rem 0; margin-right: 1rem; min-width: 5rem;}
+        &:nth-child(1) {margin-right: 1rem; min-width: 8rem;}
       }
-      div{display: flex; width: max-content;}
+      div{display: flex; width: 100%; justify-content: space-between;}
     }
   }
 

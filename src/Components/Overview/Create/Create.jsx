@@ -9,8 +9,6 @@ export const createbusContext = createContext()
 
 function Create() {
 
-  let a
-
   const submitbutton = (e) =>{
     let form = []
     e.preventDefault()
