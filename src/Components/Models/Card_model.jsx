@@ -146,7 +146,6 @@ const Wrapper = styled.div`
       position: absolute; 
       color: white;
       overflow: hidden;
-      height: 70vh;
       .showcase{
         display: flex;
         flex-direction: column;
