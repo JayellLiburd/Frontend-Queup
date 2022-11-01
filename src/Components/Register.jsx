@@ -54,29 +54,34 @@ function Reg() {
                     <input className='inputinfo'
                         type="text" 
                         placeholder='First Name' 
-                        name='First' />
+                        name='given-name' 
+                        autocomplete="on"/>
 
                     <input className='inputinfo'
                         type="text" 
                         placeholder='Last Name' 
-                        name='Last' />
+                        name='family-name' 
+                        autocomplete="on"/>
                 </div>
                 <input className='inputreg'
                         type="text" 
                         placeholder='Email' 
-                        name='Email' />
+                        name='email' 
+                        autocomplete="on"/>
 
                 <input className='inputreg'
                     type="text" 
                     placeholder='Create Username' 
-                    name='username' />
+                    name='username' 
+                    autocomplete="on"/>
 
-                <input className='inputreg' type="password" placeholder='Create Password'/>
+                <input className='inputreg' type="new-password" placeholder='Create Password' autocomplete="on"/>
 
                 <input className='inputreg'
                     type="password"
                     placeholder='Re-type Password' 
-                    name='password'/>
+                    name='new-password'
+                    autocomplete="on"/>
                 <h3 style={{ fontSize: '1rem', fontFamily: 'serif' }}>{'If you do have an account go to '}
                     <p onClick={Switchform} style={{color: 'brown'}}>{' Login Page'}</p>
                 </h3>

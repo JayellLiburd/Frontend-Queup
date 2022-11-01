@@ -4,6 +4,11 @@ import { NavLink } from 'react-router-dom';
 
 import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from 'react-icons/ai'
+import { RiHome2Line } from 'react-icons/ri';
+import { MdManageAccounts } from 'react-icons/md';
+import { IoBusinessOutline } from 'react-icons/io5';
+import { IoRibbonOutline } from 'react-icons/io5';
+import { CgLogOut } from 'react-icons/cg';
 
 import { usersContext } from '../Connections/user';
 import { Testwords } from '../Helpers/words';
@@ -20,8 +25,6 @@ import { useEffect } from 'react';
 function Topnav() {
 
     const {auth} = useContext(usersContext);
-
-
 
     const [value, setValue] = useState('')
     const [results, setResults] = useState([])
@@ -179,18 +182,18 @@ function Topnav() {
                 </div>
                 <div className='mobilenav'>
 
-                    <NavLink onClick={menu} to='/' id='logbutton' className='routes'>Homepage</NavLink>
+                    <NavLink onClick={menu} to='/' id='logbutton' className='routes'><RiHome2Line color='white' size='1.5rem'/>Homepage</NavLink>
 
-                    {auth  ? <NavLink onClick={menu} to='account' className='routes'>Account</NavLink>
-                    :<NavLink onClick={menu} to='auth' id='logbutton' className='routes'>Login</NavLink>}
+                    {auth  ? <NavLink onClick={menu} to='account' className='routes'><MdManageAccounts color='white' size='1.5rem'/>Account</NavLink>
+                    :<NavLink onClick={menu} to='auth' id='logbutton' className='routes'><RiHome2Line color='white' size='1.5rem'/>Login</NavLink>}
 
-                    {auth  ? <NavLink onClick={menu} to='Overview' className='routes'>Business</NavLink>
-                    :<NavLink onClick={menu} to='/reg' className='routes' id='regbutton'>Sign Up</NavLink>}
+                    {auth  ? <NavLink onClick={menu} to='Overview' className='routes'><IoBusinessOutline color='white' size='1.5rem'/>Business</NavLink>
+                    :<NavLink onClick={menu} to='/reg' className='routes' id='regbutton'><RiHome2Line color='white' size='1.5rem'/>Sign Up</NavLink>}
 
-                    <NavLink onClick={menu} to='/' className='routes'>Rewards</NavLink>
+                    <NavLink onClick={menu} to='/' className='routes'><IoRibbonOutline color='white' size='1.5rem'/>Rewards</NavLink>
 
-                    {auth  ? <button style={{color: '#865c3ace', justifyContent: 'unset', textIndent: '1.5rem'}} onClick={logout} className='routes'>Logout</button>
-                    :<NavLink onClick={menu} to='/' className='routes' id='regbutton'>Contact</NavLink>}
+                    {auth  ? <button style={{color: '#865c3ace', justifyContent: 'unset'}} onClick={logout} className='routes'><CgLogOut color='white' size='1.5rem'/>Logout</button>
+                    :<NavLink onClick={menu} to='/' className='routes' id='regbutton'><RiHome2Line color='white' size='1.5rem'/>Contact</NavLink>}
                 </div>
             </div>
 
@@ -460,10 +463,11 @@ const Nav = styled.nav`
             .routes{
                 display: flex;
                 align-items: center;
-                text-indent: 1.5rem;
                 width: 100vw;
-                padding: 1rem;
-                &:nth-child(1){ border-top: 2px solid #ffffff49; padding-top: 2rem;}
+                padding: 1rem 0;
+                border-bottom: 1px solid grey;
+                svg{padding: 0 2rem;}
+                &:nth-child(1){ border-top: 2px solid #ffffff49;}
             }
             a{color: white; &:active{background-color: #ffffff29}}
             transition: all .5s ease-in-out;

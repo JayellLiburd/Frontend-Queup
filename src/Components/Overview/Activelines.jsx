@@ -1,16 +1,42 @@
 import React from 'react'
 import styled from 'styled-components'
-import Edit from './Edit';
 import { useEffect, useState } from 'react';
 import { MyRoster } from '../../Helpers/Context';
 import axios from 'axios';
+import Edit from './Edit';
+import Line from './Lineup'
 
 function Activelines(props) {
 
   const [count, setCount] = useState(0)
+  let testarray = [
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: '4134', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'sjgn', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jbjhba', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'ajfgnajf', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+    {name: 'jayell', timeJoined: '', otherData: '', user_id: ''},
+
+  ]
   
   const [staff, setStaff] = useState([false])
+  const [spots, setSpots] = useState(testarray)
+  const [page, setPage] = useState(4)
   const [isloading, setIsloading] = useState(true)
+
 
   useEffect(()=> {
     let array = [{
@@ -19,8 +45,8 @@ function Activelines(props) {
       staff: [],
       line_info: [],
     }]
+    setSpots(testarray.slice(page-4, page))
     setIsloading(true)
-
     // TODO: this url to server will be changed to have live data using web sockets so response.data.results will be changes soon
     axios.get(process.env.REACT_APP_Server + '/MyQueues/' + props.links + '/Queue', {withCredentials: true}).then(response => {
       for (let i = 0; i < response.data.results2.length; i++) {
@@ -31,8 +57,10 @@ function Activelines(props) {
       array[0].line_info.push(response.data.results[0])
       setStaff(array)
       setIsloading(false)
+      console.log(page)
     })
-  }, [count, props.links])
+    console.log(testarray.length-page >= 4, testarray.length-page)
+  }, [count, props.links, page])
 
   const openEdit = () => { 
     const editor = document.getElementById('editor')
@@ -48,6 +76,8 @@ function Activelines(props) {
     setCount(0)
   }
 
+  const counteru = () => { if (testarray.length-page >= 0 ) {let count = page + 4; setPage(count)} }
+  const counterd = () => { if (page > 4 ) {let count = page - 4; setPage(count)} }
 
   return (
     <MyRoster.Provider value={{setStaff, staff, isloading, count, setCount}}>
@@ -63,12 +93,13 @@ function Activelines(props) {
             <button onClick={openEdit}>edit</button>
           </div>
           <section>
-              <p>Addrress: {staff[0].line_info[0].address_1}</p>
-              <p>People currently in line: 13</p>
-              <p>Max people: false</p>
-              <p>Movement: 22 Every 30min</p>
-              <p>Total people in Queue Today: 68</p>
-              <p>Views: 2.3k</p>
+              <p>- Addrress: {staff[0].line_info[0].address_1}</p>
+              <p>- People currently in line: 13</p>
+              <p>- Max people: false</p>
+              <p>- Movement: 22 Every 30min</p>
+              <p>- Total people in Queue Today: 68</p>
+              <p>- Views: 2.3k</p>
+              <h4>Configs</h4>
               <section className='checkboxes'>
                 <div className="configs">
                   <input type="checkbox" name="promo" disabled='disabled' checked={true}/>
@@ -92,7 +123,7 @@ function Activelines(props) {
         {staff.map(roster => {
                 return (
                     <div className='employees'>
-                        <h4>Admin's</h4>
+                        {roster.admin?.length > 0 ? <h4>Admin's</h4> : '' }
                         <div className='name'>
                             {roster.admin.map(people => {
                                 return (
@@ -103,7 +134,7 @@ function Activelines(props) {
                                 )
                             })}
                         </div>
-                        <h4>Manager's</h4>
+                        {roster.manager?.length > 0 ? <h4>Manager's</h4> : '' }
                         <div className='name'>
                             {roster.manager.map(people => {
                                 return (
@@ -114,7 +145,7 @@ function Activelines(props) {
                                 )
                             })}
                         </div>
-                        <h4>Staff</h4>
+                        {roster.staff?.length > 0 ? <h4>Staff</h4> : '' }
                         <div className='name'>
                             {roster.staff.map(people => {
                                 return (
@@ -129,7 +160,11 @@ function Activelines(props) {
                 )
             })}
         </div>
-      </div> </> : <></> }
+      </div> 
+
+      <button onClick={counterd}>back</button>
+      <button onClick={counteru}>forth</button>
+      </> : <></> }
   </Wrapper>
   </MyRoster.Provider>
   )
@@ -162,8 +197,10 @@ const Wrapper = styled.div`
         width: 100%;
         button{ margin-left: 1rem; padding: .2rem 1rem; border-radius: 1rem; border: unset; &:hover{border: 1px solid}}
       }
+      section{ p{ margin: .5rem 0;}}
       .checkboxes{
         display: flex;
+        margin-top: -1rem;
         .configs{
           display: flex;
           flex-direction: column;
@@ -178,6 +215,7 @@ const Wrapper = styled.div`
       margin: 1rem 5rem;
       width: 22rem;
       height: 22rem;
+      border-radius: .5rem;
       background-color: grey;
     }
   }
@@ -200,13 +238,47 @@ const Wrapper = styled.div`
       div{display: flex; width: 100%; justify-content: space-between;}
     }
   }
+  .line{
+    position: absolute;
+    top: .5rem;
+    right: 1rem;
+    h1{
+      margin: 0;
+      text-indent: 1rem;
+      color: #DBBB90;
+      font-family: 'Cinzel', serif;
+    }
+    p{margin: 0; margin-bottom: 1rem; text-indent: 1rem;}
+    .spot{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      h2{ width: 40%; margin: 0 1rem; font-size: 1.2rem;}
+      p{ width: 40%; margin: 0; font-size: .8rem;}
+      .buttons{
+        display: flex;
+        align-items: center;
+        margin: .5rem;
+        button{
+          margin: 0rem .5rem;
+          margin-bottom: 1rem;
+          padding: .5rem 1.5rem;
+          color: #505050;
+          font-weight: bold;
+          border-radius: .5rem;
+          border: unset;
+        }
+      }
+    }
+  }
 
   @media (max-width: 1400px) {
     .preview{
+      flex-direction: column;
       left: unset;
       height: 40rem;
-      width: 80%; 
-      flex-direction: column;
+      width: 90%; 
       border: unset;
       #partion{
         width: 100%;
@@ -215,17 +287,18 @@ const Wrapper = styled.div`
         aspect-ratio: 1/1;
         width: 50%;
         margin: 1rem auto;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
       }
+      section{width: 100%;}
     }
     .management{
       position: unset;
       top: unset;
       left: unset;
-      width: 80%;
-      h2{margin-top: 2rem; font-size: 1.2rem;}
+      width: 90%;
+      h2{margin-top: 1rem; font-size: 1.2rem;}
       li{font-size: 1rem; font-weight: bold; font-size: 1.1rem;}
-      p{font-size: .9rem; text-indent: 1.5rem;}
+      p{font-size: .9rem;}
       .name{
         overflow: hidden;
         overflow-x: auto;
@@ -236,9 +309,37 @@ const Wrapper = styled.div`
         div{display: flex;}
       }
     }
+    .line{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      top: unset;
+      right: unset;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      width: 80vw;
+      border-top: 5px double;
+      h1{ display: flex; align-items: center; margin: 0 .5rem; font-size: 1.4rem; text-indent: unset;}
+      p{ display: flex; align-items: center; margin:0 .5rem; margin-bottom: 1rem; text-indent: unset;}
+      .spot{
+        h2{ width: 100%; font-size: 1.1rem; margin: .5rem;}
+        p{ margin:0;}
+        .buttons{
+          display: flex; 
+          justify-content: space-between;
+          margin: 0;
+          width: 100%;
+          button{
+            width: 100%;
+            padding: .8rem .8rem;
+          }
+        }
+      }
+    }
   }
   @media (max-width: 712px) {
-    .preview{.map{width: 100%;}}
+    .preview{.map{width: 80%; height: 35%;}}
   }
 `
 

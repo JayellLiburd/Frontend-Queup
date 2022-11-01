@@ -1,109 +1,84 @@
 import React from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 
 function Lineup() {
+  
+  let array = [{name: 'Jayell', timeJoined: '', otherData: '', user_id: ''}]
+  const [spots, setSpots] = useState([array])
+  const [isloading, setIsloading] = useState(true)
+
+  useEffect(() => {
+    
+  })
+
   return (
     <Wrapper>
-        <h1 style={{color: '#865c3ace'}}>Guest In Line</h1>
-        <h4>Current Line Count: 37 people</h4>
-        <div>
-            <h2>Guest Name: Javier M.</h2>
-            <h3>Party size: 2</h3>
-            <div id='key'>
-              <button style={{"background-color": '#52e672a7'}} >Arrived</button>
+      <h1>Guests in Line</h1>
+      <p>Current Line Count: 37 people</p>
+      {spots.map(holder => {
+        return (
+          <div className="spot" key={holder.user_id}>
+            <h2>{holder.name}</h2>
+            <div className='buttons'>
+              <button style={{"background-color": '#52e672a7'}}>Ready</button>
               <button style={{"background-color": '#e6d752c5'}}>Skip</button>
               <button style={{"background-color": '#ff0f0fa7'}}>Remove</button>
             </div>
-        </div>
-        <div>
-            <h2>Guest Name: Ishmael L.</h2>
-            <h3>Party size: 2</h3>
-            <div id='key'>
-              <button style={{"background-color": '#52e672a7'}} >Arrived</button>
-              <button style={{"background-color": '#e6d752c5'}}>Skip</button>
-              <button style={{"background-color": '#ff0f0fa7'}}>Remove</button>
-            </div>
-        </div>
-        <div>
-            <h2>Guest Name: Matthew G.</h2>
-            <h3>Party size: 2</h3>
-            <div id='key'>
-              <button style={{"background-color": '#52e672a7'}} >Arrived</button>
-              <button style={{"background-color": '#e6d752c5'}}>Skip</button>
-              <button style={{"background-color": '#ff0f0fa7'}}>Remove</button>
-            </div>
-        </div>
-        <div>
-            <h2>Guest Name: Carissa M.</h2>
-            <h3>Party size: 2</h3>
-            <div id='key'>
-              <button style={{"background-color": '#52e672a7'}} >Arrived</button>
-              <button style={{"background-color": '#e6d752c5'}}>Skip</button>
-              <button style={{"background-color": '#ff0f0fa7'}}>Remove</button>
-            </div>
-        </div>
-        <div>
-            <h2>Guest Name: Madison W.</h2>
-            <h3>Party size: 2</h3>
-            <div id='key'>
-              <button style={{"background-color": '#52e672a7'}}>Arrived</button>
-              <button style={{"background-color": '#e6d752c5'}}>Skip</button>
-              <button style={{"background-color": '#ff0f0fa7'}}>Remove</button>
-            </div>
-        </div>
+            <p>{holder.otherData}</p>
+          </div>
+        )
+      })}
+        
     </Wrapper>
   )
 }
 const Wrapper = styled.div`
-
+  h1{
+    margin: 0;
+    color: #DBBB90;
+    font-family: 'Cinzel', serif;
+  }
+  .spot{
     display: flex;
-    flex-direction: column; 
+    flex-wrap: wrap;
     align-items: center;
-    position: relative;
-
-    min-height: 80vh;
-
-    padding: 3rem 0;
-
-
-    div{display: flex; align-items: center; justify-content: center; width: 60vw; height: 12rem; margin: 0 1rem;
-      @media (max-width: 1400px) {flex-direction: column; margin: 4rem 0rem;}
-    } 
-
-
-    h1{font-family: 'Cinzel'; width: 50%; text-align: center; border-bottom: 2px solid #865c3ace;}
-    h2{width: 30rem; text-align: center; margin-bottom: 1rem;}
-
-    @media (min-width: 1400px) {h4{margin-bottom:2rem;}}
-    
-    h3{color: #777777;}
-
-    #key{
-      display: flex; 
-      flex-direction: row;
-      margin: 1rem 0;
-    }
-
-    button{
-      @media (max-width: 1400px) {padding: 2rem; width: 5rem;}
-
-        display: flex; 
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        
-
-        width: 12rem; 
-        height: 2rem;
-        font-size: 1rem;
-        color: #414141;
+    justify-content: space-between;
+    h2{ width: 40%; margin: 0; font-size: 1.2rem;}
+    p{ width: 40%; margin: 0; font-size: .8rem;}
+    .buttons{
+      display: flex;
+      align-items: center;
+      margin: .5rem;
+      button{
+        margin: 0rem .5rem;
+        padding: .5rem 1rem;
+        color: #505050;
         font-weight: bold;
-
-        border: #686868 solid;
-        border-radius: 10px;
-
-        &:hover{filter: hue-rotate(20deg); color: grey;}
-        &:nth-child(2){margin: 0 1rem;}
+        border-radius: .5rem;
+        border: unset;
+      }
     }
+  }
+
+  @media (max-width: 1200px) {
+    position: relative;
+    width: 95vw;
+    p{ margin:0; margin-bottom: 1rem;}
+    .spot{
+      h2{ width: 100%; font-size: 1.1rem; margin-top: 1rem; margin-left: 1rem;}
+      p{ margin:0;}
+      .buttons{
+        width: 100%;
+        button{
+          width: 100%;
+          padding: .8rem 1.5rem;
+        }
+      }
+    }
+
+  }
+    
 `
 export default Lineup

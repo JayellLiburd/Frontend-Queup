@@ -18,6 +18,7 @@ import Regmobile from './Reg-mobile'
 import { useState } from 'react'
 import { usersContext } from '../Connections/user'
 import Test from './Test'
+import { CgLaptop } from 'react-icons/cg'
 
 
 function Pageholder() {
@@ -29,6 +30,9 @@ function Pageholder() {
 
   //Settings mobile sidebar
   const [menu, setMenu] = useState(false)
+
+  // home.jsx Media card info
+  const [media, setMedia] = useState([{name: "sorry something went wrong..."},{Image: "Images/temp.png"}])
 
   useLayoutEffect( ()=>{
     axios.get(process.env.REACT_APP_Server + '/verify',{withCredentials:true}).then((response) => {
@@ -52,7 +56,7 @@ function Pageholder() {
   
   return (
     <BrowserRouter>
-      <usersContext.Provider value={{user, setUser, auth, setAuth, setUI, ui, setMenu, menu}}>
+      <usersContext.Provider value={{user, setUser, auth, setAuth, setUI, ui, setMenu, menu, media, setMedia}}>
       <GlobalStyle/>
         <GoogleOAuthProvider clientId={process.env.REACT_APP_google_testing_clientid}>
           <Topnav/>

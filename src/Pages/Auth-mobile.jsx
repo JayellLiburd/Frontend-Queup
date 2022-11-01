@@ -32,12 +32,12 @@ function Authmobile() {
                     size='medium' 
                     width='300'
                     ux_mode='redirect'
-                    redirectUri='https://queueupnext.com'
+                    redirectUri='10.0.0.158:/3000'
                 />
             </div>
             <label htmlFor="Login">Login</label>
-            <input className='inputreg'type="text"placeholder='Username or Email' name='username' required/>
-            <input className='inputreg'type="password"placeholder='Password' name='password' required/>
+            <input className='inputreg' type="text" placeholder='Username or Email' name='username' required/>
+            <input className='inputreg' type="password" placeholder='Password' name='current-password' required/>
             <h3 style={{color: 'black', fontSize: '.8rem', marginTop: '1rem' }}>{'If you do not have an account go to '}
                 <NavLink to='/reg' style={{color: 'brown'}}>Signup Page</NavLink>
             </h3>

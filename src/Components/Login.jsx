@@ -50,8 +50,8 @@ function Log() {
                 </div>
                 <h2 className='close' onClick={menu}>X</h2>
                 <h2>Sign In to Queup</h2>
-                <input type="text" name='user' placeholder='Username or Email'/>
-                <input type="password" name='password' placeholder='Password'/>
+                <input type="text" name='user' placeholder='username' autocomplete="on"/>
+                <input type="password" name='current-password' placeholder='password' autocomplete="on"/>
                 <h3 style={{ fontSize: '1rem', marginTop: '2rem', fontFamily: 'serif' }}>{'If you do not have an account go to '}
                     <p onClick={Switchform} style={{color: 'brown'}}>{' Signup Page'}</p>
                 </h3>

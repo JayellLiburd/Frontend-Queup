@@ -1,23 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
+import Carousell3 from '../Components/Home/carousell3'
 
 function Test() {
 
-    const Bigbootybitch = (e) => document.querySelector('#carissadiv').innerHTML = e.target.value
-
+  
+  const Test = [{Header: 'Trending', results: [{name: "Mc Donald's", Image: "Images/mcd.png", date: 'Oct 18'}, {name: "Starbucks", Image: "Images/star.png", date: 'Dec 5'}, {name: "Nike", Image: "Images/nike.png", date: 'Dec 2'}, {name: "MD Herrmon", Image: "Images/mem.png", date: 'Oct 18'}, {name: "Post Houston", Image: "Images/hou.jpg", date: 'Oct 23'}, {name: 'Apple', Image: "Images/apple.png", date: 'Nov 6'}, {name: 'Sky Zone', Image: "Images/sky.png", date: 'Oct 19'}, {name: 'CheeseCake Factory', Image: "Images/cheese.png", date: 'Oct 18'}, {name: 'Trusted Kicks', Image: "Images/trusted.png", date: 'Nov 17'}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png", date: 'Oct 30'}, {name: 'MicroCenter', Image: "Images/msc.png", date: 'Dec 10'}]}]
   return (
     <Wrapper>
-        <div id='carissadiv'></div>
-        <input type="text" onChange={Bigbootybitch}/>
+      <Carousell3 array={Test}/>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-    input{
-        border: 1px solid blue;
-        border-radius: 1rem;
-    }
+
 `
 
 export default Test

@@ -1,5 +1,8 @@
 import { React, useContext, useState } from 'react'
 import styled from 'styled-components'
+import Carousell from '../Components/Home/carousell'
+import Carousell2 from '../Components/Home/carousell2'
+import Carousell3 from '../Components/Home/carousell3'
 
 import Headcards from '../Components/Home/Headcards'
 import Cardmodel from '../Components/Models/Card_model'
@@ -10,26 +13,19 @@ import { shuffle } from '../Functions/Arrayhelpers'
 function Home() {
 
   const Test = [
-    {Header: 'Trending', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]}, 
-    {Header: 'Food', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]},
-    {Header: 'Raffles', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]},
-    {Header: 'Hype-Gear', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]},
-    {Header: 'Hidden Gems', results: [{name: "Mc Donald's", Image: "Images/mcd.jpg"}, {name: "Starbucks", Image: "Images/star.jpg"}, {name: "Nike", Image: "Images/nike.png"}, {name: "MD Herrmon", Image: "Images/mem.jpg"}, {name: "Post Houston", Image: "Images/hou.jpg"}, {name: 'Apple', Image: "Images/apple.png"}, {name: 'Sky Zone', Image: "Images/sky.png"}, {name: 'CheeseCake Factory', Image: "Images/cheese.png"}, {name: 'Trusted Kicks', Image: "Images/trusted.jpg"}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png"}, {name: 'MicroCenter', Image: "Images/msc.png"}]}
+    [{Header: 'Trending', results: [{name: "Mc Donald's", Image: "Images/mcd.png", date: 'Oct 18'}, {name: "Starbucks", Image: "Images/star.png", date: 'Dec 5'}, {name: "Nike", Image: "Images/nike.png", date: 'Dec 2'}, {name: "MD Herrmon", Image: "Images/mem.png", date: 'Oct 18'}, {name: "Post Houston", Image: "Images/hou.jpg", date: 'Oct 23'}, {name: 'Apple', Image: "Images/apple.png", date: 'Nov 6'}, {name: 'Sky Zone', Image: "Images/sky.png", date: 'Oct 19'}, {name: 'CheeseCake Factory', Image: "Images/cheese.png", date: 'Oct 18'}, {name: 'Trusted Kicks', Image: "Images/trusted.png", date: 'Nov 17'}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png", date: 'Oct 30'}, {name: 'MicroCenter', Image: "Images/msc.png", date: 'Dec 10'}]}], 
+    [{Header: 'Food', results: [{name: "Mc Donald's", Image: "Images/mcd.png", date: 'Oct 18'}, {name: "Starbucks", Image: "Images/star.png", date: 'Dec 5'}, {name: "Nike", Image: "Images/nike.png", date: 'Dec 2'}, {name: "MD Herrmon", Image: "Images/mem.png", date: 'Oct 18'}, {name: "Post Houston", Image: "Images/hou.jpg", date: 'Oct 23'}, {name: 'Apple', Image: "Images/apple.png", date: 'Nov 6'}, {name: 'Sky Zone', Image: "Images/sky.png", date: 'Oct 19'}, {name: 'CheeseCake Factory', Image: "Images/cheese.png", date: 'Oct 18'}, {name: 'Trusted Kicks', Image: "Images/trusted.png", date: 'Nov 17'}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png", date: 'Oct 30'}, {name: 'MicroCenter', Image: "Images/msc.png", date: 'Dec 10'}]}],
+    [{Header: 'Hype-Gear', results: [{name: "Mc Donald's", Image: "Images/mcd.png", date: 'Oct 18'}, {name: "Starbucks", Image: "Images/star.png", date: 'Dec 5'}, {name: "Nike", Image: "Images/nike.png", date: 'Dec 2'}, {name: "MD Herrmon", Image: "Images/mem.png", date: 'Oct 18'}, {name: "Post Houston", Image: "Images/hou.jpg", date: 'Oct 23'}, {name: 'Apple', Image: "Images/apple.png", date: 'Nov 6'}, {name: 'Sky Zone', Image: "Images/sky.png", date: 'Oct 19'}, {name: 'CheeseCake Factory', Image: "Images/cheese.png", date: 'Oct 18'}, {name: 'Trusted Kicks', Image: "Images/trusted.png", date: 'Nov 17'}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png", date: 'Oct 30'}, {name: 'MicroCenter', Image: "Images/msc.png", date: 'Dec 10'}]}],
+    [{Header: 'Raffles', results: [{name: "Mc Donald's", Image: "Images/mcd.png", date: 'Oct 18'}, {name: "Starbucks", Image: "Images/star.png", date: 'Dec 5'}, {name: "Nike", Image: "Images/nike.png", date: 'Dec 2'}, {name: "MD Herrmon", Image: "Images/mem.png", date: 'Oct 18'}, {name: "Post Houston", Image: "Images/hou.jpg", date: 'Oct 23'}, {name: 'Apple', Image: "Images/apple.png", date: 'Nov 6'}, {name: 'Sky Zone', Image: "Images/sky.png", date: 'Oct 19'}, {name: 'CheeseCake Factory', Image: "Images/cheese.png", date: 'Oct 18'}, {name: 'Trusted Kicks', Image: "Images/trusted.png", date: 'Nov 17'}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png", date: 'Oct 30'}, {name: 'MicroCenter', Image: "Images/msc.png", date: 'Dec 10'}]}],
+    [{Header: 'Upcoming', results: [{name: "Mc Donald's", Image: "Images/mcd.png", date: 'Oct 18'}, {name: "Starbucks", Image: "Images/star.png", date: 'Dec 5'}, {name: "Nike", Image: "Images/nike.png", date: 'Dec 2'}, {name: "MD Herrmon", Image: "Images/mem.png", date: 'Oct 18'}, {name: "Post Houston", Image: "Images/hou.jpg", date: 'Oct 23'}, {name: 'Apple', Image: "Images/apple.png", date: 'Nov 6'}, {name: 'Sky Zone', Image: "Images/sky.png", date: 'Oct 19'}, {name: 'CheeseCake Factory', Image: "Images/cheese.png", date: 'Oct 18'}, {name: 'Trusted Kicks', Image: "Images/trusted.png", date: 'Nov 17'}, {name: 'Turkey Leg Hut', Image: "Images/turkey.png", date: 'Oct 30'}, {name: 'MicroCenter', Image: "Images/msc.png", date: 'Dec 10'}]}]
   ]
 
-  const {auth, user} =  useContext(usersContext)
-  const [media, setMedia] = useState([{name: "sorry something went wrong..."},{Image: "Images/temp.png"}])
-  let name = 'Welcome Back ' + user.name
 
-  function Displaymedia(item) {
-    setMedia(item)
-    const outofbounds = document.querySelector('.card')
-    outofbounds.classList.add('open')
-  }
+  const {auth, user, media, setMedia} =  useContext(usersContext)
+  let name = 'Welcome Back ' + user.name
 
   return (
     <Wrapper>
-
       <div className="hero">
         <div className='header'>
           <h2>Queup</h2>
@@ -42,23 +38,11 @@ function Home() {
       </div>
       <div className="card"><Cardmodel info={media}/></div>
       <div className="content">
-        {Test.map((item) => {
-        return (
-          <div key={item.Header}>
-            <h3>{item.Header}<button>View More</button></h3>
-            <div className='media-container'>
-                {shuffle(item.results).filter((_, index) => index < 7).map(item => {return (
-                <div className="outter-case" key={item.name} onClick={e => Displaymedia(item)}>
-                    <div className='media'>
-                      <button onClick={e => Displaymedia(item)}>View</button>
-                      <img src={item.Image} alt="" loading='lazy'/> 
-                    </div>
-                    <h3>{item.name}</h3>
-                </div>)})}
-            </div>
-          </div>
-          )
-        })}
+        <Carousell2 array={Test[0]}/>
+        <Carousell array={Test[1]}/>
+        <Carousell2 array={Test[2]}/>
+        <Carousell2 array={Test[3]}/>
+        <Carousell3 array={Test[4]}/>      
       </div>
     </Wrapper>
   )
@@ -152,6 +136,7 @@ const Wrapper = styled.div`
     padding-top: 2rem;
     background-color: white;
     z-index: 5;
+    max-width: 100%;
     h3{
       display: flex; 
       justify-content: space-between;
@@ -173,100 +158,8 @@ const Wrapper = styled.div`
         }
       }
     }
-    .media-container{
-      display: flex;
-      position: relative;
-      flex-direction: row;
-      overflow-x: scroll;
-      width: 97vw;
-      min-height: 13rem;
-      &::-webkit-scrollbar{ width: 8px; height: 8px}
-      &::-webkit-scrollbar-track{background-color: rgba(167, 167, 167, 0); margin: 0 1rem;}
-      &::-webkit-scrollbar-thumb{ background-color: rgba(157, 123, 96, 0.952); border-radius: 12px;}
-      .outter-case{
-        all: unset;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-        padding-top: .5rem;
-        min-width: 7rem;
-        h3{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          position: relative;
-          margin: 0;
-          margin-top: .5rem;
-          padding: 0;
-          font-size: .8rem;
-          font-family: unset;
-          font-weight: 600;
-        }
-      }
-    }
-    .media{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      margin: 0;
-      padding: 0;
-      width: 6rem;
-      height: 9rem;
-      background-color: white;
-      border-radius: .3rem;
-      box-shadow: 0 0 10px 1px #d1d1d1;
-      overflow: hidden;
-      cursor: pointer;
-      &::after{
-        display: flex;
-        visibility: hidden;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        content: '';
-        background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgb(32,16,5,.5) 100%);
-        width: 6rem;
-        height: 9rem;
-        transition-delay: .1s;
-      }
-      button{
-        all: unset;
-        display: flex;
-        visibility: hidden;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        padding: .5rem;
-        aspect-ratio: 1/1;
-        width: 2rem;
-        font-weight: 600;
-        font-family: serif;
-        background-color: #c0c0c0a6;
-        border-radius: 1rem;
-        border: 3px solid grey;
-        z-index: 3;
-        cursor: pointer;
-        transition-delay: .07s;
-      }
-      &:hover{
-        &::after{visibility: visible}
-        button{visibility: visible; }
-      }
-      img{
-        position: absolute;
-        transform: scale(.4);
-        -webkit-user-drag: none;
-        -khtml-user-drag: none;
-        -moz-user-drag: none;
-        -o-user-drag: none;
-      }
-    }
   }
-
+  
   @media screen and (min-width: 940px){
     margin-top: 2rem;
     width: 60vw;
@@ -288,41 +181,6 @@ const Wrapper = styled.div`
         width: 60vw;
         height: 40rem;
         z-index: -1;
-      }
-    }
-    .content{
-      background-color: transparent;
-      .media-container{
-        transition-delay: .3s;
-        min-height: 12rem;
-        width: 60vw;
-        height: 18rem;
-        &::-webkit-scrollbar{ width: 15px; height: 10px;}
-        &::-webkit-scrollbar-track{background-color: rgba(0, 0, 0, 0);}
-        &::-webkit-scrollbar-thumb{ background-color: rgba(252, 222, 190, 0.096); border-radius: 12px;}
-        &:hover{ ::-webkit-scrollbar-thumb{ background-color: rgba(211, 178, 142, 0.747);  border-radius: 12px;}}
-        .outter-case{
-          min-width: 11rem;
-        }
-      }
-      .media{
-        width: 9.5rem;
-        height: 14rem;
-        &::after{
-          width: 9.5rem;
-          height: 14rem;
-        }
-        h3{
-          align-items: center;
-          padding: 1.5rem .2rem;
-          padding-bottom: 1rem;
-          margin: 0;
-          font-size: 2rem;
-          min-width: 17rem;
-          height: 2rem;
-          z-index: 2;
-        }
-        img{background-size: cover; transform: scale(.6);}
       }
     }
   }

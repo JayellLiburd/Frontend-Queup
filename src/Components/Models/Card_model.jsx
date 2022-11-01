@@ -78,6 +78,10 @@ function card_Model(props) {
               <div className="imgholder"><img src={media.Image} alt="" /></div>
               <h3>{media.name}</h3>
               <p>5015 Westheimer Rd, Houston, TX 77056</p>
+              <div>
+                <h4>20 ppl</h4>
+                <h4>40/hr</h4>
+              </div>
               <div className="buttons">
                 <button onClick={menu}><div id='arrow'><div className='arrow'/></div>Info</button>
                 <button>Queup</button>
@@ -103,6 +107,7 @@ const Wrapper = styled.div`
     min-width: 85vw;
     min-height: 70vh;
     overflow: hidden;
+    filter: saturate(70%);
     .close{
       all: unset;
       position: absolute; 
@@ -118,19 +123,32 @@ const Wrapper = styled.div`
       }
     }
     .backdrop{
+      @keyframes animateGradient {
+        0% {
+          
+        }
+        50% {
+
+        }
+        0% {
+
+        }
+      }
       position: relative;
-      min-width: 100%;
+      min-width: 200%;
       min-height: 70vh;
       border-radius: .5rem;
-      background: linear-gradient(270deg, #8b0000 0%, #310000 16%, #b82c2c 100%);
+      background: linear-gradient(270deg, #8b0000b9 0%, #5c0000 16%, #8b0000 50%, #b82c2c 100%);
       overflow: hidden;
+      animation: animateGradient 10s infinite;
       &::after{
         position: absolute;
         content: '';
-        min-width: 60vw;
+        min-width: 200%;
         min-height: 70vh; 
         backdrop-filter: blur(50px);
         border-radius: .5rem;
+        animation: animateGradient 10s infinite;
       }
     }
     .unfocus{
@@ -151,23 +169,41 @@ const Wrapper = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        width: 50rem;
+        height: 40rem;
+        div{
+            display: flex;
+            margin-top: .5rem;
+            h4{
+              display: flex;
+              padding: .2rem .5rem; 
+              margin: 0; 
+              font-size: .8rem;
+              font-family: 'cinzel', serif;
+              &:first-child{ border-right: 4px double;}
+            }
+        }
         .imgholder{
           display: flex;
           justify-content: center;
           align-items: center;
           aspect-ratio: 1/1;
           background-color: white;
+          border: 2px solid #360000d3;
+          border-radius: .5rem;
+          box-shadow: inset 0px 0px 15px 0px #e7040434, 0px 0px 115px 0px rgba(0,0,0,0.75);
           width: 15rem;
-          border: 5px solid #0a0000;
           overflow: hidden;
           img{
-          -webkit-user-drag: none;
-          -khtml-user-drag: none;
-          -moz-user-drag: none;
-          -o-user-drag: none;
+            border-radius: .5rem;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
           }
         }
         h3{
+          margin: .5rem;
           font-family: 'Cinzel', serif; 
           color: ${ThemePallets.white};
         }
@@ -175,20 +211,21 @@ const Wrapper = styled.div`
           margin: 0;
           padding: 0;
           color: white;
-          font-size: .8rem;
+          font-size: .7rem;
         }
         .buttons{
           display: flex;
-          justify-content: space-evenly;
+          justify-content: center;
           width: 100%;
           margin-top: 3rem;
           button{
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: .5rem 1rem;
+            margin: 0 .5rem;
             width: 6rem;
             height: 2rem;
-            padding: .5rem 1rem;
             border-radius: .5rem;
             font-family: 'Cinzel', serif; 
             font-weight: bold;
@@ -294,74 +331,86 @@ const Wrapper = styled.div`
   }
 
   #arrow{
-        all: unset;
+      all: unset;
+      display: flex; 
         display: flex; 
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        height: 2rem;
-        width: 2rem;
-        z-index: 2;
-        scale: .6;
-        .arrow{
-          all:unset;
+      display: flex; 
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 2rem;
+      width: 2rem;
+      z-index: 2;
+      scale: .6;
+      .arrow{
+        all:unset;
+        display: flex; 
           display: flex; 
-          justify-content: unset;
-          height: .1rem;
-          width: 1.2rem;
-          border-radius: 1rem;
-          background-color: white;
+        display: flex; 
+        justify-content: unset;
+        height: .1rem;
+        width: 1.2rem;
+        border-radius: 1rem;
+        background-color: white;
+        //z-index is negative because the small arrow visual svg was being pressed rather than the button itself 
           //z-index is negative because the small arrow visual svg was being pressed rather than the button itself 
-          z-index: -1;
+        //z-index is negative because the small arrow visual svg was being pressed rather than the button itself 
+        z-index: -1;
 
-          &::before, ::after{
-              content: '';
-              position: absolute;
-              height: .1rem;
-              width: .8rem;
-              border-radius: 1rem;
-              background-color: white;
-              transition: all .8s ease;}
-          &::before{transform: translateY(-3px) rotate(-30deg)}
-          &::after{transform: translateY(3px) rotate(30deg)}
-      }
-      .arrow.open{
-          background-color: transparent;
-          &::before {transform: translateX(1px) rotate(45deg)}
-          &::after{transform: translateX(1px) rotate(-45deg)}
-      }
+        &::before, ::after{
+            content: '';
+            position: absolute;
+            height: .1rem;
+            width: .8rem;
+            border-radius: 1rem;
+            background-color: white;
+            transition: all .8s ease;}
+        &::before{transform: translateY(-3px) rotate(-30deg)}
+        &::after{transform: translateY(3px) rotate(30deg)}
     }
+    .arrow.open{
+        background-color: transparent;
+        &::before {transform: translateX(1px) rotate(45deg)}
+        &::after{transform: translateX(1px) rotate(-45deg)}
+    }
+  }
 
   @media screen and (max-width: 940px) {
     .Container{
-      min-width: 95vw;
-      min-height: 80vh;
+      min-width: 100vw;
+      min-height: 100vh;
       align-items: unset;
-      margin-top: -4rem;
+      margin-top: -6rem;
       .container2{
+        display: flex;
+        justify-content: center;
+        width: 100%;
         overflow-y: hidden;
       }
       .showcase{
-        padding-top: 5rem;
+        width: max-content;
       }
       .backdrop{
+        border-radius: unset;
         &::after{
-          width: 95vw;
-          height: 80vh;
+          width: 100vw;
+          height: 100vh;
         }
       }
       &.open{
         .backdrop{
-          min-height: 80vh;
+          min-height: 100vh;
           &::after{
-            width: 95vw;
-            height: 80vh;
+            width: 100vw;
+            height: 100vh;
           }
         }
         .info{
           width: 90vw;
           padding-bottom: 5rem;
           &.open{
+            height: max-content;
+            margin-bottom: 20rem;
             h3{ margin-top: 3rem; font-size: 1rem; color: black}
             h4{font-size: 1rem;}
             .layout .data h3{font-size: 1rem}
