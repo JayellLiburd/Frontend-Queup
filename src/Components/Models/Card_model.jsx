@@ -169,7 +169,8 @@ const Wrapper = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 50rem;
+        position: relative;
+        width: 30vw;
         height: 40rem;
         div{
             display: flex;
@@ -240,7 +241,8 @@ const Wrapper = styled.div`
       .info{
         display: flex;
         flex-direction: column;
-        width: 40vw;
+        position: relative;
+        width: 80%;
         visibility: hidden;
         position: absolute;
         &.open {

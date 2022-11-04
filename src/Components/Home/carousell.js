@@ -71,7 +71,10 @@ const Wrapper = styled.div`
     height: 10rem;
     color: white;
     border-radius: .8rem;
-    background-color: #5c5c5c;
+    background-color: #686767;
+    box-shadow: -2px 3px 5px 2px rgba(0,0,0,0.16);
+    -webkit-box-shadow: -2px 3px 5px 2px rgba(0,0,0,0.16);
+    -moz-box-shadow: -2px 3px 5px 2px rgba(0,0,0,0.16);
     cursor: pointer;
     &:first-child{margin-left: .5rem;}
     &:nth-child(2n){background-color: saddlebrown;}

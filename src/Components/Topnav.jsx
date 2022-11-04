@@ -4,8 +4,11 @@ import { NavLink } from 'react-router-dom';
 
 import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from 'react-icons/ai'
+import { AiOutlineUserAdd } from 'react-icons/ai';
 import { RiHome2Line } from 'react-icons/ri';
+import { RiLoginBoxLine } from 'react-icons/ri';
 import { MdManageAccounts } from 'react-icons/md';
+import { MdLeakAdd } from 'react-icons/md';
 import { IoBusinessOutline } from 'react-icons/io5';
 import { IoRibbonOutline } from 'react-icons/io5';
 import { CgLogOut } from 'react-icons/cg';
@@ -185,15 +188,15 @@ function Topnav() {
                     <NavLink onClick={menu} to='/' id='logbutton' className='routes'><RiHome2Line color='white' size='1.5rem'/>Homepage</NavLink>
 
                     {auth  ? <NavLink onClick={menu} to='account' className='routes'><MdManageAccounts color='white' size='1.5rem'/>Account</NavLink>
-                    :<NavLink onClick={menu} to='auth' id='logbutton' className='routes'><RiHome2Line color='white' size='1.5rem'/>Login</NavLink>}
+                    :<NavLink onClick={menu} to='auth' id='logbutton' className='routes'><RiLoginBoxLine color='white' size='1.5rem'/>Login</NavLink>}
 
                     {auth  ? <NavLink onClick={menu} to='Overview' className='routes'><IoBusinessOutline color='white' size='1.5rem'/>Business</NavLink>
-                    :<NavLink onClick={menu} to='/reg' className='routes' id='regbutton'><RiHome2Line color='white' size='1.5rem'/>Sign Up</NavLink>}
+                    :<NavLink onClick={menu} to='/reg' className='routes' id='regbutton'><AiOutlineUserAdd color='white' size='1.5rem'/>Sign Up</NavLink>}
 
                     <NavLink onClick={menu} to='/' className='routes'><IoRibbonOutline color='white' size='1.5rem'/>Rewards</NavLink>
 
                     {auth  ? <button style={{color: '#865c3ace', justifyContent: 'unset'}} onClick={logout} className='routes'><CgLogOut color='white' size='1.5rem'/>Logout</button>
-                    :<NavLink onClick={menu} to='/' className='routes' id='regbutton'><RiHome2Line color='white' size='1.5rem'/>Contact</NavLink>}
+                    :<NavLink onClick={menu} to='/' className='routes' id='regbutton'><MdLeakAdd color='white' size='1.5rem'/>Contact</NavLink>}
                 </div>
             </div>
 

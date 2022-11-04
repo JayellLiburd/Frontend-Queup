@@ -22,7 +22,6 @@ function Carousell3 (props) {
   return (
     <Wrapper>
       {props.array.map(catagory => {
-        console.log(RowCount)
         return( 
           <>
           <h2>{catagory.Header}</h2>
@@ -50,6 +49,7 @@ const Wrapper = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   h2{
     justify-content: space-between;
@@ -62,12 +62,11 @@ const Wrapper = styled.div`
   }
   .carousellcard{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    margin: .8rem;
-    padding: 0 1.5rem;
-    min-width: 95%;
-    max-width: 15rem;
+    position: relative;
+    margin: .8rem 0;
+    width: 60vw;
     min-height: 5rem;
     color: white;
     border-radius: .8rem;
@@ -83,16 +82,13 @@ const Wrapper = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-left: -5rem;
       .h3{ margin: unset; color: white; margin: 0 2rem;  min-width: 15rem;}
       p{ margin: 0; font-size: .8rem;}
     }
   }
   @media (max-width: 1400px) {
-    width: 95vw;
     .carousellcard{
-      padding: 0 0.5rem;
-      min-width: 93%;
-      max-width: 93%;
       div{
         .h3{ margin: unset; color: white; margin: 0 .5rem; min-width: unset; font-size: .9rem;}
       }

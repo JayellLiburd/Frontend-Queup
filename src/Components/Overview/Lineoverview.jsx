@@ -45,6 +45,15 @@ function Lineoverview() {
     })
   }
 
+  const removeFav = (index) => {
+    axios.post(process.env.REACT_APP_Server + '/MyQueues/favorite', showFav, {withCredentials: true}).then(response => {
+      // axios.get(process.env.REACT_APP_Server + '/verify',{withCredentials:true}).then((response) => {
+      //   if (response.data[0]) {setAuth(true); setUser(response.data[0])}
+      //   else {setAuth(false)}
+      // })
+    })
+  }
+
   return (
     <Wrapper>
       <div id='main'>
@@ -59,6 +68,7 @@ function Lineoverview() {
                   item['index'] = i++
                   return(
                     <div className="favbox" key={item} onClick={e => {if (!item.bus_name) {setshowFav(item.index)} else {SwitchTabs(item.line_id)} }}>
+                      {item.bus_name ? <span className="remove" onClick={() => removeFav(item.index)}>x</span> : ''}
                       <h4>{item.bus_name}</h4>
                       <p>{item.address_1}</p>
                     </div>
@@ -147,6 +157,7 @@ const Wrapper = styled.div`
         row-gap: 15px;
         .favbox{
           display: flex;
+          position: relative;
           flex-direction: column;
           justify-content: center;
           padding: .2rem .3rem;
@@ -156,7 +167,8 @@ const Wrapper = styled.div`
           border-radius: .5rem;
           overflow: clip;
           cursor: pointer;
-          h4{ margin: 0; }
+          span{all: unset; position: absolute; right: 10px; top: 5px; cursor: pointer; font-weight: 600; transition: all .5s ease; &:hover{color: red;}}
+          h4{ margin: 0; transition: all .2s ease; &:hover{color: #62b7c2;}}
           p{ margin: 0; font-size: .7rem;}
         }
       }
@@ -165,7 +177,8 @@ const Wrapper = styled.div`
   .businesses{
     display: flex; 
     align-items: baseline;
-    margin: 1rem 0;
+    margin: .5rem 0;
+    padding-top: .5rem;
     width: 90%;
     overflow: hidden;
     overflow-x: auto;
