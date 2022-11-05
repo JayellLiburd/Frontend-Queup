@@ -249,7 +249,7 @@ const Nav = styled.nav`
         background-color: #ffffffa6;
         backdrop-filter: blur(15px);
         #Q{ all: unset; font-size: 1.1rem; padding: 0 5rem; font-family: 'Cinzel', serif }
-        .Queup{position: relative; left: 3rem; font-size: 1.3rem; font-family: 'Cinzel', serif}
+        .Queup{position: relative; left: 0vw; font-size: 1.3rem; font-family: 'Cinzel', serif}
         button{
             all: unset;
             display: flex;
@@ -265,13 +265,13 @@ const Nav = styled.nav`
             &:first-child{padding-left: 10vw}
         }
         div{
-            width: min-content;
+            width: min-;
             button{ font-weight: bold;}
             .routes{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                min-width: 5rem; 
+                min-width: 6vw; 
                 margin: 0 1rem;
                 cursor: pointer;
                 &:hover{color:#772705 }
@@ -284,7 +284,7 @@ const Nav = styled.nav`
             justify-content: start;
             align-items: center;
             position: relative;
-            right: -2.5vw;
+            right: -2vw;
             padding-left: 2.8rem;
             height: 1.8rem;
             width: 40rem;
@@ -478,7 +478,7 @@ const Nav = styled.nav`
     }
 
     //small screens showing
-    @media (max-width: 1400px) {
+    @media (max-width: 1200px) {
         .mobilemenu{display: flex; bottom: 2rem;}
         #icon {display: flex}
         #nav-link{h1{display: none;}}
