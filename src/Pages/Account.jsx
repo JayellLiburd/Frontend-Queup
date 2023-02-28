@@ -5,13 +5,13 @@ import styled from 'styled-components'
 import Profile from '../Components/Account/Profile'
 import SettingsNav from '../Components/Account/SettingsNav'
 import Connections from '../Components/Account/Connections';
-import axios from 'axios';
 
 import { settingsContext } from '../Connections/settings';
 import { usersContext } from '../Connections/user';
 import Notifications from '../Components/Account/Notifications';
 import Prefrences from '../Components/Account/prefrences';
 import Accountsettings from '../Components/Account/accountsettings';
+import { session } from 'Connections';
 
 
 function Account() {
@@ -22,14 +22,14 @@ function Account() {
   const [view, setView] = useState(false)
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_Server + '/verify', {withCredentials: true}).then((response) => {
-        if (response.data.messageAuth) {
-          setAuth(false)
-          nav('/')
-          alert('Please Sign In')
-          signin()
-        }
-        if (response.data[0]) {setAuth(true); setView(true)}
+    session.verify({}).then(response => {
+      if (response.data.messageAuth) {
+        setAuth(false)
+        nav('/')
+        alert('Please Sign In')
+        signin()
+      }
+      if (response.data[0]) {setAuth(true); setView(true)}
   })}, [nav, setAuth])
 
   function signin() {
@@ -37,6 +37,7 @@ function Account() {
     const openmenu = document.querySelector('.sidenav')
     const topnavcolor = document.querySelector('.topnav')
     const login = document.querySelector('.login_modal')
+    if (!menubg || !openmenu || !topnavcolor || !login) return
     menubg.classList.add('open');
     openmenu.classList.add('open')
     topnavcolor.classList.add('open')
@@ -46,9 +47,7 @@ function Account() {
   //settings nav view weather true or false -- active is being set in the settingsNav.jsx in account folder
   const [active, setActive] = useState([{prof: true, con: false, not: false, pref: false, acc: false}])
 
-  const clicked = (e) => {setMenu(true)}
-
-
+  const clicked = () => {setMenu(true)}
 
   return (
     <settingsContext.Provider value={{active, setActive, setMenu}}>
@@ -81,27 +80,24 @@ display: flex;
 justify-content: center;
 position: relative;
 margin-bottom: 4rem;
-
 width: 90vw;
-min-height: 70rem;
+min-height: 90vh;
 
   section{
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 2rem 5rem;
-
     width: 60vw;
     border-radius: 3rem;
-  
     #hero{
       width: 100%;
       height: 15rem;
-      
       background: rgb(210,202,230);
       background: radial-gradient(circle, rgba(250,237,223,1) 0%, rgba(215,239,242,1) 75%, rgba(215,255,249,1) 100%);
-      border-radius: 3rem 3rem 0 0;}}
-  
+      border-radius: 3rem 3rem 0 0;
+    }
+  }
   #menu{
     display: none;
     position: absolute;
@@ -113,10 +109,8 @@ min-height: 70rem;
 
     background-color: #f5f5f5e1;
     border-radius: 1rem;;
-    border: unset;}
-  
-
-
+    border: unset;
+  }
 
   @media (max-width: 1400px) {
     width: 100vw;

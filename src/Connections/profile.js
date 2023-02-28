@@ -9,7 +9,7 @@ export function updateprofile(a,b,c,d,e) {
                 first_name: a === undefined || null ? (response.data[0].first_name) : a,
                 last_name: b === undefined || null ? (response.data[0].last_name) : b,
                 email: c === undefined || null ? (response.data[0].email) : c,
-                address: d === undefined || null ? (response.data[0].address_1) : d,
+                address: d === undefined || null ? (response.data[0].address) : d,
                 phone: e === undefined || null ? (response.data[0].phone) : e,
             },{withCredentials: true}).then((response) => {window.location.reload()})}
             else { alert('Technical Error Lets try again later'); window.location.assign('/') }

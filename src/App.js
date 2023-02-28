@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Pageholder from './Pages/Pageholder'
+import Pageholder from './Pages/Pageholder.tsx'
 
 function App() {
 

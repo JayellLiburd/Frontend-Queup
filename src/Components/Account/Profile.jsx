@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { BsPersonFill } from 'react-icons/bs';
 import updateprofile from '../../Connections/profile';
-import { usersContext } from '../../Connections/user';
+import { usersContext } from '../..Helpers/Context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -12,22 +12,52 @@ import axios from 'axios';
 function Profile() {
 
     //profile
-    const { setAuth } = useContext(usersContext)
+    const { setAuth, auth } = useContext(usersContext)
 
-    const [user, setUser] = useState('')
+    const [user, setUser] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        address: '',
+        phone: '',
+    })
 
+    useEffect(() => {   
+        if (auth) {
+            axios.get(process.env.REACT_APP_Server + '/verify/pro', {withCredentials: true}).then((response) => {
+                if (response.data[0]) {
+                    setUser(response.data[0])
+                    setName(response.data[0].first_name)
+                    setLast(response.data[0].last_name)
+                    setEmail(response.data[0].email)
+                    setPhone(response.data[0].phone)
+                    setAddress(response.data[0].address)
+                }
+                else {
+                    alert('Please reverify with your login credentials')
+                    signin()
+                }
+            })
+        }
+    }, [auth])
 
-    useEffect(()=>{axios.get(process.env.REACT_APP_Server + '/verify/pro', {withCredentials: true}).then((response) => {
-        if (response) {setAuth(true); setUser(response.data[0])}});},
-    [setAuth])
-
+    function signin() {
+        const menubg = document.querySelector('.burger')
+        const openmenu = document.querySelector('.sidenav')
+        const topnavcolor = document.querySelector('.topnav')
+        const login = document.querySelector('.login_modal')
+        menubg.classList.add('open');
+        openmenu.classList.add('open')
+        topnavcolor.classList.add('open')
+        login.classList.add('open')
+    }
 
     //inputs variables
-    const [name, setName] = useState(user.first_name)
-    const [last, setLast] = useState(user.last_name)
-    const [email, setEmail] = useState(user.email)
-    const [address, setAddress] = useState(user.address)
-    const [phone, setPhone] = useState(user.phone)
+    const [name, setName] = useState('')
+    const [last, setLast] = useState('')
+    const [email, setEmail] = useState('')
+    const [address, setAddress] = useState('')
+    const [phone, setPhone] = useState('')
 
     let nav = useNavigate()
 
@@ -48,7 +78,7 @@ function Profile() {
 
   return (
     <Wrapper>
-        <div id='pic'><BsPersonFill size='3rem'/></div>
+        <div id='pic'><BsPersonFill size='35'/></div>
         <h1>Profile</h1>
         <div id='info'>
             <div id='name'>
@@ -64,11 +94,11 @@ function Profile() {
             <label htmlFor="Email">Email</label>
             <input type="text" placeholder='Ex: John@gmail.com' defaultValue={user.email} onInput={(e) => {setEmail(e.target.value)}}/>
             <label htmlFor="Address">Address</label>
-            <input type="text" placeholder='Ex: 904 Kennedy Lane' defaultValue={user.address_1} onInput={(e) => {setAddress(e.target.value)}}/>
+            <input type="text" placeholder='Ex: 904 Kennedy Lane' defaultValue={user.address} onInput={(e) => {setAddress(e.target.value)}}/>
             <label htmlFor="PhoneNumber">Phone Number</label>
             <input type="text" placeholder='Ex: 123-456-7890' defaultValue={user.phone} name='password' onInput={(e) => {setPhone(e.target.value)}}/>
         </div>
-        <button onClick={update}>Save Changes</button>
+        <button onClick={e => update()}>Save Changes</button>
     </Wrapper>
     
   )
@@ -81,57 +111,49 @@ const Wrapper = styled.div`
     position: relative;
     top: -5rem;
     margin: 2rem 0;
-
     form{*all: unset;}
-
-
     #pic{ 
         padding: 1.5rem;
-
         border-radius: 50%;
-        background-color: #f3f3f3;}
-    
+        background-color: #f3f3f3;
+    }
     #info{
         display: flex;
         flex-direction: column;
         align-items: center;
-
-        width: 50rem;}
-    
+        width: 50rem;
+    }
     label{text-indent: .6rem;}
-    
     input{
         margin: .2rem 0; 
         padding: 0 1rem;
-        
         height: 2rem; 
         width: 20rem; 
         font-weight: bold;
-        
-        border-radius: 1rem; 
-        border: 1px grey solid; }
-    
+        border-radius: .5rem; 
+        border: none;
+        box-shadow: 0px 0px 5px 1px #00000010;
+    }
     #name{
         display: flex;
         width: 100%;
         justify-content: space-around;
         margin: 2rem;
-
         div{  
         display: flex;
-        flex-direction: column;}}
-
+        flex-direction: column;
+        }
+    }
     button{
         position: absolute;
         bottom: -5rem;
         right: 0;
         padding: .5rem;
-    
-        cursor: pointer;
         background-color: #cbeaff;
         border: 1px #cecece solid;
-        border-radius: 1rem;}
-
+        border-radius: 1rem;
+        cursor: pointer;
+    }
 
     @media (max-width: 1400px) {
     label{color: grey; margin-top: 1rem;}
